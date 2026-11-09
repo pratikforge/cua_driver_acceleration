@@ -1,7 +1,7 @@
 ---
 name: cua_driver_acceleration
 description: Low-latency desktop automation for AI agents. Use whenever the task involves operating a native GUI app, clicking, typing, opening apps or settings, or any computer-use / CUA work on macOS, Windows, or Linux. Enforces accessibility-tree targeting over screenshots and pixel guessing, bans throwaway wrapper scripts, prefers deep links and CLIs over GUI navigation, and self-bootstraps a backend (cua-driver or Vercel agent-desktop) on first use.
-version: 1.0.0
+version: 1.2.0
 license: MIT
 metadata:
   requires:
@@ -58,7 +58,7 @@ Then check the live command list once (`cua-driver --help` / `agent-desktop --he
 Before touching the mouse, check whether a non-GUI path exists. Use the first one that works:
 
 1. **CLI or API** - `git`, `code <file>`, `gh`, `npm`, app-specific CLIs.
-2. **Deep link / URI scheme** - `ms-settings:display`, `x-apple.systempreferences:`, `ms-windows-store://search/?query=...`, plain `https://` URLs.
+2. **Deep link / URI scheme** - `ms-settings:display`, `x-apple.systempreferences:` (macOS reference), `ms-windows-store://search/?query=...`, plain `https://` URLs.
 3. **Config file edit** - e.g. `settings.json` instead of the settings UI.
 4. **Accessibility-tree action** via the backend (Rule 3).
 5. **Pixel coordinates** - last resort, only for canvases with no accessibility tree (games, remote desktops, some Electron/WebGL surfaces).
@@ -71,7 +71,7 @@ Deep links per OS: [references/native-shortcuts.md](references/native-shortcuts.
 
 ## Rule 2: No wrapper scripts for actions
 
-Do **not** write Python, Node, or shell wrapper files (and no `python -c "import subprocess..."`) to perform clicks, keystrokes, window lookups, or coordinate searches.
+Do **not** write Python, Node, or shell wrapper files (and avoid generating ad-hoc wrapper scripts when a direct CLI call exists) to perform clicks, keystrokes, window lookups, or coordinate searches.
 
 Call the backend directly, one line per action:
 

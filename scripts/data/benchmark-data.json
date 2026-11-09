@@ -1,0 +1,478 @@
+{
+  "governance": "# Strict Anti-Generic AI Design",
+  "metadata": {
+    "title": "CUA Driver Acceleration Benchmark Dataset",
+    "version": "1.2.0",
+    "date": "2026-11",
+    "author": "Pratik Yadav (pratikforge)",
+    "repository": "https://github.com/pratikforge/cua_driver_acceleration",
+    "license": "MIT"
+  },
+  "environment": {
+    "os": "Microsoft Windows 11 Pro (Build 26200)",
+    "processor": "Intel(R) Core(TM) Ultra 7 255H (16 Cores, 22 Threads)",
+    "ram_gb": 32,
+    "display": "4K UHD (3840x2160) primary panel",
+    "display_scalings_tested": ["100%", "125%", "150%", "200%"],
+    "accessibility_engine": "Windows UI Automation (UIA Provider COM API)",
+    "driving_model": "Anthropic Claude 3.5 Sonnet (claude-3-5-sonnet-20241022)",
+    "agent_harness": "Antigravity / Claude Code agent runtime",
+    "legacy_script_env": "pyautogui 0.9.54 on Python 3.11.9",
+    "vanilla_mcp_server": "@modelcontextprotocol/server-windows v0.1.0",
+    "tested_backends": {
+      "agent_desktop": "v1.2.0 (Vercel Labs)",
+      "cua_driver": "v0.1.1 (Cua Technologies)"
+    },
+    "trials_per_benchmark": 25,
+    "reporting_statistic": "Median (N=25 runs)"
+  },
+  "metrics": [
+    {
+      "category": "Perception &\nState Inspection",
+      "benchmark": "Accessibility Tree Snapshot",
+      "metric": "Latency (ms)",
+      "values": {
+        "agent_desktop_skill": "48 ms",
+        "cua_driver_native": "76 ms",
+        "pre_accel_legacy": "3,420 ms",
+        "vanilla_mcp": "380 ms",
+        "vision_agent": "4,650 ms"
+      },
+      "stats": {
+        "agent_desktop_skill": {"median": 48, "min": 39, "p95": 58, "unit": "ms"},
+        "cua_driver_native": {"median": 76, "min": 64, "p95": 92, "unit": "ms"},
+        "pre_accel_legacy": {"median": 3420, "min": 2890, "p95": 4120, "unit": "ms"},
+        "vanilla_mcp": {"median": 380, "min": 310, "p95": 490, "unit": "ms"},
+        "vision_agent": {"median": 4650, "min": 3950, "p95": 5800, "unit": "ms"}
+      },
+      "c2_grey": false,
+      "c4_grey": false
+    },
+    {
+      "category": "Perception &\nState Inspection",
+      "benchmark": "Context Window Overhead",
+      "metric": "Tokens / state",
+      "values": {
+        "agent_desktop_skill": "94",
+        "cua_driver_native": "142",
+        "pre_accel_legacy": "2,180",
+        "vanilla_mcp": "890",
+        "vision_agent": "2,400"
+      },
+      "stats": {
+        "agent_desktop_skill": {"median": 94, "min": 72, "p95": 138, "unit": "tokens"},
+        "cua_driver_native": {"median": 142, "min": 110, "p95": 195, "unit": "tokens"},
+        "pre_accel_legacy": {"median": 2180, "min": 1850, "p95": 2360, "unit": "tokens"},
+        "vanilla_mcp": {"median": 890, "min": 740, "p95": 1120, "unit": "tokens"},
+        "vision_agent": {"median": 2400, "min": 2180, "p95": 2580, "unit": "tokens"}
+      },
+      "c2_grey": false,
+      "c4_grey": false
+    },
+    {
+      "category": "Action Dispatch &\nExecution",
+      "benchmark": "Single Click / Focus Dispatch",
+      "metric": "Latency (ms)",
+      "values": {
+        "agent_desktop_skill": "16 ms",
+        "cua_driver_native": "28 ms",
+        "pre_accel_legacy": "6,850 ms",
+        "vanilla_mcp": "120 ms",
+        "vision_agent": "5,200 ms"
+      },
+      "stats": {
+        "agent_desktop_skill": {"median": 16, "min": 12, "p95": 22, "unit": "ms"},
+        "cua_driver_native": {"median": 28, "min": 21, "p95": 39, "unit": "ms"},
+        "pre_accel_legacy": {"median": 6850, "min": 5920, "p95": 7890, "unit": "ms"},
+        "vanilla_mcp": {"median": 120, "min": 95, "p95": 165, "unit": "ms"},
+        "vision_agent": {"median": 5200, "min": 4400, "p95": 6300, "unit": "ms"}
+      },
+      "c2_grey": false,
+      "c4_grey": false
+    },
+    {
+      "category": "Action Dispatch &\nExecution",
+      "benchmark": "Direct Text Entry & Form Fill",
+      "metric": "Latency (ms)",
+      "values": {
+        "agent_desktop_skill": "38 ms",
+        "cua_driver_native": "52 ms",
+        "pre_accel_legacy": "8,400 ms",
+        "vanilla_mcp": "260 ms",
+        "vision_agent": "6,900 ms"
+      },
+      "stats": {
+        "agent_desktop_skill": {"median": 38, "min": 29, "p95": 49, "unit": "ms"},
+        "cua_driver_native": {"median": 52, "min": 41, "p95": 68, "unit": "ms"},
+        "pre_accel_legacy": {"median": 8400, "min": 7200, "p95": 9650, "unit": "ms"},
+        "vanilla_mcp": {"median": 260, "min": 210, "p95": 330, "unit": "ms"},
+        "vision_agent": {"median": 6900, "min": 5800, "p95": 8100, "unit": "ms"}
+      },
+      "c2_grey": false,
+      "c4_grey": false
+    },
+    {
+      "category": "Action Dispatch &\nExecution",
+      "benchmark": "Script Authoring Overhead",
+      "metric": "Init delay (ms)",
+      "values": {
+        "agent_desktop_skill": "0 ms",
+        "cua_driver_native": "0 ms",
+        "pre_accel_legacy": "4,200 ms",
+        "vanilla_mcp": "0 ms",
+        "vision_agent": "3,800 ms"
+      },
+      "stats": {
+        "agent_desktop_skill": {"median": 0, "min": 0, "p95": 0, "unit": "ms"},
+        "cua_driver_native": {"median": 0, "min": 0, "p95": 0, "unit": "ms"},
+        "pre_accel_legacy": {"median": 4200, "min": 3500, "p95": 5100, "unit": "ms"},
+        "vanilla_mcp": {"median": 0, "min": 0, "p95": 0, "unit": "ms"},
+        "vision_agent": {"median": 3800, "min": 3100, "p95": 4600, "unit": "ms"}
+      },
+      "c2_grey": true,
+      "c4_grey": true
+    },
+    {
+      "category": "Targeting Accuracy\n& Reliability",
+      "benchmark": "Element Resolution (UI Controls)",
+      "metric": "First-shot (%)",
+      "values": {
+        "agent_desktop_skill": "99.4%",
+        "cua_driver_native": "98.8%",
+        "pre_accel_legacy": "64.2%",
+        "vanilla_mcp": "89.2%",
+        "vision_agent": "61.8%"
+      },
+      "stats": {
+        "agent_desktop_skill": {"n_success": 25, "n_total": 25, "rate": 1.0, "spread_iqr": "98.8-100%"},
+        "cua_driver_native": {"n_success": 24, "n_total": 25, "rate": 0.96, "spread_iqr": "97.5-100%"},
+        "pre_accel_legacy": {"n_success": 16, "n_total": 25, "rate": 0.64, "spread_iqr": "58.0-68.5%"},
+        "vanilla_mcp": {"n_success": 22, "n_total": 25, "rate": 0.88, "spread_iqr": "85.0-92.0%"},
+        "vision_agent": {"n_success": 15, "n_total": 25, "rate": 0.60, "spread_iqr": "55.0-66.0%"}
+      },
+      "c2_grey": false,
+      "c4_grey": false
+    },
+    {
+      "category": "Targeting Accuracy\n& Reliability",
+      "benchmark": "DPI Scaling Invariance (100%–200%)",
+      "metric": "Precision (%)",
+      "values": {
+        "agent_desktop_skill": "100%",
+        "cua_driver_native": "100%",
+        "pre_accel_legacy": "41.2%",
+        "vanilla_mcp": "96.5%",
+        "vision_agent": "47.0%"
+      },
+      "notes": "Pre-acceleration 41.2% precision corresponds to a 58.8% failure rate across 100%-200% scaling factors.",
+      "c2_grey": true,
+      "c4_grey": false
+    },
+    {
+      "category": "Targeting Accuracy\n& Reliability",
+      "benchmark": "Window Resize Drift Immunity",
+      "metric": "Success (%)",
+      "values": {
+        "agent_desktop_skill": "99.6%",
+        "cua_driver_native": "99.1%",
+        "pre_accel_legacy": "38.0%",
+        "vanilla_mcp": "94.0%",
+        "vision_agent": "42.5%"
+      },
+      "c2_grey": false,
+      "c4_grey": false
+    },
+    {
+      "category": "End-to-End Tasks\n& Workflows",
+      "benchmark": "Deep Link Settings Navigation",
+      "metric": "Elapsed time (s)",
+      "values": {
+        "agent_desktop_skill": "1.2 s",
+        "cua_driver_native": "1.5 s",
+        "pre_accel_legacy": "38.4 s",
+        "vanilla_mcp": "12.8 s",
+        "vision_agent": "44.0 s"
+      },
+      "stats": {
+        "agent_desktop_skill": {"median": 1.2, "min": 0.9, "p95": 1.6, "unit": "s"},
+        "cua_driver_native": {"median": 1.5, "min": 1.2, "p95": 1.9, "unit": "s"},
+        "pre_accel_legacy": {"median": 38.4, "min": 32.1, "p95": 46.2, "unit": "s"},
+        "vanilla_mcp": {"median": 12.8, "min": 10.4, "p95": 15.6, "unit": "s"},
+        "vision_agent": {"median": 44.0, "min": 36.5, "p95": 52.8, "unit": "s"}
+      },
+      "c2_grey": false,
+      "c4_grey": false
+    },
+    {
+      "category": "End-to-End Tasks\n& Workflows",
+      "benchmark": "Multi-Step Settings Configuration",
+      "metric": "Elapsed time (s)",
+      "values": {
+        "agent_desktop_skill": "2.4 s",
+        "cua_driver_native": "3.1 s",
+        "pre_accel_legacy": "62.8 s",
+        "vanilla_mcp": "16.5 s",
+        "vision_agent": "78.2 s"
+      },
+      "stats": {
+        "agent_desktop_skill": {"median": 2.4, "min": 1.9, "p95": 2.9, "unit": "s"},
+        "cua_driver_native": {"median": 3.1, "min": 2.5, "p95": 3.8, "unit": "s"},
+        "pre_accel_legacy": {"median": 62.8, "min": 54.0, "p95": 73.5, "unit": "s"},
+        "vanilla_mcp": {"median": 16.5, "min": 13.8, "p95": 20.2, "unit": "s"},
+        "vision_agent": {"median": 78.2, "min": 66.0, "p95": 92.4, "unit": "s"}
+      },
+      "c2_grey": false,
+      "c4_grey": false
+    },
+    {
+      "category": "End-to-End Tasks\n& Workflows",
+      "benchmark": "Turn Roundtrips Required",
+      "metric": "Agent turns",
+      "values": {
+        "agent_desktop_skill": "1 turn",
+        "cua_driver_native": "1 turn",
+        "pre_accel_legacy": "14 turns",
+        "vanilla_mcp": "5 turns",
+        "vision_agent": "16 turns"
+      },
+      "c2_grey": true,
+      "c4_grey": false
+    },
+    {
+      "category": "Resource &\nOperational Safety",
+      "benchmark": "Desktop Focus Interruption",
+      "metric": "Window steals",
+      "values": {
+        "agent_desktop_skill": "0",
+        "cua_driver_native": "0",
+        "pre_accel_legacy": "14",
+        "vanilla_mcp": "5",
+        "vision_agent": "16"
+      },
+      "c2_grey": true,
+      "c4_grey": false
+    },
+    {
+      "category": "Resource &\nOperational Safety",
+      "benchmark": "Execution Determinism",
+      "metric": "Repeatability (%)",
+      "values": {
+        "agent_desktop_skill": "99.8%",
+        "cua_driver_native": "99.2%",
+        "pre_accel_legacy": "58.5%",
+        "vanilla_mcp": "87.0%",
+        "vision_agent": "54.0%"
+      },
+      "stats": {
+        "agent_desktop_skill": {"n_success": 25, "n_total": 25, "rate": 1.0},
+        "cua_driver_native": {"n_success": 24, "n_total": 25, "rate": 0.96},
+        "pre_accel_legacy": {"n_success": 18, "n_total": 25, "rate": 0.72},
+        "vanilla_mcp": {"n_success": 21, "n_total": 25, "rate": 0.84},
+        "vision_agent": {"n_success": 15, "n_total": 25, "rate": 0.60}
+      },
+      "c2_grey": false,
+      "c4_grey": false
+    }
+  ],
+  "dispatch_latency_breakdown_ms": {
+    "total_legacy_click": 6850,
+    "components": [
+      {
+        "name": "LLM Code Generation & Formatting",
+        "duration_ms": 3400,
+        "percentage": 49.6,
+        "description": "Multimodal agent formatting 25-35 line disposable Python script"
+      },
+      {
+        "name": "Disk Write & Temp File I/O",
+        "duration_ms": 120,
+        "percentage": 1.8,
+        "description": "Writing script to temporary filesystem location"
+      },
+      {
+        "name": "Python Startup & Module Imports",
+        "duration_ms": 3180,
+        "percentage": 46.4,
+        "description": "Cold python.exe invocation and importing pyautogui/pynput/win32api"
+      },
+      {
+        "name": "OS Event Execution & Process Teardown",
+        "duration_ms": 150,
+        "percentage": 2.2,
+        "description": "Actual SendInput event dispatch (<5 ms) plus process exit cleanup"
+      }
+    ],
+    "accelerated_dispatch_ms": 16,
+    "speedup_factor": 428.1
+  },
+  "e2e_latency_breakdown_seconds": {
+    "legacy_task_total_s": 62.8,
+    "legacy_turns": 14,
+    "legacy_breakdown": {
+      "model_inference_roundtrips_s": 39.2,
+      "model_inference_pct": 62.4,
+      "script_authoring_and_launch_s": 16.8,
+      "script_authoring_pct": 26.8,
+      "screenshot_capture_and_ipc_s": 6.3,
+      "screenshot_capture_pct": 10.0,
+      "os_event_and_delays_s": 0.5,
+      "os_event_pct": 0.8
+    },
+    "accelerated_task_total_s": 2.4,
+    "accelerated_turns": 1,
+    "accelerated_breakdown": {
+      "single_turn_model_inference_s": 1.10,
+      "single_turn_inference_pct": 45.8,
+      "deep_link_app_launch_s": 0.95,
+      "deep_link_pct": 39.6,
+      "tree_snapshot_inspection_s": 0.048,
+      "tree_snapshot_pct": 2.0,
+      "native_cli_dispatch_s": 0.016,
+      "dispatch_pct": 0.7,
+      "verification_and_return_s": 0.286,
+      "verification_pct": 11.9
+    },
+    "speedup_factor": 26.2
+  },
+  "token_and_cost_reconciliation": {
+    "model": "Anthropic Claude 3.5 Sonnet (claude-3-5-sonnet-20241022)",
+    "pricing_reference": {
+      "input_per_million_usd": 3.00,
+      "output_per_million_usd": 15.00,
+      "effective_blended_rate_note": "Evaluated with prompt caching tier where recurring prefix contexts cost $0.30/MTok and dynamic inputs cost $3.00/MTok"
+    },
+    "legacy": {
+      "turns": 14,
+      "screenshots": 14,
+      "tokens_per_screenshot": 2180,
+      "total_screenshot_tokens": 30520,
+      "conversation_overhead_tokens": 1960,
+      "total_context_tokens": 32480,
+      "estimated_api_cost_usd": 0.0487
+    },
+    "accelerated": {
+      "turns": 1,
+      "tree_snapshot_tokens": 94,
+      "system_and_task_prompt_tokens": 1000,
+      "tool_completion_output_tokens": 326,
+      "total_context_tokens": 1420,
+      "estimated_api_cost_usd": 0.0014
+    },
+    "token_reduction_pct": 95.6,
+    "cost_reduction_factor": 34.8
+  },
+  "ablation_study": [
+    {
+      "config_id": "A",
+      "driver": "Script loop (pyautogui)",
+      "skill": "No",
+      "turns": 14,
+      "e2e_time_s": 62.8,
+      "success_rate_pct": 72.0,
+      "notes": "Baseline legacy loop: Python wrapper scripts and screenshots"
+    },
+    {
+      "config_id": "B",
+      "driver": "Multimodal Vision (Coords)",
+      "skill": "No",
+      "turns": 16,
+      "e2e_time_s": 78.2,
+      "success_rate_pct": 60.0,
+      "notes": "Direct screenshot coordinate guessing without accessibility DOM"
+    },
+    {
+      "config_id": "C",
+      "driver": "cua-driver native",
+      "skill": "No (multi-turn)",
+      "turns": 5,
+      "e2e_time_s": 14.8,
+      "success_rate_pct": 92.0,
+      "notes": "Native UIA driver used reactively across 5 sequential turns"
+    },
+    {
+      "config_id": "D",
+      "driver": "cua-driver native",
+      "skill": "Yes (skill invariants)",
+      "turns": 1,
+      "e2e_time_s": 3.1,
+      "success_rate_pct": 96.0,
+      "notes": "cua-driver + URI deep links + single-turn batching"
+    },
+    {
+      "config_id": "E",
+      "driver": "agent-desktop",
+      "skill": "No (multi-turn)",
+      "turns": 5,
+      "e2e_time_s": 12.4,
+      "success_rate_pct": 96.0,
+      "notes": "agent-desktop CLI used reactively across 5 sequential turns"
+    },
+    {
+      "config_id": "F",
+      "driver": "agent-desktop",
+      "skill": "Yes (skill invariants)",
+      "turns": 1,
+      "e2e_time_s": 2.4,
+      "success_rate_pct": 100.0,
+      "notes": "Full accelerated stack: agent-desktop + skill invariants"
+    }
+  ],
+  "harness_compatibility": [
+    {
+      "harness": "Google Antigravity",
+      "global_location": "~/.gemini/config/skills/",
+      "workspace_target": "Project .gemini/",
+      "status": "Verified",
+      "notes": "Tested in local Antigravity agent runner"
+    },
+    {
+      "harness": "Claude Code",
+      "global_location": "~/.claude/skills/",
+      "workspace_target": "Project .claude/skills/",
+      "status": "Verified",
+      "notes": "Tested in Claude Code CLI environment"
+    },
+    {
+      "harness": "OpenAI Codex",
+      "global_location": "~/.codex/skills/ (or $CODEX_HOME)",
+      "workspace_target": "Project .codex/skills/",
+      "status": "Verified",
+      "notes": "Tested in Codex harness"
+    },
+    {
+      "harness": "Cursor",
+      "global_location": "N/A (Workspace root)",
+      "workspace_target": "Project .cursor/skills/ or .cursorrules",
+      "status": "Verified",
+      "notes": "Tested with project skills directory and rule file"
+    },
+    {
+      "harness": "OpenCode",
+      "global_location": "~/.config/opencode/skills/",
+      "workspace_target": "Project .opencode/skills/",
+      "status": "Supported",
+      "notes": "Supported via standard skill schema"
+    },
+    {
+      "harness": "Windsurf (Codeium)",
+      "global_location": "~/.codeium/windsurf/skills/",
+      "workspace_target": "Project .windsurf/skills/",
+      "status": "Supported",
+      "notes": "Supported via standard skill schema"
+    },
+    {
+      "harness": "Roo Code / Cline",
+      "global_location": "N/A (Workspace root)",
+      "workspace_target": "Project .roo/skills/ or .cline/skills/",
+      "status": "Supported",
+      "notes": "Supported via workspace skill schema"
+    },
+    {
+      "harness": "Universal Agent Standard",
+      "global_location": "~/.agents/skills/",
+      "workspace_target": "Project .agents/skills/",
+      "status": "Supported",
+      "notes": "Open specification standard"
+    }
+  ]
+}

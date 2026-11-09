@@ -1,6 +1,6 @@
 {
   "name": "cua_driver_acceleration",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "Deterministic, sub-200ms desktop automation skill for AI agents. Direct accessibility-tree targeting, zero wrapper scripts, self-bootstrapping with cua-driver or Vercel agent-desktop.",
   "type": "module",
   "bin": {

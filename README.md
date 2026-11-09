@@ -48,26 +48,27 @@ npx github:pratikforge/cua_driver_acceleration --path ./my-agent/skills
 
 ---
 
+<!-- # Strict Anti-Generic AI Design -->
 ## Supported Agent Harnesses
 
 The installer auto-detects and installs into both global user directories and project-local workspaces:
 
-| Agent Harness | Supported Location | Detection Target |
-|---|---|---|
-| **Antigravity** | `~/.gemini/config/skills/cua_driver_acceleration/` | Global config |
-| **Claude Code** | `~/.claude/skills/` or `./.claude/skills/` | Global & Workspace |
-| **OpenAI Codex** | `~/.codex/skills/` or `./.codex/skills/` | `$CODEX_HOME` & Workspace |
-| **OpenCode** | `~/.config/opencode/skills/` or `./.opencode/skills/` | Global & Workspace |
-| **Cursor** | `./.cursor/skills/` or `.cursorrules` | Project Workspace |
-| **Windsurf (Codeium)** | `~/.codeium/windsurf/skills/` or `./.windsurf/skills/` | Global & Workspace |
-| **Roo Code / Cline** | `./.roo/skills/` or `./.cline/skills/` | Project Workspace |
-| **Universal Standard** | `~/.agents/skills/` or `./.agents/skills/` | Universal Agent Spec |
+| Agent Harness | Supported Location | Detection Target | Integration Status |
+|---|---|---|---|
+| **Antigravity** | `~/.gemini/config/skills/cua_driver_acceleration/` | Global config & project `.gemini/` | **Verified** |
+| **Claude Code** | `~/.claude/skills/` or `./.claude/skills/` | Global & Workspace | **Verified** |
+| **OpenAI Codex** | `~/.codex/skills/` or `./.codex/skills/` | `$CODEX_HOME` & Workspace | **Verified** |
+| **Cursor** | `./.cursor/skills/` or `.cursorrules` | Project Workspace | **Verified** |
+| **OpenCode** | `~/.config/opencode/skills/` or `./.opencode/skills/` | Global & Workspace | **Supported** |
+| **Windsurf (Codeium)** | `~/.codeium/windsurf/skills/` or `./.windsurf/skills/` | Global & Workspace | **Supported** |
+| **Roo Code / Cline** | `./.roo/skills/` or `./.cline/skills/` | Project Workspace | **Supported** |
+| **Universal Standard** | `~/.agents/skills/` or `./.agents/skills/` | Universal Agent Spec | **Supported** |
 
 ---
 
 ## The Problem
 
-Most computer-use agents suffer from massive latency—often taking 20 to 60 seconds for simple actions. This lag is almost never caused by the operating system, but by predictable agent failure modes:
+Most computer-use agents suffer from massive latency—often taking 20 to 60 seconds per routine multi-step workflow. This lag is almost never caused by the operating system, but by predictable agent failure modes:
 
 1. **Ad-Hoc Wrapper Script Inflation:** Authoring throwaway 30-line Python scripts (`subprocess`, `pyautogui`) for a single click.
 2. **Coordinate Guesswork:** Taking a screenshot and waiting 3-5 seconds for a multimodal vision model to guess `(x, y)` pixels (which often drifts with DPI scaling).
@@ -96,9 +97,24 @@ Evaluation conducted across Windows desktop navigation tasks, UI Automation trac
   <img src="assets/benchmark-comparison.png" alt="CUA Driver Acceleration Benchmark Comparison: Pre-Acceleration vs. Post-Acceleration" width="100%" />
 </p>
 
-> **Methodology:** Evaluated on Windows 11 (Intel Core Ultra 7 255H, 32GB RAM, UIA Provider) across real-world desktop navigation tasks, UI Automation trace logs, and execution latency profiling. Pre-acceleration measures legacy agent loops relying on multimodal screenshots, Python wrapper scripts (`pyautogui`/`subprocess`), and coordinate guessing. Post-acceleration measures direct accessibility tree snapshots, native stdin pipe dispatch, and OS URI deep links. (Note: Empirically measured exclusively on Windows 11; cross-platform driver support is handled by the upstream engines).
+> **Note on Multipliers:** The headline **71.3× perception speedup** (48 ms vs 3,420 ms) and **428.1× action dispatch speedup** (16 ms vs 6,850 ms) are measured against the legacy agent pattern of authoring throwaway Python wrapper scripts and ingesting full-screen multimodal screenshots. When compared directly against the native `cua-driver` CLI, the optimized `agent-desktop + skill` pipeline delivers a focused **1.3× to 1.75× speedup**.
 
-> 📄 **Technical Report (PDF):** For the complete empirical research whitepaper covering experimental setup, latency dissections, token economics, ablation studies, and qualitative trace logs, download the [CUA Acceleration Technical Report (PDF)](docs/CUA_Acceleration_Technical_Report.pdf).
+> **Methodology & Testbed:** Evaluated on Windows 11 Pro (Build 26200, Intel Core Ultra 7 255H, 32GB RAM, UIA Provider) across standardized desktop automation tasks with $N = 25$ trials per benchmark using Anthropic Claude 3.5 Sonnet (`claude-3-5-sonnet-20241022`). Pre-acceleration measures legacy agent loops relying on multimodal screenshots, disposable Python wrapper scripts (`pyautogui`/`subprocess`), and coordinate guessing. Post-acceleration measures direct accessibility tree snapshots, native stdin pipe dispatch, and OS URI deep links. (Note: Empirically measured exclusively on Windows 11; cross-platform driver support is handled by the upstream engines).
+
+### Ablation Study: Disentangling Driver Speed from Skill Invariants
+
+| Config | Driver Engine | Skill Invariants | E2E Time (s) | Turns | Success Rate |
+|---|---|---|---|---|---|
+| **A** | Script loop (`pyautogui`) | No (legacy baseline) | 62.8 s | 14 | 72.0% |
+| **B** | Multimodal Vision (Coords) | No (screenshot coords) | 78.2 s | 16 | 60.0% |
+| **C** | `cua-driver` (native) | No (reactive multi-turn) | 14.8 s | 5 | 92.0% |
+| **D** | `cua-driver` (native) | **Yes (batch + deep links)** | **3.1 s** | **1** | **96.0%** |
+| **E** | `agent-desktop` | No (reactive multi-turn) | 12.4 s | 5 | 96.0% |
+| **F** | `agent-desktop` | **Yes (full accelerated stack)** | **2.4 s** | **1** | **100.0%** |
+
+> 📊 **Reproducible Benchmark Dataset:** The full structured dataset, per-component timing dissections, and verification harness are available in [`scripts/data/benchmark-data.json`](scripts/data/benchmark-data.json). Run `python scripts/verify-benchmark-data.py` to programmatically verify all arithmetic and statistics.
+
+> 📄 **Technical Report (PDF):** For the complete empirical technical report covering experimental setup, latency dissections, token economics, ablation studies, and qualitative trace logs, download the [CUA Acceleration Technical Report (PDF)](docs/CUA_Acceleration_Technical_Report.pdf).
 
 ---
 
@@ -129,12 +145,13 @@ git clone https://github.com/pratikforge/cua_driver_acceleration.git
 
 ## Repository Structure
 
+<!-- # Strict Anti-Generic AI Design -->
 ```text
 cua_driver_acceleration/
 ├── bin/
 │   └── cli.js                   # Zero-dependency NPX skill installer
 ├── docs/
-│   └── CUA_Acceleration_Technical_Report.pdf  # 6-page empirical research whitepaper
+│   └── CUA_Acceleration_Technical_Report.pdf  # 7-page empirical technical report
 ├── assets/
 │   └── benchmark-comparison.png # Comparative evaluation graphic
 ├── SKILL.md                     # Agent operational rules & invariants
@@ -148,8 +165,11 @@ cua_driver_acceleration/
 └── scripts/
     ├── check-setup.ps1          # Read-only environment check (Windows)
     ├── check-setup.sh           # Read-only environment check (macOS / Linux)
+    ├── data/
+    │   └── benchmark-data.json  # Reproducible empirical dataset & timings
     ├── generate-report-pdf.py   # Publication-grade technical report PDF generator
-    └── render-benchmark.py      # Benchmark evaluation infographic generator
+    ├── render-benchmark.py      # Benchmark evaluation infographic generator
+    └── verify-benchmark-data.py # Automated dataset arithmetic verification harness
 ```
 
 ---

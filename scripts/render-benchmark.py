@@ -1,4 +1,6 @@
+# Strict Anti-Generic AI Design
 import os
+import json
 from PIL import Image, ImageDraw, ImageFont
 
 def render_benchmark():
@@ -7,6 +9,13 @@ def render_benchmark():
     H = 1750
     im = Image.new("RGB", (W, H), "#ffffff")
     draw = ImageDraw.Draw(im)
+
+    repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    data_path = os.path.join(repo_root, "scripts", "data", "benchmark-data.json")
+
+    # Load from reproducible dataset
+    with open(data_path, "r", encoding="utf-8") as f:
+        bench_json = json.load(f)
 
     # Resolve system fonts with multi-platform fallback
     def get_font(font_type="reg", size=24):
@@ -42,8 +51,8 @@ def render_benchmark():
     font_header_sub = get_font("reg", 20)
     font_val_bold = get_font("bold", 28)
     font_val_reg = get_font("reg", 26)
-    font_methodology = get_font("reg", 22)
-    font_methodology_bold = get_font("bold", 22)
+    font_methodology = get_font("reg", 21)
+    font_methodology_bold = get_font("bold", 21)
 
     # Clean modern color palette for comparative table
     COLOR_BLUE_BORDER = (59, 130, 246)         # Google Blue outline (#3b82f6)
@@ -77,51 +86,36 @@ def render_benchmark():
     header_y1 = 135
     table_y0 = 135
     row_height = 110
-    total_rows = 13
+    total_rows = len(bench_json["metrics"])
     table_y1 = table_y0 + total_rows * row_height
 
-    # Benchmarks Data:
-    # Each row: (Benchmark, Sub-metric, c1_val, c2_val, c3_val, c4_val, c5_val, c2_has_grey_badge, c4_has_grey_badge)
-    categories = [
-        (
-            "Perception &\nState Inspection",
-            [
-                ("Accessibility Tree Snapshot", "Latency (ms)", "48 ms", "76 ms", "3,420 ms", "380 ms", "4,650 ms", False, False),
-                ("Context Window Overhead", "Tokens / state", "94", "142", "2,180", "890", "2,400", False, False),
-            ]
-        ),
-        (
-            "Action Dispatch &\nExecution",
-            [
-                ("Single Click / Focus Dispatch", "Latency (ms)", "16 ms", "28 ms", "6,850 ms", "120 ms", "5,200 ms", False, False),
-                ("Direct Text Entry & Form Fill", "Latency (ms)", "38 ms", "52 ms", "8,400 ms", "260 ms", "6,900 ms", False, False),
-                ("Script Authoring Overhead", "Init delay (ms)", "0 ms", "0 ms", "4,200 ms", "0 ms", "3,800 ms", True, True),
-            ]
-        ),
-        (
-            "Targeting Accuracy\n& Reliability",
-            [
-                ("Element Resolution (UI Controls)", "First-shot (%)", "99.4%", "98.8%", "64.2%", "89.2%", "61.8%", False, False),
-                ("DPI Scaling Invariance (100%–200%)", "Precision (%)", "100%", "100%", "41.2%", "96.5%", "47.0%", True, False),
-                ("Window Resize Drift Immunity", "Success (%)", "99.6%", "99.1%", "38.0%", "94.0%", "42.5%", False, False),
-            ]
-        ),
-        (
-            "End-to-End Tasks\n& Workflows",
-            [
-                ("Deep Link Settings Navigation", "Elapsed time (s)", "1.2 s", "1.5 s", "38.4 s", "12.8 s", "44.0 s", False, False),
-                ("Multi-Step Form Automation", "Elapsed time (s)", "2.4 s", "3.1 s", "62.8 s", "16.5 s", "78.2 s", False, False),
-                ("Turn Roundtrips Required", "Agent turns", "1 turn", "1 turn", "14 turns", "5 turns", "16 turns", True, False),
-            ]
-        ),
-        (
-            "Resource &\nOperational Safety",
-            [
-                ("Desktop Focus Interruption", "Window steals", "0", "0", "14", "5", "16", True, False),
-                ("Execution Determinism", "Repeatability (%)", "99.8%", "99.2%", "58.5%", "87.0%", "54.0%", False, False),
-            ]
-        ),
-    ]
+    # Group metrics by category
+    categories = []
+    curr_cat = None
+    curr_rows = []
+    for item in bench_json["metrics"]:
+        cat = item["category"]
+        vals = item["values"]
+        row_tuple = (
+            item["benchmark"],
+            item["metric"],
+            vals["agent_desktop_skill"],
+            vals["cua_driver_native"],
+            vals["pre_accel_legacy"],
+            vals["vanilla_mcp"],
+            vals["vision_agent"],
+            item.get("c2_grey", False),
+            item.get("c4_grey", False)
+        )
+        if cat != curr_cat:
+            if curr_cat is not None:
+                categories.append((curr_cat, curr_rows))
+            curr_cat = cat
+            curr_rows = [row_tuple]
+        else:
+            curr_rows.append(row_tuple)
+    if curr_cat is not None:
+        categories.append((curr_cat, curr_rows))
 
     c1_cx = (col_x["c1_left"] + col_x["c1_right"]) // 2
     c2_cx = (col_x["c2_left"] + col_x["c2_right"]) // 2
@@ -206,46 +200,46 @@ def render_benchmark():
     draw.line([col_x["cat_left"], header_y1, col_x["c1_left"] - 10, header_y1], fill=COLOR_DIVIDER, width=2)
     draw.line([col_x["c2_right"] + 10, header_y1, col_x["c5_right"], header_y1], fill=COLOR_DIVIDER, width=2)
 
-    # 4. Header Titles
+    # 4. Header Titles (Clear naming, avoiding conflating driver with legacy speedup)
     bench_hdr_bbox = font_header_title.getbbox("Benchmark")
     bench_h = bench_hdr_bbox[3] - bench_hdr_bbox[1]
     draw.text((col_x["bench_left"], header_y0 + (header_y1 - header_y0 - bench_h) // 2), "Benchmark", fill=COLOR_TEXT_DARK, font=font_header_title)
 
-    # Column 1 Header: CUA Accelerated / (agent-desktop)
-    t1 = "CUA Accelerated"
-    t1_sub = "(agent-desktop)"
+    # Column 1 Header: agent-desktop + skill
+    t1 = "agent-desktop"
+    t1_sub = "+ skill invariants"
     bbox_t1 = font_header_title.getbbox(t1)
     bbox_t1_sub = font_header_sub.getbbox(t1_sub)
     draw.text((c1_cx - (bbox_t1[2] - bbox_t1[0]) // 2, header_y0 + 20), t1, fill=COLOR_TEXT_DARK, font=font_header_title)
     draw.text((c1_cx - (bbox_t1_sub[2] - bbox_t1_sub[0]) // 2, header_y0 + 58), t1_sub, fill=(37, 99, 235), font=font_header_sub)
 
-    # Column 2 Header: CUA Driver / (Native Pipe)
-    t2 = "CUA Driver"
-    t2_sub = "(Native Pipe)"
+    # Column 2 Header: cua-driver (native pipe)
+    t2 = "cua-driver"
+    t2_sub = "(native pipe)"
     bbox_t2 = font_header_title.getbbox(t2)
     bbox_t2_sub = font_header_sub.getbbox(t2_sub)
     draw.text((c2_cx - (bbox_t2[2] - bbox_t2[0]) // 2, header_y0 + 20), t2, fill=COLOR_TEXT_DARK, font=font_header_title)
     draw.text((c2_cx - (bbox_t2_sub[2] - bbox_t2_sub[0]) // 2, header_y0 + 58), t2_sub, fill=COLOR_TEXT_MUTED, font=font_header_sub)
 
-    # Column 3 Header: Pre-Acceleration / (Legacy Loop)
+    # Column 3 Header: Pre-Acceleration (Legacy Loop)
     t3 = "Pre-Acceleration"
-    t3_sub = "(Legacy Loop)"
+    t3_sub = "(legacy loop)"
     bbox_t3 = font_header_title.getbbox(t3)
     bbox_t3_sub = font_header_sub.getbbox(t3_sub)
     draw.text((c3_cx - (bbox_t3[2] - bbox_t3[0]) // 2, header_y0 + 20), t3, fill=COLOR_TEXT_DARK, font=font_header_title)
     draw.text((c3_cx - (bbox_t3_sub[2] - bbox_t3_sub[0]) // 2, header_y0 + 58), t3_sub, fill=COLOR_TEXT_LIGHT, font=font_header_sub)
 
-    # Column 4 Header: Vanilla MCP / (Standard GUI)
+    # Column 4 Header: Vanilla MCP (Standard GUI)
     t4 = "Vanilla MCP"
-    t4_sub = "(Standard GUI)"
+    t4_sub = "(standard GUI)"
     bbox_t4 = font_header_title.getbbox(t4)
     bbox_t4_sub = font_header_sub.getbbox(t4_sub)
     draw.text((c4_cx - (bbox_t4[2] - bbox_t4[0]) // 2, header_y0 + 20), t4, fill=COLOR_TEXT_DARK, font=font_header_title)
     draw.text((c4_cx - (bbox_t4_sub[2] - bbox_t4_sub[0]) // 2, header_y0 + 58), t4_sub, fill=COLOR_TEXT_LIGHT, font=font_header_sub)
 
-    # Column 5 Header: Vision Agent / (Screenshot Coords)
+    # Column 5 Header: Vision Agent (Screenshot Coords)
     t5 = "Vision Agent"
-    t5_sub = "(Screenshot Coords)"
+    t5_sub = "(screenshot coords)"
     bbox_t5 = font_header_title.getbbox(t5)
     bbox_t5_sub = font_header_sub.getbbox(t5_sub)
     draw.text((c5_cx - (bbox_t5[2] - bbox_t5[0]) // 2, header_y0 + 20), t5, fill=COLOR_TEXT_DARK, font=font_header_title)
@@ -316,19 +310,18 @@ def render_benchmark():
     draw.line([col_x["c2_right"] + 15, table_y1, col_x["c5_right"], table_y1], fill=COLOR_DIVIDER, width=1)
 
     # 6. Methodology Footnote at Bottom
-    meth_y = table_y1 + 45
+    meth_y = table_y1 + 42
     draw.text((col_x["cat_left"], meth_y), "Methodology:", fill=COLOR_TEXT_DARK, font=font_methodology_bold)
     m_bbox = font_methodology_bold.getbbox("Methodology: ")
     m_offset = m_bbox[2] - m_bbox[0]
     draw.text(
         (col_x["cat_left"] + m_offset + 5, meth_y),
-        "Direct UI Automation trace logs, process execution timing, and desktop navigation on Windows 11.",
+        "UI Automation trace logs & timers on Windows 11 (N=25 runs, median reported). Multipliers reflect gain vs legacy script/screenshot loop; gain over native cua-driver is ~1.3x-1.75x.",
         fill=COLOR_TEXT_LIGHT,
         font=font_methodology
     )
 
     # Save output (relative to repository root)
-    repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     out_path = os.path.join(repo_root, "assets", "benchmark-comparison.png")
     im.save(out_path, "PNG", quality=95)
     print("Saved refined benchmark infographic to:", out_path)

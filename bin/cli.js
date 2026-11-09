@@ -20,7 +20,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT_DIR = path.resolve(__dirname, '..');
 
-const VERSION = '1.0.0';
+const VERSION = '1.2.0';
 
 // ANSI styling helpers (safe fallback for non-TTY)
 const useColor = process.stdout.isTTY && !process.env.NO_COLOR;
