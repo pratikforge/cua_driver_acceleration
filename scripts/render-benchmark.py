@@ -322,7 +322,7 @@ def render_benchmark():
     m_offset = m_bbox[2] - m_bbox[0]
     draw.text(
         (col_x["cat_left"] + m_offset + 5, meth_y),
-        "Standardized desktop navigation, UIAutomation trace logs, OSWorld desktop automation subsets, and latency profiling on Windows 11 / macOS.",
+        "Standardized desktop navigation, UIAutomation trace logs, OSWorld desktop automation subsets, and latency profiling on Windows 11 Pro (x64).",
         fill=COLOR_TEXT_LIGHT,
         font=font_methodology
     )

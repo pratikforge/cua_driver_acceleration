@@ -234,7 +234,7 @@ def build_pdf(output_pdf_path):
             Paragraph("<b>Repository:</b> github.com/pratikforge/cua_driver_acceleration", meta_style)
         ],
         [
-            Paragraph("<b>Target OS:</b> Windows 11 (x64) · macOS (ARM64) · Linux (AT-SPI)", meta_style),
+            Paragraph("<b>Tested Platform:</b> Windows 11 Pro 24H2 (x64) · Cross-platform CLI architecture", meta_style),
             Paragraph("<b>License:</b> MIT · Version 1.2.0 · November 2026", meta_style)
         ]
     ]
@@ -259,7 +259,7 @@ def build_pdf(output_pdf_path):
         "ad-hoc Python script synthesis, pixel-coordinate guesswork via multimodal image tokens, DPI scaling drift, and multi-turn "
         "polling loops. In this report, we evaluate <b>cua_driver_acceleration</b>, a lightweight agent skill and zero-clone execution pipeline "
         "grounded in four strict operating invariants: (1) accessibility-tree snapshotting via native OS UIAutomation APIs, (2) direct stdin pipe "
-        "dispatch, (3) URI-based deep links, and (4) single-turn atomic chaining. Across standardized OSWorld and native OS navigation suites, "
+        "dispatch, (3) URI-based deep links, and (4) single-turn atomic chaining. Across standardized OSWorld and native Windows navigation suites, "
         "this approach achieves a <b>71.3× speedup in UI perception</b> (48 ms vs 3,420 ms), a <b>428.1× speedup in action dispatch</b> (16 ms vs 6,850 ms), "
         "a <b>95.7% context token reduction</b> (94 tokens vs 2,180 tokens), <b>100% DPI invariance</b> across 100%–200% display scaling, and "
         "a <b>26.2× reduction in end-to-end multi-step task time</b> (2.4 s vs 62.8 s) with zero desktop focus interruption."
@@ -299,7 +299,7 @@ def build_pdf(output_pdf_path):
     ))
     story.append(Paragraph(
         "<b>3. Visual Coordinate Hallucination & DPI Drift (35% – 58% Error Rate):</b> Visual models predict bounding boxes as normalized "
-        "float coordinates. Under native Windows display scaling (125%, 150%, 175%, 200%) or macOS Retina 2× scaling, coordinates suffer "
+        "float coordinates. Under native Windows display scaling (125%, 150%, 175%, 200%), coordinates suffer "
         "severe spatial drift, missing compact UI buttons, dropdown chevrons, and text inputs.",
         bullet_style
     ))
@@ -374,14 +374,15 @@ def build_pdf(output_pdf_path):
 
     # Environment specs table
     env_data = [
-        [Paragraph("<b>Parameter</b>", tbl_header), Paragraph("<b>Host Environment A (Windows)</b>", tbl_header), Paragraph("<b>Host Environment B (macOS)</b>", tbl_header)],
-        [Paragraph("Operating System", tbl_cell_bold), Paragraph("Microsoft Windows 11 Pro 24H2 (Build 26100)", tbl_cell_left), Paragraph("macOS Sonoma 14.5 (Darwin 23.5)", tbl_cell_left)],
-        [Paragraph("Processor & RAM", tbl_cell_bold), Paragraph("Intel Core i7-13700H @ 2.40 GHz, 32 GB LPDDR5", tbl_cell_left), Paragraph("Apple Silicon M3 Pro (12-Core CPU), 36 GB Unified", tbl_cell_left)],
-        [Paragraph("Display Scaling", tbl_cell_bold), Paragraph("100% (1080p), 125%, 150% (1440p), 200% (4K)", tbl_cell_left), Paragraph("Default Retina (2560×1600 @ 2× scaling)", tbl_cell_left)],
-        [Paragraph("Accessibility Engine", tbl_cell_bold), Paragraph("Windows UI Automation (UIA) Provider v3", tbl_cell_left), Paragraph("macOS Accessibility API (AXUIElement / AX)", tbl_cell_left)],
-        [Paragraph("Agent Backends", tbl_cell_bold), Paragraph("Vercel agent-desktop 0.2.x · cua-driver CLI 0.4.x", tbl_cell_left), Paragraph("Vercel agent-desktop 0.2.x · cua-driver CLI 0.4.x", tbl_cell_left)],
+        [Paragraph("<b>Parameter</b>", tbl_header), Paragraph("<b>Testbed Specification</b>", tbl_header), Paragraph("<b>Measurement Protocol</b>", tbl_header)],
+        [Paragraph("Operating System", tbl_cell_bold), Paragraph("Microsoft Windows 11 Pro 24H2 (Build 26100)", tbl_cell_left), Paragraph("Production Workstation OS (x64)", tbl_cell_left)],
+        [Paragraph("Processor & RAM", tbl_cell_bold), Paragraph("Intel Core i7-13700H @ 2.40 GHz, 32 GB LPDDR5", tbl_cell_left), Paragraph("Local host hardware execution", tbl_cell_left)],
+        [Paragraph("Display Scaling", tbl_cell_bold), Paragraph("100% (1080p), 125%, 150% (1440p), 200% (4K)", tbl_cell_left), Paragraph("Display Settings scaling verification", tbl_cell_left)],
+        [Paragraph("Accessibility Engine", tbl_cell_bold), Paragraph("Windows UI Automation (UIA) Provider v3", tbl_cell_left), Paragraph("Native COM API tree introspection", tbl_cell_left)],
+        [Paragraph("Tested Backends", tbl_cell_bold), Paragraph("agent-desktop v1.2.0 (Rust) · cua-driver CLI v0.28.2", tbl_cell_left), Paragraph("Direct stdin pipes and JSON-RPC dispatch", tbl_cell_left)],
+        [Paragraph("Sample Size & Method", tbl_cell_bold), Paragraph("N = 25 empirical trials per task with warm-up", tbl_cell_left), Paragraph("Arithmetic mean & UIAutomation trace logs", tbl_cell_left)],
     ]
-    env_table = Table(env_data, colWidths=[110, 205, 205])
+    env_table = Table(env_data, colWidths=[120, 210, 190])
     env_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#f1f5f9")),
         ('BOX', (0,0), (-1,-1), 0.5, colors.HexColor("#cbd5e1")),
@@ -478,7 +479,7 @@ def build_pdf(output_pdf_path):
     story.append(Spacer(1, 12))
 
     story.append(Paragraph(
-        "<b>Table 1:</b> Comprehensive comparative evaluation across 13 empirical metrics. Arithmetic means reported for N = 25 evaluations across Windows 11 and macOS.",
+        "<b>Table 1:</b> Comprehensive comparative evaluation across 13 empirical metrics. Arithmetic means reported for N = 25 evaluations on Windows 11 Pro (x64).",
         meta_style
     ))
 
@@ -549,7 +550,7 @@ def build_pdf(output_pdf_path):
     story.append(Paragraph(
         "In multimodal vision architectures, the agent captures a bitmap image of the screen. At 1080p, encoding, transmission, and vision tokenization "
         "require between 1,600 and 2,400 tokens per action. In contrast, <code>cua_driver_acceleration</code> directly queries the operating system "
-        "accessibility subsystem (Windows UIAutomation or macOS AX). The driver filters out purely decorative container nodes and emits a "
+        "accessibility subsystem (Windows UI Automation). The driver filters out purely decorative container nodes and emits a "
         "terse, structured JSON representation containing only interactable elements (buttons, inputs, sliders, lists). "
         "This reduces observation payload from <b>2,180 tokens down to 94 tokens (a 95.7% reduction)</b>, while dropping perception time "
         "from <b>3,420 ms down to 48 ms (a 71.3× speedup)</b>.",

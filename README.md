@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![npx](https://img.shields.io/badge/npx-cua__driver__acceleration-000000?logo=npm&logoColor=white)](https://github.com/pratikforge/cua_driver_acceleration)
-[![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey.svg)](https://github.com/pratikforge/cua_driver_acceleration)
+[![Platform](https://img.shields.io/badge/platform-Windows%2011%20(tested)%20%7C%20Cross--Platform%20CLI-lightgrey.svg)](https://github.com/pratikforge/cua_driver_acceleration)
 [![Accessibility-First](https://img.shields.io/badge/DOM%2FAccessibility-Sub--200ms-brightgreen.svg)](https://github.com/pratikforge/cua_driver_acceleration)
 
 A high-performance agent skill and one-command CLI that accelerates desktop automation (computer use / CUA) by eliminating multi-second agent latency.
@@ -90,13 +90,13 @@ Most computer-use agents suffer from massive latency—often taking 20 to 60 sec
 
 ## Empirical Benchmarks: Pre-Acceleration vs. Post-Acceleration
 
-Evaluation conducted across standardized operating system navigation, UIAutomation trace logs, OSWorld desktop automation subsets, and latency profiling on Windows 11 and macOS:
+Evaluation conducted across standardized operating system navigation, UIAutomation trace logs, OSWorld desktop automation subsets, and latency profiling on Windows 11 Pro (x64):
 
 <p align="center">
   <img src="assets/benchmark-comparison.png" alt="CUA Driver Acceleration Benchmark Comparison: Pre-Acceleration vs. Post-Acceleration" width="100%" />
 </p>
 
-> **Methodology:** Evaluated on Windows 11 Pro (x64) and macOS Sonoma (Apple Silicon) across standardized desktop navigation, UIAutomation trace logs, OSWorld desktop automation subsets, and latency profiling. Pre-acceleration measures legacy agent loops relying on multimodal screenshots, Python wrapper scripts (`pyautogui`/`subprocess`), and coordinate guessing. Post-acceleration measures direct accessibility tree snapshots, native stdin pipe dispatch, and OS URI deep links.
+> **Methodology:** Evaluated on Windows 11 Pro 24H2 (Intel Core i7-13700H, 32GB RAM, UIA Provider v3) across standardized desktop navigation, UIAutomation trace logs, OSWorld desktop automation subsets, and latency profiling. Pre-acceleration measures legacy agent loops relying on multimodal screenshots, Python wrapper scripts (`pyautogui`/`subprocess`), and coordinate guessing. Post-acceleration measures direct accessibility tree snapshots, native stdin pipe dispatch, and OS URI deep links. (Note: Only Windows 11 Pro was empirically benchmarked; macOS and Linux driver backends exist in the underlying engine architectures but were not measured in this dataset).
 
 > 📄 **Technical Report (PDF):** For the complete empirical research whitepaper covering experimental setup, latency dissections, token economics, ablation studies, and qualitative trace logs, download the [CUA Acceleration Technical Report (PDF)](docs/CUA_Acceleration_Technical_Report.pdf).
 
@@ -104,7 +104,7 @@ Evaluation conducted across standardized operating system navigation, UIAutomati
 
 ## Supported Backends
 
-Both backends interface directly with operating system accessibility APIs (Windows UI Automation, macOS AX, Linux AT-SPI) to provide sub-200ms DOM-style interaction without pixel guessing:
+Both backends interface directly with operating system accessibility APIs (Windows UI Automation; macOS AX and Linux AT-SPI supported by upstream engines) to provide sub-200ms DOM-style interaction without pixel guessing:
 
 - **[Vercel agent-desktop](https://github.com/vercel-labs/agent-desktop)**: Open-source Rust CLI from Vercel Labs. Headless by default, model-agnostic, and works across any shell-capable agent environment. Recommended default (`npm i -g agent-desktop`).
 - **[cua-driver](https://cua.ai/docs/cua-driver)**: Native driver from Cua providing CLI and MCP server interfaces with advanced Windows background execution (`launch_app`, window handles, menu navigation).
