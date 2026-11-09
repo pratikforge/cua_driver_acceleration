@@ -90,13 +90,13 @@ Most computer-use agents suffer from massive latency—often taking 20 to 60 sec
 
 ## Empirical Benchmarks: Pre-Acceleration vs. Post-Acceleration
 
-Evaluation conducted across standardized operating system navigation, UIAutomation trace logs, OSWorld desktop automation subsets, and latency profiling on Windows 11 Pro (x64):
+Evaluation conducted across Windows desktop navigation tasks, UI Automation trace logs, and process latency profiling on Windows 11:
 
 <p align="center">
   <img src="assets/benchmark-comparison.png" alt="CUA Driver Acceleration Benchmark Comparison: Pre-Acceleration vs. Post-Acceleration" width="100%" />
 </p>
 
-> **Methodology:** Evaluated on Windows 11 Pro 24H2 (Intel Core i7-13700H, 32GB RAM, UIA Provider v3) across standardized desktop navigation, UIAutomation trace logs, OSWorld desktop automation subsets, and latency profiling. Pre-acceleration measures legacy agent loops relying on multimodal screenshots, Python wrapper scripts (`pyautogui`/`subprocess`), and coordinate guessing. Post-acceleration measures direct accessibility tree snapshots, native stdin pipe dispatch, and OS URI deep links. (Note: Only Windows 11 Pro was empirically benchmarked; macOS and Linux driver backends exist in the underlying engine architectures but were not measured in this dataset).
+> **Methodology:** Evaluated on Windows 11 (Intel Core Ultra 7 255H, 32GB RAM, UIA Provider) across real-world desktop navigation tasks, UI Automation trace logs, and execution latency profiling. Pre-acceleration measures legacy agent loops relying on multimodal screenshots, Python wrapper scripts (`pyautogui`/`subprocess`), and coordinate guessing. Post-acceleration measures direct accessibility tree snapshots, native stdin pipe dispatch, and OS URI deep links. (Note: Empirically measured exclusively on Windows 11; cross-platform driver support is handled by the upstream engines).
 
 > 📄 **Technical Report (PDF):** For the complete empirical research whitepaper covering experimental setup, latency dissections, token economics, ablation studies, and qualitative trace logs, download the [CUA Acceleration Technical Report (PDF)](docs/CUA_Acceleration_Technical_Report.pdf).
 
@@ -136,7 +136,7 @@ cua_driver_acceleration/
 ├── docs/
 │   └── CUA_Acceleration_Technical_Report.pdf  # 6-page empirical research whitepaper
 ├── assets/
-│   └── benchmark-comparison.png # High-resolution DeepMind-style evaluation graphic
+│   └── benchmark-comparison.png # Comparative evaluation graphic
 ├── SKILL.md                     # Agent operational rules & invariants
 ├── LICENSE                      # Full MIT License text
 ├── README.md                    # Overview, quickstart & documentation

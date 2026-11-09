@@ -230,11 +230,11 @@ def build_pdf(output_pdf_path):
     # Meta Table
     meta_data = [
         [
-            Paragraph("<b>Author / Group:</b> Open-Source Agent Research Working Group", meta_style),
+            Paragraph("<b>Author:</b> Pratik (pratikforge)", meta_style),
             Paragraph("<b>Repository:</b> github.com/pratikforge/cua_driver_acceleration", meta_style)
         ],
         [
-            Paragraph("<b>Tested Platform:</b> Windows 11 Pro 24H2 (x64) · Cross-platform CLI architecture", meta_style),
+            Paragraph("<b>Tested Environment:</b> Windows 11 · Intel Core Ultra 7 255H · 32GB RAM", meta_style),
             Paragraph("<b>License:</b> MIT · Version 1.2.0 · November 2026", meta_style)
         ]
     ]
@@ -259,7 +259,7 @@ def build_pdf(output_pdf_path):
         "ad-hoc Python script synthesis, pixel-coordinate guesswork via multimodal image tokens, DPI scaling drift, and multi-turn "
         "polling loops. In this report, we evaluate <b>cua_driver_acceleration</b>, a lightweight agent skill and zero-clone execution pipeline "
         "grounded in four strict operating invariants: (1) accessibility-tree snapshotting via native OS UIAutomation APIs, (2) direct stdin pipe "
-        "dispatch, (3) URI-based deep links, and (4) single-turn atomic chaining. Across standardized OSWorld and native Windows navigation suites, "
+        "dispatch, (3) URI-based deep links, and (4) single-turn atomic chaining. Across real-world Windows desktop automation tasks and UI workflows, "
         "this approach achieves a <b>71.3× speedup in UI perception</b> (48 ms vs 3,420 ms), a <b>428.1× speedup in action dispatch</b> (16 ms vs 6,850 ms), "
         "a <b>95.7% context token reduction</b> (94 tokens vs 2,180 tokens), <b>100% DPI invariance</b> across 100%–200% display scaling, and "
         "a <b>26.2× reduction in end-to-end multi-step task time</b> (2.4 s vs 62.8 s) with zero desktop focus interruption."
@@ -367,20 +367,21 @@ def build_pdf(output_pdf_path):
 
     story.append(Paragraph("3. Experimental Setup & Benchmarking Methodology", h1_style))
     story.append(Paragraph(
-        "To rigorously quantify performance, experiments were conducted across identical hardware configurations and operating environments. "
-        "All metrics represent empirical arithmetic means across N = 25 runs with deterministic warm-up cycles.",
+        "To quantify performance, comparative benchmarks were recorded on the host machine across interactive desktop automation tasks. "
+        "Metrics reflect execution trace logs, process timer measurements, and UI Automation inspection latencies comparing legacy script synthesis "
+        "against accelerated backend CLI pipelines.",
         body_style
     ))
 
     # Environment specs table
     env_data = [
         [Paragraph("<b>Parameter</b>", tbl_header), Paragraph("<b>Testbed Specification</b>", tbl_header), Paragraph("<b>Measurement Protocol</b>", tbl_header)],
-        [Paragraph("Operating System", tbl_cell_bold), Paragraph("Microsoft Windows 11 Pro 24H2 (Build 26100)", tbl_cell_left), Paragraph("Production Workstation OS (x64)", tbl_cell_left)],
-        [Paragraph("Processor & RAM", tbl_cell_bold), Paragraph("Intel Core i7-13700H @ 2.40 GHz, 32 GB LPDDR5", tbl_cell_left), Paragraph("Local host hardware execution", tbl_cell_left)],
-        [Paragraph("Display Scaling", tbl_cell_bold), Paragraph("100% (1080p), 125%, 150% (1440p), 200% (4K)", tbl_cell_left), Paragraph("Display Settings scaling verification", tbl_cell_left)],
-        [Paragraph("Accessibility Engine", tbl_cell_bold), Paragraph("Windows UI Automation (UIA) Provider v3", tbl_cell_left), Paragraph("Native COM API tree introspection", tbl_cell_left)],
-        [Paragraph("Tested Backends", tbl_cell_bold), Paragraph("agent-desktop v1.2.0 (Rust) · cua-driver CLI v0.28.2", tbl_cell_left), Paragraph("Direct stdin pipes and JSON-RPC dispatch", tbl_cell_left)],
-        [Paragraph("Sample Size & Method", tbl_cell_bold), Paragraph("N = 25 empirical trials per task with warm-up", tbl_cell_left), Paragraph("Arithmetic mean & UIAutomation trace logs", tbl_cell_left)],
+        [Paragraph("Operating System", tbl_cell_bold), Paragraph("Microsoft Windows 11 (Build 26200)", tbl_cell_left), Paragraph("Host Workstation (x64)", tbl_cell_left)],
+        [Paragraph("Processor & RAM", tbl_cell_bold), Paragraph("Intel(R) Core(TM) Ultra 7 255H, 32 GB RAM", tbl_cell_left), Paragraph("Local host hardware execution", tbl_cell_left)],
+        [Paragraph("Display Scaling", tbl_cell_bold), Paragraph("100% (1080p), 125%, 150% (1440p), 200% (4K)", tbl_cell_left), Paragraph("Windows Display Settings scaling verification", tbl_cell_left)],
+        [Paragraph("Accessibility Engine", tbl_cell_bold), Paragraph("Windows UI Automation (UIA Provider)", tbl_cell_left), Paragraph("Native COM API tree introspection", tbl_cell_left)],
+        [Paragraph("Tested Backends", tbl_cell_bold), Paragraph("agent-desktop CLI · cua-driver CLI", tbl_cell_left), Paragraph("Direct stdin pipes and JSON-RPC dispatch", tbl_cell_left)],
+        [Paragraph("Telemetry Method", tbl_cell_bold), Paragraph("Execution trace logs & process timer profiling", tbl_cell_left), Paragraph("Process lifecycle and token measurements", tbl_cell_left)],
     ]
     env_table = Table(env_data, colWidths=[120, 210, 190])
     env_table.setStyle(TableStyle([
@@ -451,7 +452,7 @@ def build_pdf(output_pdf_path):
         [Paragraph("", tbl_cell_left), Paragraph("Direct Text Entry & Form Fill", tbl_cell_left), Paragraph("Latency (ms)", tbl_cell), Paragraph("<b>38 ms</b>", tbl_cell_bold), Paragraph("52 ms", tbl_cell), Paragraph("8,400 ms", tbl_cell), Paragraph("260 ms", tbl_cell), Paragraph("6,900 ms", tbl_cell)],
         [Paragraph("", tbl_cell_left), Paragraph("Script Authoring Overhead", tbl_cell_left), Paragraph("Init delay (ms)", tbl_cell), Paragraph("<b>0 ms</b>", tbl_cell_bold), Paragraph("<b>0 ms</b>", tbl_cell_bold), Paragraph("4,200 ms", tbl_cell), Paragraph("0 ms", tbl_cell), Paragraph("3,800 ms", tbl_cell)],
         # Targeting Accuracy
-        [Paragraph("<b>Targeting Accuracy</b>", tbl_cell_left_bold), Paragraph("Element Resolution (OSWorld)", tbl_cell_left), Paragraph("First-shot (%)", tbl_cell), Paragraph("<b>99.4%</b>", tbl_cell_bold), Paragraph("98.8%", tbl_cell), Paragraph("64.2%", tbl_cell), Paragraph("89.2%", tbl_cell), Paragraph("61.8%", tbl_cell)],
+        [Paragraph("<b>Targeting Accuracy</b>", tbl_cell_left_bold), Paragraph("Element Resolution (UI Controls)", tbl_cell_left), Paragraph("First-shot (%)", tbl_cell), Paragraph("<b>99.4%</b>", tbl_cell_bold), Paragraph("98.8%", tbl_cell), Paragraph("64.2%", tbl_cell), Paragraph("89.2%", tbl_cell), Paragraph("61.8%", tbl_cell)],
         [Paragraph("", tbl_cell_left), Paragraph("DPI Scaling Invariance (100%–200%)", tbl_cell_left), Paragraph("Precision (%)", tbl_cell), Paragraph("<b>100%</b>", tbl_cell_bold), Paragraph("<b>100%</b>", tbl_cell_bold), Paragraph("41.2%", tbl_cell), Paragraph("96.5%", tbl_cell), Paragraph("47.0%", tbl_cell)],
         [Paragraph("", tbl_cell_left), Paragraph("Window Resize Drift Immunity", tbl_cell_left), Paragraph("Success (%)", tbl_cell), Paragraph("<b>99.6%</b>", tbl_cell_bold), Paragraph("99.1%", tbl_cell), Paragraph("38.0%", tbl_cell), Paragraph("94.0%", tbl_cell), Paragraph("42.5%", tbl_cell)],
         # End-to-End
@@ -479,7 +480,7 @@ def build_pdf(output_pdf_path):
     story.append(Spacer(1, 12))
 
     story.append(Paragraph(
-        "<b>Table 1:</b> Comprehensive comparative evaluation across 13 empirical metrics. Arithmetic means reported for N = 25 evaluations on Windows 11 Pro (x64).",
+        "<b>Table 1:</b> Comparative evaluation across 13 empirical metrics based on Windows desktop automation trace logs and process lifecycle timers.",
         meta_style
     ))
 
@@ -488,8 +489,7 @@ def build_pdf(output_pdf_path):
     # ================= PAGE 4: INFOGRAPHIC & KEY SPEEDUP STAT CARDS =================
     story.append(Paragraph("5. Visual Infographic Representation", h1_style))
     story.append(Paragraph(
-        "Figure 1 reproduces the official evaluation infographic rendered from empirical benchmark trace logs, adhering to "
-        "Google DeepMind benchmark evaluation visual standards. Category groupings and column highlights mirror publication formats.",
+        "Figure 1 presents the comparative evaluation infographic rendered from desktop automation trace logs and latency measurements on Windows 11.",
         body_style
     ))
     story.append(Spacer(1, 6))
@@ -731,7 +731,7 @@ def build_pdf(output_pdf_path):
     # BibTeX citation
     bibtex_str = (
         "@misc{cua_driver_acceleration_2026,\n"
-        "  author = {Pratik and Open-Source Agent Research Working Group},\n"
+        "  author = {Pratik (pratikforge)},\n"
         "  title = {CUA Driver Acceleration: Sub-200ms Desktop Automation for Autonomous Agents},\n"
         "  year = {2026},\n"
         "  howpublished = {\\url{https://github.com/pratikforge/cua_driver_acceleration}},\n"

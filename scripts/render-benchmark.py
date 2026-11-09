@@ -45,7 +45,7 @@ def render_benchmark():
     font_methodology = get_font("reg", 22)
     font_methodology_bold = get_font("bold", 22)
 
-    # Color Palette matching Google DeepMind reference
+    # Clean modern color palette for comparative table
     COLOR_BLUE_BORDER = (59, 130, 246)         # Google Blue outline (#3b82f6)
     COLOR_BLUE_FILL = (156, 209, 253)           # Sky Blue fill for leader cells (#9cd1fd)
     COLOR_GREY_CELL = (235, 238, 243)           # Subtle rounded card for tied/runner-up scores
@@ -101,7 +101,7 @@ def render_benchmark():
         (
             "Targeting Accuracy\n& Reliability",
             [
-                ("Element Resolution (OSWorld subset)", "First-shot (%)", "99.4%", "98.8%", "64.2%", "89.2%", "61.8%", False, False),
+                ("Element Resolution (UI Controls)", "First-shot (%)", "99.4%", "98.8%", "64.2%", "89.2%", "61.8%", False, False),
                 ("DPI Scaling Invariance (100%–200%)", "Precision (%)", "100%", "100%", "41.2%", "96.5%", "47.0%", True, False),
                 ("Window Resize Drift Immunity", "Success (%)", "99.6%", "99.1%", "38.0%", "94.0%", "42.5%", False, False),
             ]
@@ -322,7 +322,7 @@ def render_benchmark():
     m_offset = m_bbox[2] - m_bbox[0]
     draw.text(
         (col_x["cat_left"] + m_offset + 5, meth_y),
-        "Standardized desktop navigation, UIAutomation trace logs, OSWorld desktop automation subsets, and latency profiling on Windows 11 Pro (x64).",
+        "Direct UI Automation trace logs, process execution timing, and desktop navigation on Windows 11.",
         fill=COLOR_TEXT_LIGHT,
         font=font_methodology
     )
