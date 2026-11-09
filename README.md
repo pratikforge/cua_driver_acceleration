@@ -116,6 +116,8 @@ Evaluation conducted across standardized operating system navigation, UIAutomati
 
 > **Methodology:** Evaluated on Windows 11 Pro (x64) and macOS Sonoma (Apple Silicon) across standardized desktop navigation, UIAutomation trace logs, OSWorld desktop automation subsets, and latency profiling. Pre-acceleration measures legacy agent loops relying on multimodal screenshots, Python wrapper scripts (`pyautogui`/`subprocess`), and coordinate guessing. Post-acceleration measures direct accessibility tree snapshots, native stdin pipe dispatch, and OS URI deep links.
 
+> 📄 **Technical Report (PDF):** For the complete 5-page research whitepaper covering experimental setup, latency dissections, token economics, ablation studies, and qualitative trace logs, download the [CUA Acceleration Technical Report (PDF)](docs/CUA_Acceleration_Technical_Report.pdf).
+
 ---
 
 ## Supported Backends
@@ -149,6 +151,10 @@ git clone https://github.com/pratikforge/cua_driver_acceleration.git
 cua_driver_acceleration/
 ├── bin/
 │   └── cli.js                   # Zero-dependency NPX skill installer
+├── docs/
+│   └── CUA_Acceleration_Technical_Report.pdf  # 5-page empirical research whitepaper
+├── assets/
+│   └── benchmark-comparison.png # High-resolution DeepMind-style evaluation graphic
 ├── SKILL.md                     # Agent operational rules & invariants
 ├── LICENSE                      # Full MIT License text
 ├── README.md                    # Overview, quickstart & documentation
@@ -159,7 +165,9 @@ cua_driver_acceleration/
 │   └── native-shortcuts.md      # OS URI schemes, deep links & CLI shortcuts
 └── scripts/
     ├── check-setup.ps1          # Read-only environment check (Windows)
-    └── check-setup.sh           # Read-only environment check (macOS / Linux)
+    ├── check-setup.sh           # Read-only environment check (macOS / Linux)
+    ├── generate-report-pdf.py   # Publication-grade technical report PDF generator
+    └── render-benchmark.py      # Benchmark evaluation infographic generator
 ```
 
 ---
