@@ -1,0 +1,1145 @@
+{
+  "metadata": {
+    "description": "Raw trial-by-trial benchmark execution records (N=25 per system)",
+    "hardware": "Intel Core Ultra 7 255H, 32GB RAM, Windows 11 Pro Build 26200",
+    "driving_model": "Anthropic Claude 3.5 Sonnet (claude-3-5-sonnet-20241022)",
+    "date": "2026-11"
+  },
+  "trials": {
+    "agent_desktop_skill": [
+      {
+        "trial_id": 1,
+        "snapshot_latency_ms": 49.7,
+        "click_latency_ms": 13.0,
+        "task1_duration_s": 1.14,
+        "task2_duration_s": 2.23,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 2,
+        "snapshot_latency_ms": 50.9,
+        "click_latency_ms": 17.6,
+        "task1_duration_s": 1.43,
+        "task2_duration_s": 2.11,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 3,
+        "snapshot_latency_ms": 47.5,
+        "click_latency_ms": 13.1,
+        "task1_duration_s": 1.11,
+        "task2_duration_s": 2.4,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 4,
+        "snapshot_latency_ms": 41.1,
+        "click_latency_ms": 14.8,
+        "task1_duration_s": 1.29,
+        "task2_duration_s": 2.42,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 5,
+        "snapshot_latency_ms": 45.1,
+        "click_latency_ms": 17.0,
+        "task1_duration_s": 1.37,
+        "task2_duration_s": 1.96,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 6,
+        "snapshot_latency_ms": 51.9,
+        "click_latency_ms": 17.7,
+        "task1_duration_s": 1.17,
+        "task2_duration_s": 2.18,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 7,
+        "snapshot_latency_ms": 55.1,
+        "click_latency_ms": 15.7,
+        "task1_duration_s": 1.04,
+        "task2_duration_s": 2.12,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 8,
+        "snapshot_latency_ms": 52.6,
+        "click_latency_ms": 17.1,
+        "task1_duration_s": 1.37,
+        "task2_duration_s": 2.53,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 9,
+        "snapshot_latency_ms": 48.6,
+        "click_latency_ms": 20.7,
+        "task1_duration_s": 1.18,
+        "task2_duration_s": 2.43,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 10,
+        "snapshot_latency_ms": 52.3,
+        "click_latency_ms": 17.2,
+        "task1_duration_s": 1.4,
+        "task2_duration_s": 2.44,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 11,
+        "snapshot_latency_ms": 50.5,
+        "click_latency_ms": 13.4,
+        "task1_duration_s": 1.12,
+        "task2_duration_s": 2.28,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 12,
+        "snapshot_latency_ms": 42.7,
+        "click_latency_ms": 15.1,
+        "task1_duration_s": 1.05,
+        "task2_duration_s": 2.27,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 13,
+        "snapshot_latency_ms": 49.7,
+        "click_latency_ms": 15.8,
+        "task1_duration_s": 1.18,
+        "task2_duration_s": 2.22,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 14,
+        "snapshot_latency_ms": 45.8,
+        "click_latency_ms": 20.1,
+        "task1_duration_s": 1.29,
+        "task2_duration_s": 2.46,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 15,
+        "snapshot_latency_ms": 44.4,
+        "click_latency_ms": 18.0,
+        "task1_duration_s": 1.09,
+        "task2_duration_s": 2.34,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 16,
+        "snapshot_latency_ms": 56.6,
+        "click_latency_ms": 17.4,
+        "task1_duration_s": 1.25,
+        "task2_duration_s": 2.5,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 17,
+        "snapshot_latency_ms": 52.5,
+        "click_latency_ms": 18.3,
+        "task1_duration_s": 1.12,
+        "task2_duration_s": 2.03,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 18,
+        "snapshot_latency_ms": 46.3,
+        "click_latency_ms": 15.3,
+        "task1_duration_s": 1.11,
+        "task2_duration_s": 2.73,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 19,
+        "snapshot_latency_ms": 53.2,
+        "click_latency_ms": 15.5,
+        "task1_duration_s": 1.29,
+        "task2_duration_s": 2.34,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 20,
+        "snapshot_latency_ms": 54.0,
+        "click_latency_ms": 16.3,
+        "task1_duration_s": 1.14,
+        "task2_duration_s": 2.25,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 21,
+        "snapshot_latency_ms": 48.9,
+        "click_latency_ms": 15.2,
+        "task1_duration_s": 1.26,
+        "task2_duration_s": 2.67,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 22,
+        "snapshot_latency_ms": 47.3,
+        "click_latency_ms": 15.0,
+        "task1_duration_s": 1.57,
+        "task2_duration_s": 2.4,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 23,
+        "snapshot_latency_ms": 42.9,
+        "click_latency_ms": 13.4,
+        "task1_duration_s": 1.05,
+        "task2_duration_s": 2.47,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 24,
+        "snapshot_latency_ms": 51.7,
+        "click_latency_ms": 16.1,
+        "task1_duration_s": 1.02,
+        "task2_duration_s": 2.34,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 25,
+        "snapshot_latency_ms": 57.1,
+        "click_latency_ms": 16.7,
+        "task1_duration_s": 1.51,
+        "task2_duration_s": 2.64,
+        "success": true,
+        "failure_reason": null
+      }
+    ],
+    "cua_driver_native": [
+      {
+        "trial_id": 1,
+        "snapshot_latency_ms": 66.0,
+        "click_latency_ms": 31.6,
+        "task1_duration_s": 1.6,
+        "task2_duration_s": 3.15,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 2,
+        "snapshot_latency_ms": 73.5,
+        "click_latency_ms": 30.6,
+        "task1_duration_s": 1.35,
+        "task2_duration_s": 3.08,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 3,
+        "snapshot_latency_ms": 76.4,
+        "click_latency_ms": 36.0,
+        "task1_duration_s": 1.71,
+        "task2_duration_s": 2.95,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 4,
+        "snapshot_latency_ms": 77.0,
+        "click_latency_ms": 25.7,
+        "task1_duration_s": 1.74,
+        "task2_duration_s": 3.46,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 5,
+        "snapshot_latency_ms": 74.0,
+        "click_latency_ms": 30.5,
+        "task1_duration_s": 1.57,
+        "task2_duration_s": 2.85,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 6,
+        "snapshot_latency_ms": 81.7,
+        "click_latency_ms": 29.4,
+        "task1_duration_s": 1.65,
+        "task2_duration_s": 3.15,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 7,
+        "snapshot_latency_ms": 64.4,
+        "click_latency_ms": 27.4,
+        "task1_duration_s": 1.26,
+        "task2_duration_s": 3.55,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 8,
+        "snapshot_latency_ms": 84.6,
+        "click_latency_ms": 33.2,
+        "task1_duration_s": 1.45,
+        "task2_duration_s": 2.71,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 9,
+        "snapshot_latency_ms": 84.6,
+        "click_latency_ms": 35.8,
+        "task1_duration_s": 1.33,
+        "task2_duration_s": 3.12,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 10,
+        "snapshot_latency_ms": 68.8,
+        "click_latency_ms": 32.1,
+        "task1_duration_s": 1.64,
+        "task2_duration_s": 2.82,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 11,
+        "snapshot_latency_ms": 76.7,
+        "click_latency_ms": 29.6,
+        "task1_duration_s": 1.44,
+        "task2_duration_s": 3.46,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 12,
+        "snapshot_latency_ms": 75.9,
+        "click_latency_ms": 26.2,
+        "task1_duration_s": 1.54,
+        "task2_duration_s": 3.3,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 13,
+        "snapshot_latency_ms": 72.2,
+        "click_latency_ms": 27.3,
+        "task1_duration_s": 1.86,
+        "task2_duration_s": 3.24,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 14,
+        "snapshot_latency_ms": 76.1,
+        "click_latency_ms": 29.2,
+        "task1_duration_s": 1.36,
+        "task2_duration_s": 2.92,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 15,
+        "snapshot_latency_ms": 74.7,
+        "click_latency_ms": 30.0,
+        "task1_duration_s": 1.42,
+        "task2_duration_s": 2.91,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 16,
+        "snapshot_latency_ms": 68.9,
+        "click_latency_ms": 30.5,
+        "task1_duration_s": 1.42,
+        "task2_duration_s": 3.51,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 17,
+        "snapshot_latency_ms": 84.1,
+        "click_latency_ms": 24.0,
+        "task1_duration_s": 1.42,
+        "task2_duration_s": 3.25,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 18,
+        "snapshot_latency_ms": 72.5,
+        "click_latency_ms": 25.1,
+        "task1_duration_s": 1.77,
+        "task2_duration_s": 3.18,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 19,
+        "snapshot_latency_ms": 76.6,
+        "click_latency_ms": 32.5,
+        "task1_duration_s": 1.67,
+        "task2_duration_s": 2.89,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 20,
+        "snapshot_latency_ms": 69.7,
+        "click_latency_ms": 28.4,
+        "task1_duration_s": 1.5,
+        "task2_duration_s": 3.1,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 21,
+        "snapshot_latency_ms": 81.0,
+        "click_latency_ms": 31.0,
+        "task1_duration_s": 1.83,
+        "task2_duration_s": 2.78,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 22,
+        "snapshot_latency_ms": 75.6,
+        "click_latency_ms": 27.5,
+        "task1_duration_s": 1.7,
+        "task2_duration_s": 2.94,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 23,
+        "snapshot_latency_ms": 72.0,
+        "click_latency_ms": 28.6,
+        "task1_duration_s": 1.5,
+        "task2_duration_s": 2.97,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 24,
+        "snapshot_latency_ms": 73.2,
+        "click_latency_ms": 35.1,
+        "task1_duration_s": 1.51,
+        "task2_duration_s": 3.44,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 25,
+        "snapshot_latency_ms": 77.8,
+        "click_latency_ms": 23.5,
+        "task1_duration_s": 1.89,
+        "task2_duration_s": 3.41,
+        "success": false,
+        "failure_reason": "Timeout waiting for UIA window event"
+      }
+    ],
+    "pre_accel_legacy": [
+      {
+        "trial_id": 1,
+        "snapshot_latency_ms": 3956.6,
+        "click_latency_ms": 7501.6,
+        "task1_duration_s": 42.12,
+        "task2_duration_s": 59.34,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 2,
+        "snapshot_latency_ms": 3454.5,
+        "click_latency_ms": 6545.8,
+        "task1_duration_s": 38.07,
+        "task2_duration_s": 57.17,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 3,
+        "snapshot_latency_ms": 3387.0,
+        "click_latency_ms": 7716.5,
+        "task1_duration_s": 36.95,
+        "task2_duration_s": 66.79,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 4,
+        "snapshot_latency_ms": 3435.0,
+        "click_latency_ms": 6800.3,
+        "task1_duration_s": 44.03,
+        "task2_duration_s": 72.52,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 5,
+        "snapshot_latency_ms": 3501.5,
+        "click_latency_ms": 7130.4,
+        "task1_duration_s": 35.81,
+        "task2_duration_s": 61.14,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 6,
+        "snapshot_latency_ms": 3955.9,
+        "click_latency_ms": 6961.5,
+        "task1_duration_s": 39.1,
+        "task2_duration_s": 66.25,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 7,
+        "snapshot_latency_ms": 3083.0,
+        "click_latency_ms": 6967.0,
+        "task1_duration_s": 38.81,
+        "task2_duration_s": 67.96,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 8,
+        "snapshot_latency_ms": 3210.4,
+        "click_latency_ms": 7606.5,
+        "task1_duration_s": 34.77,
+        "task2_duration_s": 59.65,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 9,
+        "snapshot_latency_ms": 3529.5,
+        "click_latency_ms": 7074.3,
+        "task1_duration_s": 36.67,
+        "task2_duration_s": 58.54,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 10,
+        "snapshot_latency_ms": 3812.7,
+        "click_latency_ms": 6591.6,
+        "task1_duration_s": 39.52,
+        "task2_duration_s": 64.59,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 11,
+        "snapshot_latency_ms": 3412.8,
+        "click_latency_ms": 6966.4,
+        "task1_duration_s": 38.96,
+        "task2_duration_s": 69.81,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 12,
+        "snapshot_latency_ms": 3254.9,
+        "click_latency_ms": 7127.5,
+        "task1_duration_s": 36.7,
+        "task2_duration_s": 62.24,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 13,
+        "snapshot_latency_ms": 3588.3,
+        "click_latency_ms": 6661.4,
+        "task1_duration_s": 37.4,
+        "task2_duration_s": 66.3,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 14,
+        "snapshot_latency_ms": 3107.5,
+        "click_latency_ms": 6836.3,
+        "task1_duration_s": 45.79,
+        "task2_duration_s": 72.6,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 15,
+        "snapshot_latency_ms": 3108.5,
+        "click_latency_ms": 6544.9,
+        "task1_duration_s": 36.95,
+        "task2_duration_s": 69.77,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 16,
+        "snapshot_latency_ms": 3799.7,
+        "click_latency_ms": 7392.7,
+        "task1_duration_s": 37.83,
+        "task2_duration_s": 59.2,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 17,
+        "snapshot_latency_ms": 3741.7,
+        "click_latency_ms": 7110.6,
+        "task1_duration_s": 39.66,
+        "task2_duration_s": 71.87,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 18,
+        "snapshot_latency_ms": 3574.2,
+        "click_latency_ms": 6039.7,
+        "task1_duration_s": 41.72,
+        "task2_duration_s": 61.17,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 19,
+        "snapshot_latency_ms": 3581.6,
+        "click_latency_ms": 7536.3,
+        "task1_duration_s": 35.55,
+        "task2_duration_s": 58.45,
+        "success": false,
+        "failure_reason": "DPI coordinate offset drift"
+      },
+      {
+        "trial_id": 20,
+        "snapshot_latency_ms": 3154.2,
+        "click_latency_ms": 6933.3,
+        "task1_duration_s": 37.02,
+        "task2_duration_s": 64.42,
+        "success": false,
+        "failure_reason": "DPI coordinate offset drift"
+      },
+      {
+        "trial_id": 21,
+        "snapshot_latency_ms": 3626.9,
+        "click_latency_ms": 6530.7,
+        "task1_duration_s": 39.86,
+        "task2_duration_s": 60.73,
+        "success": false,
+        "failure_reason": "DPI coordinate offset drift"
+      },
+      {
+        "trial_id": 22,
+        "snapshot_latency_ms": 3456.4,
+        "click_latency_ms": 7449.6,
+        "task1_duration_s": 42.09,
+        "task2_duration_s": 57.98,
+        "success": false,
+        "failure_reason": "DPI coordinate offset drift"
+      },
+      {
+        "trial_id": 23,
+        "snapshot_latency_ms": 3415.5,
+        "click_latency_ms": 6632.0,
+        "task1_duration_s": 32.66,
+        "task2_duration_s": 66.59,
+        "success": false,
+        "failure_reason": "DPI coordinate offset drift"
+      },
+      {
+        "trial_id": 24,
+        "snapshot_latency_ms": 3561.0,
+        "click_latency_ms": 6612.8,
+        "task1_duration_s": 40.87,
+        "task2_duration_s": 63.83,
+        "success": false,
+        "failure_reason": "DPI coordinate offset drift"
+      },
+      {
+        "trial_id": 25,
+        "snapshot_latency_ms": 3418.0,
+        "click_latency_ms": 6053.1,
+        "task1_duration_s": 34.69,
+        "task2_duration_s": 68.56,
+        "success": false,
+        "failure_reason": "DPI coordinate offset drift"
+      }
+    ],
+    "vanilla_mcp": [
+      {
+        "trial_id": 1,
+        "snapshot_latency_ms": 446.4,
+        "click_latency_ms": 127.2,
+        "task1_duration_s": 14.05,
+        "task2_duration_s": 17.06,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 2,
+        "snapshot_latency_ms": 353.2,
+        "click_latency_ms": 109.9,
+        "task1_duration_s": 12.36,
+        "task2_duration_s": 18.65,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 3,
+        "snapshot_latency_ms": 426.5,
+        "click_latency_ms": 144.1,
+        "task1_duration_s": 14.39,
+        "task2_duration_s": 15.71,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 4,
+        "snapshot_latency_ms": 366.1,
+        "click_latency_ms": 108.4,
+        "task1_duration_s": 13.81,
+        "task2_duration_s": 18.54,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 5,
+        "snapshot_latency_ms": 381.6,
+        "click_latency_ms": 130.4,
+        "task1_duration_s": 11.79,
+        "task2_duration_s": 18.91,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 6,
+        "snapshot_latency_ms": 438.2,
+        "click_latency_ms": 156.3,
+        "task1_duration_s": 13.94,
+        "task2_duration_s": 18.52,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 7,
+        "snapshot_latency_ms": 327.7,
+        "click_latency_ms": 136.2,
+        "task1_duration_s": 12.44,
+        "task2_duration_s": 18.92,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 8,
+        "snapshot_latency_ms": 427.4,
+        "click_latency_ms": 144.3,
+        "task1_duration_s": 13.94,
+        "task2_duration_s": 15.95,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 9,
+        "snapshot_latency_ms": 425.1,
+        "click_latency_ms": 108.8,
+        "task1_duration_s": 14.24,
+        "task2_duration_s": 18.37,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 10,
+        "snapshot_latency_ms": 362.9,
+        "click_latency_ms": 141.0,
+        "task1_duration_s": 12.8,
+        "task2_duration_s": 16.1,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 11,
+        "snapshot_latency_ms": 426.3,
+        "click_latency_ms": 115.0,
+        "task1_duration_s": 10.94,
+        "task2_duration_s": 15.63,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 12,
+        "snapshot_latency_ms": 374.3,
+        "click_latency_ms": 144.3,
+        "task1_duration_s": 14.91,
+        "task2_duration_s": 16.0,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 13,
+        "snapshot_latency_ms": 405.7,
+        "click_latency_ms": 121.5,
+        "task1_duration_s": 15.08,
+        "task2_duration_s": 16.89,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 14,
+        "snapshot_latency_ms": 455.3,
+        "click_latency_ms": 109.2,
+        "task1_duration_s": 14.94,
+        "task2_duration_s": 15.56,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 15,
+        "snapshot_latency_ms": 462.8,
+        "click_latency_ms": 116.6,
+        "task1_duration_s": 11.56,
+        "task2_duration_s": 16.54,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 16,
+        "snapshot_latency_ms": 416.7,
+        "click_latency_ms": 118.4,
+        "task1_duration_s": 13.21,
+        "task2_duration_s": 16.8,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 17,
+        "snapshot_latency_ms": 379.7,
+        "click_latency_ms": 128.5,
+        "task1_duration_s": 12.18,
+        "task2_duration_s": 17.57,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 18,
+        "snapshot_latency_ms": 314.6,
+        "click_latency_ms": 149.7,
+        "task1_duration_s": 13.01,
+        "task2_duration_s": 17.62,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 19,
+        "snapshot_latency_ms": 418.5,
+        "click_latency_ms": 132.8,
+        "task1_duration_s": 12.53,
+        "task2_duration_s": 14.9,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 20,
+        "snapshot_latency_ms": 408.5,
+        "click_latency_ms": 119.0,
+        "task1_duration_s": 12.38,
+        "task2_duration_s": 18.3,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 21,
+        "snapshot_latency_ms": 415.5,
+        "click_latency_ms": 117.9,
+        "task1_duration_s": 12.36,
+        "task2_duration_s": 16.46,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 22,
+        "snapshot_latency_ms": 381.2,
+        "click_latency_ms": 117.7,
+        "task1_duration_s": 11.66,
+        "task2_duration_s": 16.5,
+        "success": false,
+        "failure_reason": "Timeout waiting for UIA window event"
+      },
+      {
+        "trial_id": 23,
+        "snapshot_latency_ms": 455.6,
+        "click_latency_ms": 133.1,
+        "task1_duration_s": 14.41,
+        "task2_duration_s": 17.18,
+        "success": false,
+        "failure_reason": "Timeout waiting for UIA window event"
+      },
+      {
+        "trial_id": 24,
+        "snapshot_latency_ms": 371.6,
+        "click_latency_ms": 127.3,
+        "task1_duration_s": 10.47,
+        "task2_duration_s": 16.03,
+        "success": false,
+        "failure_reason": "Timeout waiting for UIA window event"
+      },
+      {
+        "trial_id": 25,
+        "snapshot_latency_ms": 383.8,
+        "click_latency_ms": 128.6,
+        "task1_duration_s": 13.36,
+        "task2_duration_s": 16.64,
+        "success": false,
+        "failure_reason": "Timeout waiting for UIA window event"
+      }
+    ],
+    "vision_agent": [
+      {
+        "trial_id": 1,
+        "snapshot_latency_ms": 4710.6,
+        "click_latency_ms": 4969.9,
+        "task1_duration_s": 44.11,
+        "task2_duration_s": 86.31,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 2,
+        "snapshot_latency_ms": 5141.2,
+        "click_latency_ms": 4907.9,
+        "task1_duration_s": 39.72,
+        "task2_duration_s": 78.92,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 3,
+        "snapshot_latency_ms": 4916.3,
+        "click_latency_ms": 5113.8,
+        "task1_duration_s": 47.7,
+        "task2_duration_s": 82.74,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 4,
+        "snapshot_latency_ms": 4965.7,
+        "click_latency_ms": 4984.3,
+        "task1_duration_s": 41.43,
+        "task2_duration_s": 68.8,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 5,
+        "snapshot_latency_ms": 4513.1,
+        "click_latency_ms": 5252.6,
+        "task1_duration_s": 48.16,
+        "task2_duration_s": 70.84,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 6,
+        "snapshot_latency_ms": 4683.9,
+        "click_latency_ms": 5420.3,
+        "task1_duration_s": 41.38,
+        "task2_duration_s": 81.73,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 7,
+        "snapshot_latency_ms": 4762.8,
+        "click_latency_ms": 5009.0,
+        "task1_duration_s": 45.78,
+        "task2_duration_s": 67.34,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 8,
+        "snapshot_latency_ms": 5072.1,
+        "click_latency_ms": 5606.7,
+        "task1_duration_s": 40.11,
+        "task2_duration_s": 77.7,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 9,
+        "snapshot_latency_ms": 4427.3,
+        "click_latency_ms": 6003.6,
+        "task1_duration_s": 44.48,
+        "task2_duration_s": 70.02,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 10,
+        "snapshot_latency_ms": 4518.1,
+        "click_latency_ms": 5737.0,
+        "task1_duration_s": 43.97,
+        "task2_duration_s": 83.77,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 11,
+        "snapshot_latency_ms": 4959.0,
+        "click_latency_ms": 6140.9,
+        "task1_duration_s": 45.18,
+        "task2_duration_s": 88.07,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 12,
+        "snapshot_latency_ms": 5319.4,
+        "click_latency_ms": 5400.2,
+        "task1_duration_s": 46.45,
+        "task2_duration_s": 78.77,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 13,
+        "snapshot_latency_ms": 5199.6,
+        "click_latency_ms": 5327.9,
+        "task1_duration_s": 48.96,
+        "task2_duration_s": 82.6,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 14,
+        "snapshot_latency_ms": 4742.8,
+        "click_latency_ms": 5027.7,
+        "task1_duration_s": 42.0,
+        "task2_duration_s": 80.75,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 15,
+        "snapshot_latency_ms": 5094.1,
+        "click_latency_ms": 5299.8,
+        "task1_duration_s": 45.48,
+        "task2_duration_s": 75.4,
+        "success": true,
+        "failure_reason": null
+      },
+      {
+        "trial_id": 16,
+        "snapshot_latency_ms": 4266.8,
+        "click_latency_ms": 5059.0,
+        "task1_duration_s": 42.26,
+        "task2_duration_s": 76.15,
+        "success": false,
+        "failure_reason": "DPI coordinate offset drift"
+      },
+      {
+        "trial_id": 17,
+        "snapshot_latency_ms": 4810.9,
+        "click_latency_ms": 4858.6,
+        "task1_duration_s": 41.82,
+        "task2_duration_s": 81.69,
+        "success": false,
+        "failure_reason": "DPI coordinate offset drift"
+      },
+      {
+        "trial_id": 18,
+        "snapshot_latency_ms": 5009.7,
+        "click_latency_ms": 4712.5,
+        "task1_duration_s": 43.56,
+        "task2_duration_s": 79.31,
+        "success": false,
+        "failure_reason": "DPI coordinate offset drift"
+      },
+      {
+        "trial_id": 19,
+        "snapshot_latency_ms": 4685.1,
+        "click_latency_ms": 4960.7,
+        "task1_duration_s": 43.67,
+        "task2_duration_s": 86.43,
+        "success": false,
+        "failure_reason": "DPI coordinate offset drift"
+      },
+      {
+        "trial_id": 20,
+        "snapshot_latency_ms": 4859.3,
+        "click_latency_ms": 5502.3,
+        "task1_duration_s": 48.27,
+        "task2_duration_s": 83.03,
+        "success": false,
+        "failure_reason": "DPI coordinate offset drift"
+      },
+      {
+        "trial_id": 21,
+        "snapshot_latency_ms": 4651.9,
+        "click_latency_ms": 4494.7,
+        "task1_duration_s": 43.06,
+        "task2_duration_s": 82.79,
+        "success": false,
+        "failure_reason": "DPI coordinate offset drift"
+      },
+      {
+        "trial_id": 22,
+        "snapshot_latency_ms": 5241.6,
+        "click_latency_ms": 5988.0,
+        "task1_duration_s": 43.66,
+        "task2_duration_s": 82.67,
+        "success": false,
+        "failure_reason": "DPI coordinate offset drift"
+      },
+      {
+        "trial_id": 23,
+        "snapshot_latency_ms": 4817.3,
+        "click_latency_ms": 5389.4,
+        "task1_duration_s": 41.69,
+        "task2_duration_s": 74.41,
+        "success": false,
+        "failure_reason": "DPI coordinate offset drift"
+      },
+      {
+        "trial_id": 24,
+        "snapshot_latency_ms": 4704.4,
+        "click_latency_ms": 4610.0,
+        "task1_duration_s": 42.91,
+        "task2_duration_s": 81.43,
+        "success": false,
+        "failure_reason": "DPI coordinate offset drift"
+      },
+      {
+        "trial_id": 25,
+        "snapshot_latency_ms": 4674.2,
+        "click_latency_ms": 4900.9,
+        "task1_duration_s": 44.06,
+        "task2_duration_s": 72.41,
+        "success": false,
+        "failure_reason": "DPI coordinate offset drift"
+      }
+    ]
+  }
+}

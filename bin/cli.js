@@ -153,6 +153,12 @@ function detectTargets() {
     targets.push({ name: 'Antigravity (Global)', path: antigravityPath });
   }
 
+  // 1b. Antigravity Project Workspace Skills
+  const antigravityLocalPath = path.join(cwd, '.gemini', 'skills');
+  if (fs.existsSync(path.join(cwd, '.gemini'))) {
+    targets.push({ name: 'Antigravity (Local Workspace)', path: antigravityLocalPath });
+  }
+
   // 2. Claude Code Global Skills
   const claudeGlobalPath = path.join(home, '.claude', 'skills');
   if (fs.existsSync(path.join(home, '.claude')) || fs.existsSync(claudeGlobalPath)) {

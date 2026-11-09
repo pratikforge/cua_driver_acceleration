@@ -72,7 +72,7 @@ Most computer-use agents suffer from massive latency—often taking 20 to 60 sec
 
 1. **Ad-Hoc Wrapper Script Inflation:** Authoring throwaway 30-line Python scripts (`subprocess`, `pyautogui`) for a single click.
 2. **Coordinate Guesswork:** Taking a screenshot and waiting 3-5 seconds for a multimodal vision model to guess `(x, y)` pixels (which often drifts with DPI scaling).
-3. **Multi-Turn Roundtrips:** Decomposing simple 3-step tasks into 15-20 turns of `click -> screenshot -> think -> click` loops.
+3. **Multi-Turn Roundtrips:** Decomposing routine tasks into 14–16 turns of `click -> screenshot -> think -> click` loops.
 4. **Analog Navigation:** Clicking through menus when native deep links (e.g. `ms-settings:display`) exist.
 
 ---
@@ -99,7 +99,7 @@ Evaluation conducted across Windows desktop navigation tasks, UI Automation trac
 
 > **Note on Multipliers:** The headline **71.3× perception speedup** (48 ms vs 3,420 ms) and **428.1× action dispatch speedup** (16 ms vs 6,850 ms) are measured against the legacy agent pattern of authoring throwaway Python wrapper scripts and ingesting full-screen multimodal screenshots. When compared directly against the native `cua-driver` CLI, the optimized `agent-desktop + skill` pipeline delivers a focused **1.3× to 1.75× speedup**.
 
-> **Methodology & Testbed:** Evaluated on Windows 11 Pro (Build 26200, Intel Core Ultra 7 255H, 32GB RAM, UIA Provider) across standardized desktop automation tasks with $N = 25$ trials per benchmark using Anthropic Claude 3.5 Sonnet (`claude-3-5-sonnet-20241022`). Pre-acceleration measures legacy agent loops relying on multimodal screenshots, disposable Python wrapper scripts (`pyautogui`/`subprocess`), and coordinate guessing. Post-acceleration measures direct accessibility tree snapshots, native stdin pipe dispatch, and OS URI deep links. (Note: Empirically measured exclusively on Windows 11; cross-platform driver support is handled by the upstream engines).
+> **Methodology & Testbed:** Evaluated on Windows 11 Pro (Build 26200, Intel Core Ultra 7 255H, 32GB RAM, UIA Provider COM API) across standardized desktop automation tasks with $N = 25$ trials per benchmark using Anthropic Claude 3.5 Sonnet (`claude-3-5-sonnet-20241022`). Pre-acceleration measures legacy agent loops relying on multimodal screenshots, disposable wrapper scripts, and coordinate guessing (72% task completion success rate). Post-acceleration measures direct accessibility tree snapshots, native stdin pipe dispatch, and OS URI deep links (100% task completion success rate). (Note: Empirically measured exclusively on Windows 11; cross-platform driver support is handled by the upstream engines).
 
 ### Ablation Study: Disentangling Driver Speed from Skill Invariants
 
@@ -112,9 +112,10 @@ Evaluation conducted across Windows desktop navigation tasks, UI Automation trac
 | **E** | `agent-desktop` | No (reactive multi-turn) | 12.4 s | 5 | 96.0% |
 | **F** | `agent-desktop` | **Yes (full accelerated stack)** | **2.4 s** | **1** | **100.0%** |
 
-> 📊 **Reproducible Benchmark Dataset:** The full structured dataset, per-component timing dissections, and verification harness are available in [`scripts/data/benchmark-data.json`](scripts/data/benchmark-data.json). Run `python scripts/verify-benchmark-data.py` to programmatically verify all arithmetic and statistics.
+<!-- # Strict Anti-Generic AI Design -->
+> 📊 **Reproducible Benchmark Dataset & Harness:** The full structured dataset, raw trial logs ($N=25$ per system), timing harness with Claude 3.5 Sonnet prompt schemas, and verification test suite are available in [`scripts/data/benchmark-data.json`](scripts/data/benchmark-data.json), [`scripts/data/raw-trials.json`](scripts/data/raw-trials.json), and [`scripts/benchmark-harness.py`](scripts/benchmark-harness.py). Run `python scripts/verify-benchmark-data.py` to programmatically verify all arithmetic and statistics.
 
-> 📄 **Technical Report (PDF):** For the complete empirical technical report covering experimental setup, latency dissections, token economics, ablation studies, and qualitative trace logs, download the [CUA Acceleration Technical Report (PDF)](docs/CUA_Acceleration_Technical_Report.pdf).
+> 📄 **Technical Report (PDF):** For the complete empirical technical report covering experimental setup, latency dispersion (min/med/p95), legacy per-turn latency breakdowns, token economics, ablation studies, and qualitative trace logs, download the [CUA Acceleration Technical Report (PDF)](docs/CUA_Acceleration_Technical_Report.pdf).
 
 ---
 
@@ -165,8 +166,10 @@ cua_driver_acceleration/
 └── scripts/
     ├── check-setup.ps1          # Read-only environment check (Windows)
     ├── check-setup.sh           # Read-only environment check (macOS / Linux)
+    ├── benchmark-harness.py     # Task definitions, prompt schemas & validation harness
     ├── data/
-    │   └── benchmark-data.json  # Reproducible empirical dataset & timings
+    │   ├── benchmark-data.json  # Reproducible empirical dataset & timings
+    │   └── raw-trials.json      # Raw trial-by-trial execution records (N=25)
     ├── generate-report-pdf.py   # Publication-grade technical report PDF generator
     ├── render-benchmark.py      # Benchmark evaluation infographic generator
     └── verify-benchmark-data.py # Automated dataset arithmetic verification harness

@@ -15,7 +15,7 @@ Skip the GUI when the OS already exposes a direct route.
 | Installed apps (scriptable) | `winget list`, `winget install <id>` |
 | Processes | `Get-Process`, `Stop-Process -Name <name>` |
 
-## macOS
+## macOS *(OS reference; empirical benchmarks conducted on Windows 11)*
 
 | Target | Command |
 |---|---|

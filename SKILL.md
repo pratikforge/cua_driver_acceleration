@@ -17,7 +17,7 @@ Most computer-use latency comes from agent habits, not from the driver. The four
 
 1. Writing a 30-line Python wrapper to send one click.
 2. Taking a screenshot and guessing `(x, y)` pixel coordinates.
-3. Splitting a 3-step task into 20 click -> screenshot -> think turns.
+3. Splitting a routine task into 14–16 click -> screenshot -> think turns.
 4. Clicking through menus when a deep link or CLI flag already does the job.
 
 This skill removes all four. Follow the sections in order.
@@ -71,7 +71,7 @@ Deep links per OS: [references/native-shortcuts.md](references/native-shortcuts.
 
 ## Rule 2: No wrapper scripts for actions
 
-Do **not** write Python, Node, or shell wrapper files (and avoid generating ad-hoc wrapper scripts when a direct CLI call exists) to perform clicks, keystrokes, window lookups, or coordinate searches.
+Avoid generating ad-hoc Python, Node, or shell wrapper scripts when a direct CLI call exists to perform clicks, keystrokes, window lookups, or coordinate searches.
 
 Call the backend directly, one line per action:
 
