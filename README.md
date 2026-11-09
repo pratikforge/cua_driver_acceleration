@@ -134,7 +134,7 @@ cua_driver_acceleration/
 ├── bin/
 │   └── cli.js                   # Zero-dependency NPX skill installer
 ├── docs/
-│   └── CUA_Acceleration_Technical_Report.pdf  # 5-page empirical research whitepaper
+│   └── CUA_Acceleration_Technical_Report.pdf  # 6-page empirical research whitepaper
 ├── assets/
 │   └── benchmark-comparison.png # High-resolution DeepMind-style evaluation graphic
 ├── SKILL.md                     # Agent operational rules & invariants
