@@ -23,21 +23,45 @@ npx github:pratikforge/cua_driver_acceleration
 npx cua_driver_acceleration
 ```
 
-### CLI Options
+### CLI Options & Targeting
 
 ```bash
 # Check installed drivers (read-only audit without writing files)
 npx github:pratikforge/cua_driver_acceleration --check
 
-# Install specifically for Antigravity
-npx github:pratikforge/cua_driver_acceleration --target antigravity
+# Auto-detect all active agent harnesses and install
+npx github:pratikforge/cua_driver_acceleration
 
-# Install specifically for Claude Code
+# Target specific agent harnesses
+npx github:pratikforge/cua_driver_acceleration --target antigravity
 npx github:pratikforge/cua_driver_acceleration --target claude
+npx github:pratikforge/cua_driver_acceleration --target codex
+npx github:pratikforge/cua_driver_acceleration --target opencode
+npx github:pratikforge/cua_driver_acceleration --target cursor
+npx github:pratikforge/cua_driver_acceleration --target windsurf
+npx github:pratikforge/cua_driver_acceleration --target roo
+npx github:pratikforge/cua_driver_acceleration --target universal
 
 # Install into a custom directory
 npx github:pratikforge/cua_driver_acceleration --path ./my-agent/skills
 ```
+
+---
+
+## Supported Agent Harnesses
+
+The installer auto-detects and installs into both global user directories and project-local workspaces:
+
+| Agent Harness | Supported Location | Detection Target |
+|---|---|---|
+| **Antigravity** | `~/.gemini/config/skills/cua_driver_acceleration/` | Global config |
+| **Claude Code** | `~/.claude/skills/` or `./.claude/skills/` | Global & Workspace |
+| **OpenAI Codex** | `~/.codex/skills/` or `./.codex/skills/` | `$CODEX_HOME` & Workspace |
+| **OpenCode** | `~/.config/opencode/skills/` or `./.opencode/skills/` | Global & Workspace |
+| **Cursor** | `./.cursor/skills/` or `.cursorrules` | Project Workspace |
+| **Windsurf (Codeium)** | `~/.codeium/windsurf/skills/` or `./.windsurf/skills/` | Global & Workspace |
+| **Roo Code / Cline** | `./.roo/skills/` or `./.cline/skills/` | Project Workspace |
+| **Universal Standard** | `~/.agents/skills/` or `./.agents/skills/` | Universal Agent Spec |
 
 ---
 

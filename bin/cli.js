@@ -4,7 +4,7 @@
  * cua_driver_acceleration CLI
  * Fast, deterministic desktop automation skill installer for AI agents.
  * 
- * Works with Antigravity, Claude Code, Cursor, Codex, and shell-capable agents.
+ * Works with Antigravity, Claude Code, OpenAI Codex, OpenCode, Cursor, Windsurf, Roo Code, and more.
  * Usage:
  *   npx github:pratikforge/cua_driver_acceleration
  *   npx cua_driver_acceleration [options]
@@ -31,6 +31,7 @@ const color = {
   bold: (s) => (useColor ? `\x1b[1m${s}\x1b[0m` : s),
   dim: (s) => (useColor ? `\x1b[2m${s}\x1b[0m` : s),
   red: (s) => (useColor ? `\x1b[31m${s}\x1b[0m` : s),
+  magenta: (s) => (useColor ? `\x1b[35m${s}\x1b[0m` : s),
 };
 
 function printBanner() {
@@ -48,14 +49,27 @@ function printHelp() {
 
 Options:
   --check                 Run read-only system audit for cua-driver and agent-desktop
-  --target <agent>        Install specifically for: antigravity, claude, cursor, or all
+  --target <harness>      Install specifically for:
+                          antigravity, claude, codex, opencode, cursor, windsurf, roo, or all
   --path <directory>      Install into a custom directory
   -v, --version           Print version information
   -h, --help              Show this help message
 
+Supported Agent Harnesses:
+  • Antigravity           ~/.gemini/config/skills/
+  • Claude Code           ~/.claude/skills/ or ./.claude/skills/
+  • OpenAI Codex          ~/.codex/skills/ or ./.codex/skills/
+  • OpenCode              ~/.config/opencode/skills/ or ./.opencode/skills/
+  • Cursor                ./.cursor/skills/
+  • Windsurf (Codeium)    ~/.codeium/windsurf/skills/ or ./.windsurf/skills/
+  • Roo Code / Cline      ./.roo/skills/ or ./.cline/skills/
+  • Universal Agent Std   ~/.agents/skills/
+
 Examples:
   npx cua_driver_acceleration               # Auto-detects agent environments and installs
   npx cua_driver_acceleration --check       # Checks installed drivers without writing files
+  npx cua_driver_acceleration --target codex # Installs for OpenAI Codex
+  npx cua_driver_acceleration --target opencode # Installs for OpenCode
   npx cua_driver_acceleration --target all  # Installs into all detected agent platforms
 `);
 }
@@ -139,10 +153,63 @@ function detectTargets() {
     targets.push({ name: 'Claude Code (Global)', path: claudeGlobalPath });
   }
 
-  // 3. Claude Code Project Skills (if current workspace has .claude)
+  // 3. Claude Code Project Skills
   const claudeLocalPath = path.join(cwd, '.claude', 'skills');
   if (fs.existsSync(path.join(cwd, '.claude'))) {
-    targets.push({ name: 'Claude Code (Local Project)', path: claudeLocalPath });
+    targets.push({ name: 'Claude Code (Local Workspace)', path: claudeLocalPath });
+  }
+
+  // 4. OpenAI Codex Global Skills
+  const codexHome = process.env.CODEX_HOME || path.join(home, '.codex');
+  const codexGlobalPath = path.join(codexHome, 'skills');
+  if (fs.existsSync(codexHome) || fs.existsSync(codexGlobalPath)) {
+    targets.push({ name: 'OpenAI Codex (Global)', path: codexGlobalPath });
+  }
+
+  // 5. OpenAI Codex Local Workspace Skills
+  const codexLocalPath = path.join(cwd, '.codex', 'skills');
+  if (fs.existsSync(path.join(cwd, '.codex'))) {
+    targets.push({ name: 'OpenAI Codex (Local Workspace)', path: codexLocalPath });
+  }
+
+  // 6. OpenCode Global Skills (~/.config/opencode/skills)
+  const opencodeGlobalPath = path.join(home, '.config', 'opencode', 'skills');
+  if (fs.existsSync(path.join(home, '.config', 'opencode')) || fs.existsSync(opencodeGlobalPath)) {
+    targets.push({ name: 'OpenCode (Global)', path: opencodeGlobalPath });
+  }
+
+  // 7. OpenCode Local Workspace Skills (.opencode/skills)
+  const opencodeLocalPath = path.join(cwd, '.opencode', 'skills');
+  if (fs.existsSync(path.join(cwd, '.opencode'))) {
+    targets.push({ name: 'OpenCode (Local Workspace)', path: opencodeLocalPath });
+  }
+
+  // 8. Cursor Local Skills
+  const cursorLocalPath = path.join(cwd, '.cursor', 'skills');
+  if (fs.existsSync(path.join(cwd, '.cursor'))) {
+    targets.push({ name: 'Cursor (Local Workspace)', path: cursorLocalPath });
+  }
+
+  // 9. Windsurf (Codeium) Skills
+  const windsurfGlobalPath = path.join(home, '.codeium', 'windsurf', 'skills');
+  const windsurfLocalPath = path.join(cwd, '.windsurf', 'skills');
+  if (fs.existsSync(path.join(home, '.codeium', 'windsurf')) || fs.existsSync(windsurfGlobalPath)) {
+    targets.push({ name: 'Windsurf (Global)', path: windsurfGlobalPath });
+  }
+  if (fs.existsSync(path.join(cwd, '.windsurf'))) {
+    targets.push({ name: 'Windsurf (Local Workspace)', path: windsurfLocalPath });
+  }
+
+  // 10. Roo Code / Cline Skills
+  const rooLocalPath = path.join(cwd, '.roo', 'skills');
+  if (fs.existsSync(path.join(cwd, '.roo'))) {
+    targets.push({ name: 'Roo Code (Local Workspace)', path: rooLocalPath });
+  }
+
+  // 11. Universal Agent Skills (~/.agents/skills)
+  const universalPath = path.join(home, '.agents', 'skills');
+  if (fs.existsSync(path.join(home, '.agents')) || fs.existsSync(universalPath)) {
+    targets.push({ name: 'Universal Agent Standard (~/.agents/skills)', path: universalPath });
   }
 
   return targets;
@@ -189,20 +256,35 @@ function main() {
 
   // Detect available agents
   const detected = detectTargets();
+  const home = os.homedir();
+  const cwd = process.cwd();
 
   if (specificTarget) {
-    const home = os.homedir();
     if (specificTarget === 'antigravity') {
       installSkillInto(path.join(home, '.gemini', 'config', 'skills'), 'Antigravity');
     } else if (specificTarget === 'claude') {
       installSkillInto(path.join(home, '.claude', 'skills'), 'Claude Code');
+    } else if (specificTarget === 'codex') {
+      const codexPath = process.env.CODEX_HOME ? path.join(process.env.CODEX_HOME, 'skills') : path.join(home, '.codex', 'skills');
+      installSkillInto(codexPath, 'OpenAI Codex');
+    } else if (specificTarget === 'opencode') {
+      installSkillInto(path.join(home, '.config', 'opencode', 'skills'), 'OpenCode');
     } else if (specificTarget === 'cursor') {
-      installSkillInto(path.join(process.cwd(), '.cursor', 'skills'), 'Cursor');
+      installSkillInto(path.join(cwd, '.cursor', 'skills'), 'Cursor');
+    } else if (specificTarget === 'windsurf') {
+      installSkillInto(path.join(home, '.codeium', 'windsurf', 'skills'), 'Windsurf');
+    } else if (specificTarget === 'roo' || specificTarget === 'cline') {
+      installSkillInto(path.join(cwd, '.roo', 'skills'), 'Roo Code');
+    } else if (specificTarget === 'universal') {
+      installSkillInto(path.join(home, '.agents', 'skills'), 'Universal Agent Standard');
     } else if (specificTarget === 'all') {
       if (detected.length === 0) {
-        // Fallback default
+        // Fallback: install to standard locations
         installSkillInto(path.join(home, '.gemini', 'config', 'skills'), 'Antigravity');
         installSkillInto(path.join(home, '.claude', 'skills'), 'Claude Code');
+        installSkillInto(path.join(home, '.config', 'opencode', 'skills'), 'OpenCode');
+        installSkillInto(path.join(home, '.codex', 'skills'), 'OpenAI Codex');
+        installSkillInto(path.join(home, '.agents', 'skills'), 'Universal Agent Standard');
       } else {
         for (const t of detected) {
           installSkillInto(t.path, t.name);
@@ -210,7 +292,7 @@ function main() {
       }
     } else {
       console.log(color.red(`Unknown target: ${specificTarget}`));
-      console.log('Supported targets: antigravity, claude, cursor, all');
+      console.log('Supported targets: antigravity, claude, codex, opencode, cursor, windsurf, roo, universal, all');
       process.exit(1);
     }
     console.log(color.green('✔ Installation complete.'));
@@ -224,11 +306,11 @@ function main() {
       installSkillInto(t.path, t.name);
     }
   } else {
-    // No existing config directory found, install in local project .skills directory
-    const fallbackPath = path.join(process.cwd(), '.skills');
-    console.log(color.yellow('No existing ~/.gemini/config/skills or ~/.claude/skills found.'));
-    console.log(`Installing into local project directory: ${fallbackPath}\n`);
-    installSkillInto(fallbackPath, 'Local Project Skills');
+    // No specific agent directory found; install to universal ~/.agents/skills and local .skills
+    const universalPath = path.join(home, '.agents', 'skills');
+    console.log(color.yellow('No pre-configured agent directory detected.'));
+    console.log(`Installing into Universal Agent Standard directory: ${universalPath}\n`);
+    installSkillInto(universalPath, 'Universal Agent Standard (~/.agents/skills)');
   }
 
   console.log(color.bold(color.green('✔ Skill installed and ready to use!\n')));
