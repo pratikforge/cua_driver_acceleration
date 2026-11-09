@@ -127,10 +127,16 @@ function installSkillInto(targetDir, agentName) {
     copyDirectory(refDir, path.join(dest, 'references'));
   }
 
-  // Copy scripts directory
+  // Copy runtime environment check scripts (omit report/benchmark generators from skill)
   const scriptsDir = path.join(ROOT_DIR, 'scripts');
   if (fs.existsSync(scriptsDir)) {
-    copyDirectory(scriptsDir, path.join(dest, 'scripts'));
+    const destScripts = path.join(dest, 'scripts');
+    fs.mkdirSync(destScripts, { recursive: true });
+    for (const file of fs.readdirSync(scriptsDir)) {
+      if (file.startsWith('check-setup')) {
+        fs.copyFileSync(path.join(scriptsDir, file), path.join(destScripts, file));
+      }
+    }
   }
 
   console.log(`  ${color.green('✔')} Successfully installed into ${agentName}\n`);

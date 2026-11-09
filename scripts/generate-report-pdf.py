@@ -65,12 +65,12 @@ def build_pdf(output_pdf_path):
         bottomMargin=46
     )
 
-    # Typography & Styles
+    # Typography & Styles with Spacious, Breathable Leading (no packed lines)
     title_style = ParagraphStyle(
         "DocTitle",
         fontName="Helvetica-Bold",
         fontSize=20,
-        leading=24,
+        leading=25,
         textColor=colors.HexColor("#0f172a"),
         spaceAfter=5
     )
@@ -78,8 +78,8 @@ def build_pdf(output_pdf_path):
     subtitle_style = ParagraphStyle(
         "DocSubTitle",
         fontName="Helvetica",
-        fontSize=9.5,
-        leading=13.5,
+        fontSize=10,
+        leading=14.5,
         textColor=colors.HexColor("#475569"),
         spaceAfter=12
     )
@@ -87,74 +87,74 @@ def build_pdf(output_pdf_path):
     meta_style = ParagraphStyle(
         "DocMeta",
         fontName="Helvetica",
-        fontSize=8,
-        leading=11,
+        fontSize=8.2,
+        leading=12,
         textColor=colors.HexColor("#64748b")
     )
 
     h1_style = ParagraphStyle(
         "SectionH1",
         fontName="Helvetica-Bold",
-        fontSize=11.5,
-        leading=15,
+        fontSize=12,
+        leading=16.5,
         textColor=colors.HexColor("#0f172a"),
-        spaceBefore=10,
-        spaceAfter=5,
+        spaceBefore=14,
+        spaceAfter=8,
         keepWithNext=True
     )
 
     h2_style = ParagraphStyle(
         "SectionH2",
         fontName="Helvetica-Bold",
-        fontSize=9,
-        leading=12.5,
+        fontSize=9.8,
+        leading=13.5,
         textColor=colors.HexColor("#1e293b"),
-        spaceBefore=7,
-        spaceAfter=3,
+        spaceBefore=11,
+        spaceAfter=5,
         keepWithNext=True
     )
 
     body_style = ParagraphStyle(
         "BodyDark",
         fontName="Helvetica",
-        fontSize=8.2,
-        leading=11.5,
+        fontSize=8.8,
+        leading=13.5,
         textColor=colors.HexColor("#334155"),
-        spaceAfter=5
+        spaceAfter=7
     )
 
     bullet_style = ParagraphStyle(
         "BulletDark",
         fontName="Helvetica",
-        fontSize=8.2,
-        leading=11.5,
+        fontSize=8.8,
+        leading=13.5,
         textColor=colors.HexColor("#334155"),
-        leftIndent=12,
-        firstLineIndent=-8,
-        spaceAfter=2.5
+        leftIndent=14,
+        firstLineIndent=-9,
+        spaceAfter=5
     )
 
     abstract_style = ParagraphStyle(
         "AbstractText",
         fontName="Helvetica-Oblique",
-        fontSize=8.2,
-        leading=12,
+        fontSize=8.8,
+        leading=13.5,
         textColor=colors.HexColor("#1e293b")
     )
 
     code_style = ParagraphStyle(
         "CodeText",
         fontName="Courier",
-        fontSize=7,
-        leading=9.5,
+        fontSize=7.2,
+        leading=10.5,
         textColor=colors.HexColor("#0f172a")
     )
 
     tbl_header = ParagraphStyle(
         "TblHeader",
         fontName="Helvetica-Bold",
-        fontSize=6.8,
-        leading=8.5,
+        fontSize=7.2,
+        leading=9.5,
         textColor=colors.HexColor("#0f172a"),
         alignment=1
     )
@@ -162,8 +162,8 @@ def build_pdf(output_pdf_path):
     tbl_cell = ParagraphStyle(
         "TblCell",
         fontName="Helvetica",
-        fontSize=7,
-        leading=9,
+        fontSize=7.5,
+        leading=10.5,
         textColor=colors.HexColor("#334155"),
         alignment=1
     )
@@ -171,8 +171,8 @@ def build_pdf(output_pdf_path):
     tbl_cell_bold = ParagraphStyle(
         "TblCellBold",
         fontName="Helvetica-Bold",
-        fontSize=7,
-        leading=9,
+        fontSize=7.5,
+        leading=10.5,
         textColor=colors.HexColor("#0f172a"),
         alignment=1
     )
@@ -180,8 +180,8 @@ def build_pdf(output_pdf_path):
     tbl_cell_left = ParagraphStyle(
         "TblCellLeft",
         fontName="Helvetica",
-        fontSize=7,
-        leading=9,
+        fontSize=7.5,
+        leading=10.5,
         textColor=colors.HexColor("#334155"),
         alignment=0
     )
@@ -189,16 +189,41 @@ def build_pdf(output_pdf_path):
     tbl_cell_left_bold = ParagraphStyle(
         "TblCellLeftBold",
         fontName="Helvetica-Bold",
-        fontSize=7,
-        leading=9,
+        fontSize=7.5,
+        leading=10.5,
         textColor=colors.HexColor("#0f172a"),
         alignment=0
     )
 
+    # Styles for stat cards (separate styles with generous leading to prevent overlapping)
+    stat_title_style = ParagraphStyle(
+        "StatTitle",
+        fontName="Helvetica-Bold",
+        fontSize=8.5,
+        leading=11,
+        textColor=colors.HexColor("#0f172a"),
+        alignment=1
+    )
+    stat_val_style = ParagraphStyle(
+        "StatVal",
+        fontName="Helvetica-Bold",
+        fontSize=13,
+        leading=17,
+        textColor=colors.HexColor("#2563eb"),
+        alignment=1
+    )
+    stat_sub_style = ParagraphStyle(
+        "StatSub",
+        fontName="Helvetica",
+        fontSize=7.5,
+        leading=10,
+        textColor=colors.HexColor("#64748b"),
+        alignment=1
+    )
+
     story = []
 
-    # ================= PAGE 1 =================
-    # Title & Metadata
+    # ================= PAGE 1: TITLE, ABSTRACT & ANATOMY OF LEGACY LATENCY =================
     story.append(Paragraph("CUA Driver Acceleration: Sub-200ms Desktop Automation for Autonomous AI Agents", title_style))
     story.append(Paragraph("Empirical Evaluation, Latency Dissection, and Deterministic OS Invariants Across Desktop Environments", subtitle_style))
 
@@ -218,13 +243,13 @@ def build_pdf(output_pdf_path):
         ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#f8fafc")),
         ('BOX', (0,0), (-1,-1), 0.5, colors.HexColor("#e2e8f0")),
         ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor("#f1f5f9")),
-        ('TOPPADDING', (0,0), (-1,-1), 4),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
+        ('TOPPADDING', (0,0), (-1,-1), 5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
         ('LEFTPADDING', (0,0), (-1,-1), 8),
         ('RIGHTPADDING', (0,0), (-1,-1), 8),
     ]))
     story.append(meta_table)
-    story.append(Spacer(1, 8))
+    story.append(Spacer(1, 10))
 
     # Abstract Box
     abstract_text = (
@@ -243,18 +268,18 @@ def build_pdf(output_pdf_path):
     abs_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#f1f5f9")),
         ('BOX', (0,0), (-1,-1), 1, colors.HexColor("#cbd5e1")),
-        ('TOPPADDING', (0,0), (-1,-1), 7),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 7),
-        ('LEFTPADDING', (0,0), (-1,-1), 9),
-        ('RIGHTPADDING', (0,0), (-1,-1), 9),
+        ('TOPPADDING', (0,0), (-1,-1), 9),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 9),
+        ('LEFTPADDING', (0,0), (-1,-1), 10),
+        ('RIGHTPADDING', (0,0), (-1,-1), 10),
     ]))
     story.append(abs_table)
-    story.append(Spacer(1, 8))
+    story.append(Spacer(1, 12))
 
     # Section 1
     story.append(Paragraph("1. The Anatomy of Legacy Computer-Use Latency (Pre-Acceleration)", h1_style))
     story.append(Paragraph(
-        "Current state-of-the-art computer-use implementations routinely fail to achieve interactive fluid response times. "
+        "Current state-of-the-art computer-use implementations routinely fail to achieve interactive response times. "
         "Our telemetry and trace logging isolate four compounding bottlenecks inherent to legacy agent architectures:",
         body_style
     ))
@@ -284,9 +309,10 @@ def build_pdf(output_pdf_path):
         "accumulates 14 to 18 roundtrips, driving end-to-end task times past 60 seconds.",
         bullet_style
     ))
-    story.append(Spacer(1, 6))
 
-    # Section 2
+    story.append(PageBreak())
+
+    # ================= PAGE 2: ARCHITECTURE, INVARIANTS & EXPERIMENTAL METHODOLOGY =================
     story.append(Paragraph("2. System Architecture & Accelerated Execution Invariants", h1_style))
     story.append(Paragraph(
         "The <code>cua_driver_acceleration</code> architecture enforces four zero-compromise invariants designed to eliminate "
@@ -331,20 +357,18 @@ def build_pdf(output_pdf_path):
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#f1f5f9")),
         ('BOX', (0,0), (-1,-1), 0.5, colors.HexColor("#cbd5e1")),
         ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor("#e2e8f0")),
-        ('TOPPADDING', (0,0), (-1,-1), 3.5),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 3.5),
-        ('LEFTPADDING', (0,0), (-1,-1), 5),
-        ('RIGHTPADDING', (0,0), (-1,-1), 5),
+        ('TOPPADDING', (0,0), (-1,-1), 5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
+        ('LEFTPADDING', (0,0), (-1,-1), 6),
+        ('RIGHTPADDING', (0,0), (-1,-1), 6),
     ]))
     story.append(inv_table)
+    story.append(Spacer(1, 10))
 
-    story.append(PageBreak())
-
-    # ================= PAGE 2 =================
     story.append(Paragraph("3. Experimental Setup & Benchmarking Methodology", h1_style))
     story.append(Paragraph(
         "To rigorously quantify performance, experiments were conducted across identical hardware configurations and operating environments. "
-        "All metrics represent empirical arithmetic means across $N = 25$ runs with deterministic warm-up cycles.",
+        "All metrics represent empirical arithmetic means across N = 25 runs with deterministic warm-up cycles.",
         body_style
     ))
 
@@ -362,13 +386,13 @@ def build_pdf(output_pdf_path):
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#f1f5f9")),
         ('BOX', (0,0), (-1,-1), 0.5, colors.HexColor("#cbd5e1")),
         ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor("#e2e8f0")),
-        ('TOPPADDING', (0,0), (-1,-1), 3.5),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 3.5),
+        ('TOPPADDING', (0,0), (-1,-1), 5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
         ('LEFTPADDING', (0,0), (-1,-1), 6),
         ('RIGHTPADDING', (0,0), (-1,-1), 6),
     ]))
     story.append(env_table)
-    story.append(Spacer(1, 6))
+    story.append(Spacer(1, 10))
 
     story.append(Paragraph("Evaluated Systems & Baselines", h2_style))
     story.append(Paragraph(
@@ -394,16 +418,19 @@ def build_pdf(output_pdf_path):
         "<b>5. Vision Agent (Screenshot Coords):</b> Direct multimodal vision prompt pipeline passing desktop frames and receiving pixel coordinate clicks.",
         bullet_style
     ))
-    story.append(Spacer(1, 6))
 
+    story.append(PageBreak())
+
+    # ================= PAGE 3: FULL EMPIRICAL BENCHMARK TABLE =================
     story.append(Paragraph("4. Comprehensive Empirical Results & Comparative Evaluation", h1_style))
     story.append(Paragraph(
         "Table 1 outlines the complete suite of 13 empirical benchmarks across Perception, Dispatch, Accuracy, End-to-End Workflows, "
         "and Operational Safety. The highlighted blue column denotes the primary accelerated implementation.",
         body_style
     ))
+    story.append(Spacer(1, 6))
 
-    # Detailed Benchmark Data Table (520 pt total width)
+    # Detailed Benchmark Data Table (520 pt total width, generous row padding)
     bench_data = [
         [
             Paragraph("<b>Category</b>", tbl_header),
@@ -439,32 +466,39 @@ def build_pdf(output_pdf_path):
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#f1f5f9")),
         ('BOX', (0,0), (-1,-1), 0.5, colors.HexColor("#cbd5e1")),
         ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor("#e2e8f0")),
-        # Highlight CUA Accelerated column in soft blue
+        # Highlight CUA Accelerated column in soft sky blue
         ('BACKGROUND', (3,1), (3,-1), colors.HexColor("#e0f2fe")),
         ('BOX', (3,0), (3,-1), 1.2, colors.HexColor("#3b82f6")),
-        ('TOPPADDING', (0,0), (-1,-1), 2.8),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 2.8),
-        ('LEFTPADDING', (0,0), (-1,-1), 2.5),
-        ('RIGHTPADDING', (0,0), (-1,-1), 2.5),
+        ('TOPPADDING', (0,0), (-1,-1), 5.5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 5.5),
+        ('LEFTPADDING', (0,0), (-1,-1), 4),
+        ('RIGHTPADDING', (0,0), (-1,-1), 4),
     ]))
     story.append(bench_table)
+    story.append(Spacer(1, 12))
+
+    story.append(Paragraph(
+        "<b>Table 1:</b> Comprehensive comparative evaluation across 13 empirical metrics. Arithmetic means reported for N = 25 evaluations across Windows 11 and macOS.",
+        meta_style
+    ))
 
     story.append(PageBreak())
 
-    # ================= PAGE 3 =================
+    # ================= PAGE 4: INFOGRAPHIC & KEY SPEEDUP STAT CARDS =================
     story.append(Paragraph("5. Visual Infographic Representation", h1_style))
     story.append(Paragraph(
-        "Figure 1 reproduces the official evaluation infographic rendered from empirical benchmark trace logs, adhering to the "
+        "Figure 1 reproduces the official evaluation infographic rendered from empirical benchmark trace logs, adhering to "
         "Google DeepMind benchmark evaluation visual standards. Category groupings and column highlights mirror publication formats.",
         body_style
     ))
+    story.append(Spacer(1, 6))
 
-    # Embed infographic image if exists
+    # Embed infographic image
     if os.path.exists(benchmark_img_path):
-        img_w = 510
-        img_h = 425
+        img_w = 480
+        img_h = 400
         story.append(RLImage(benchmark_img_path, width=img_w, height=img_h))
-        story.append(Spacer(1, 4))
+        story.append(Spacer(1, 5))
         story.append(Paragraph(
             "<b>Figure 1:</b> Empirical comparative benchmark evaluation comparing pre-acceleration baselines against cua_driver_acceleration backends.",
             meta_style
@@ -472,16 +506,26 @@ def build_pdf(output_pdf_path):
     else:
         story.append(Paragraph("<i>[Benchmark Infographic: assets/benchmark-comparison.png]</i>", body_style))
 
-    story.append(Spacer(1, 8))
+    story.append(Spacer(1, 14))
 
-    # Detailed metric dissection
+    # Detailed metric dissection with dedicated styles (zero overlapping text)
     story.append(Paragraph("Key Speedup Metrics at a Glance", h2_style))
+
+    def make_stat_cell(title, val, sub):
+        return [
+            Paragraph(title, stat_title_style),
+            Spacer(1, 3),
+            Paragraph(val, stat_val_style),
+            Spacer(1, 3),
+            Paragraph(sub, stat_sub_style)
+        ]
+
     stat_boxes = [
         [
-            Paragraph("<b>Perception Speedup</b><br/><font size=11 color='#2563eb'><b>71.3× Faster</b></font><br/>48 ms vs 3,420 ms", tbl_header),
-            Paragraph("<b>Action Dispatch</b><br/><font size=11 color='#2563eb'><b>428.1× Faster</b></font><br/>16 ms vs 6,850 ms", tbl_header),
-            Paragraph("<b>Token Economy</b><br/><font size=11 color='#2563eb'><b>95.7% Savings</b></font><br/>94 tokens vs 2,180 tokens", tbl_header),
-            Paragraph("<b>E2E Automation</b><br/><font size=11 color='#2563eb'><b>26.2× Faster</b></font><br/>2.4 s vs 62.8 s (1 Turn)", tbl_header),
+            make_stat_cell("Perception Speedup", "71.3× Faster", "48 ms vs 3,420 ms"),
+            make_stat_cell("Action Dispatch", "428.1× Faster", "16 ms vs 6,850 ms"),
+            make_stat_cell("Token Economy", "95.7% Savings", "94 tokens vs 2,180 tokens"),
+            make_stat_cell("E2E Automation", "26.2× Faster", "2.4 s vs 62.8 s (1 Turn)"),
         ]
     ]
     stat_table = Table(stat_boxes, colWidths=[130, 130, 130, 130])
@@ -489,14 +533,16 @@ def build_pdf(output_pdf_path):
         ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#f8fafc")),
         ('BOX', (0,0), (-1,-1), 1, colors.HexColor("#3b82f6")),
         ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor("#e2e8f0")),
-        ('TOPPADDING', (0,0), (-1,-1), 5),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
+        ('TOPPADDING', (0,0), (-1,-1), 8),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 8),
+        ('LEFTPADDING', (0,0), (-1,-1), 6),
+        ('RIGHTPADDING', (0,0), (-1,-1), 6),
     ]))
     story.append(stat_table)
 
     story.append(PageBreak())
 
-    # ================= PAGE 4 =================
+    # ================= PAGE 5: DEEP DIVE ANALYSIS & TRACE COMPARISON =================
     story.append(Paragraph("6. In-Depth Metric Analysis & Engineering Root Causes", h1_style))
 
     story.append(Paragraph("A. Perception Latency & The Token Economy", h2_style))
@@ -532,11 +578,12 @@ def build_pdf(output_pdf_path):
     story.append(Paragraph("D. End-to-End Workflow Latency & API Cost Reduction", h2_style))
     story.append(Paragraph(
         "Figure 2 contrasts the execution traces of a standard administrative task: <i>Navigating to Windows Display Settings and configuring scaling</i>. "
-        "The legacy loop requires 14 roundtrips, steals foreground focus 14 times, consumes 32,400 total context tokens ($0.048 API cost), and takes 62.8 seconds. "
+        "The legacy loop requires 14 roundtrips, steals foreground focus 14 times, consumes 32,400 total context tokens (estimated USD 0.048 API cost), and takes 62.8 seconds. "
         "The accelerated pipeline opens the settings panel instantly via native URI (<code>ms-settings:display</code>), inspects the tree, and updates the control "
-        "in a single synchronous turn: <b>2.4 seconds total elapsed time, 0 focus steals, 1,420 total tokens ($0.0014 API cost, a 34× cost reduction)</b>.",
+        "in a single synchronous turn: <b>2.4 seconds total elapsed time, 0 focus steals, 1,420 total tokens (estimated USD 0.0014 API cost, a 34× cost reduction)</b>.",
         body_style
     ))
+    story.append(Spacer(1, 6))
 
     # Qualitative Trace Comparison Table
     trace_data = [
@@ -572,8 +619,8 @@ def build_pdf(output_pdf_path):
         ],
         [
             Paragraph("Estimated API Cost", tbl_cell_left_bold),
-            Paragraph("~$0.0487 USD", tbl_cell),
-            Paragraph("<b>~$0.0014 USD</b>", tbl_cell_bold),
+            Paragraph("~USD 0.0487", tbl_cell),
+            Paragraph("<b>~USD 0.0014</b>", tbl_cell_bold),
             Paragraph("<b>34.8× cost reduction</b>", tbl_cell_bold)
         ],
         [
@@ -589,8 +636,8 @@ def build_pdf(output_pdf_path):
         ('BOX', (0,0), (-1,-1), 0.5, colors.HexColor("#cbd5e1")),
         ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor("#e2e8f0")),
         ('BACKGROUND', (2,1), (2,-1), colors.HexColor("#f0fdf4")),
-        ('TOPPADDING', (0,0), (-1,-1), 3.5),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 3.5),
+        ('TOPPADDING', (0,0), (-1,-1), 5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 5),
         ('LEFTPADDING', (0,0), (-1,-1), 5),
         ('RIGHTPADDING', (0,0), (-1,-1), 5),
     ]))
@@ -598,7 +645,7 @@ def build_pdf(output_pdf_path):
 
     story.append(PageBreak())
 
-    # ================= PAGE 5 =================
+    # ================= PAGE 6: INTEGRATION, GUIDELINES, CONCLUSION & CITATION =================
     story.append(Paragraph("7. Multi-Harness Integration & Zero-Clone NPX Deployment", h1_style))
     story.append(Paragraph(
         "To enable friction-free adoption across diverse agent ecosystems, <code>cua_driver_acceleration</code> provides a zero-dependency "
@@ -606,33 +653,33 @@ def build_pdf(output_pdf_path):
         body_style
     ))
 
-    # NPX code snippet table (compact 3-line format)
+    # NPX code snippet table
     npx_code = (
         "# 1. Instant installation across all active agent harnesses:\n"
-        "npx github:pratikforge/cua_driver_acceleration\n\n"
-        "# 2. Target specific harness (e.g. antigravity, claude, codex, opencode, cursor):\n"
-        "npx github:pratikforge/cua_driver_acceleration --target antigravity\n\n"
-        "# 3. Read-only environment audit:\n"
+        "npx github:pratikforge/cua_driver_acceleration\n"
+        "# 2. Target specific harness (antigravity, claude, codex, opencode, cursor, windsurf, roo):\n"
+        "npx github:pratikforge/cua_driver_acceleration --target antigravity\n"
+        "# 3. Read-only environment audit (checks cua-driver & agent-desktop availability):\n"
         "npx github:pratikforge/cua_driver_acceleration --check"
     )
     npx_table = Table([[Paragraph(npx_code.replace('\n', '<br/>').replace(' ', '&nbsp;'), code_style)]], colWidths=[520])
     npx_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#f8fafc")),
         ('BOX', (0,0), (-1,-1), 0.5, colors.HexColor("#cbd5e1")),
-        ('TOPPADDING', (0,0), (-1,-1), 4),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 4),
+        ('TOPPADDING', (0,0), (-1,-1), 3.5),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 3.5),
         ('LEFTPADDING', (0,0), (-1,-1), 7),
         ('RIGHTPADDING', (0,0), (-1,-1), 7),
     ]))
     story.append(npx_table)
-    story.append(Spacer(1, 4))
+    story.append(Spacer(1, 5))
 
     story.append(Paragraph("Supported Agent Harness Compatibility Matrix", h2_style))
     harness_data = [
         [Paragraph("<b>Harness / Agent</b>", tbl_header), Paragraph("<b>Global Skills Location</b>", tbl_header), Paragraph("<b>Workspace Target</b>", tbl_header), Paragraph("<b>Status</b>", tbl_header)],
         [Paragraph("Google Antigravity", tbl_cell_left_bold), Paragraph("<code>~/.gemini/config/skills/</code>", tbl_cell_left), Paragraph("Project <code>.gemini/</code>", tbl_cell_left), Paragraph("Verified", tbl_cell_bold)],
         [Paragraph("Claude Code", tbl_cell_left_bold), Paragraph("<code>~/.claude/skills/</code>", tbl_cell_left), Paragraph("Project <code>.claude/skills/</code>", tbl_cell_left), Paragraph("Verified", tbl_cell_bold)],
-        [Paragraph("OpenAI Codex", tbl_cell_left_bold), Paragraph("<code>$CODEX_HOME/skills/</code>", tbl_cell_left), Paragraph("Project <code>.codex/skills/</code>", tbl_cell_left), Paragraph("Verified", tbl_cell_bold)],
+        [Paragraph("OpenAI Codex", tbl_cell_left_bold), Paragraph("<code>~/.codex/skills/ (or env.CODEX_HOME)</code>", tbl_cell_left), Paragraph("Project <code>.codex/skills/</code>", tbl_cell_left), Paragraph("Verified", tbl_cell_bold)],
         [Paragraph("OpenCode", tbl_cell_left_bold), Paragraph("<code>~/.config/opencode/skills/</code>", tbl_cell_left), Paragraph("Project <code>.opencode/skills/</code>", tbl_cell_left), Paragraph("Verified", tbl_cell_bold)],
         [Paragraph("Cursor", tbl_cell_left_bold), Paragraph("N/A (Workspace root)", tbl_cell_left), Paragraph("Project <code>.cursor/skills/</code>", tbl_cell_left), Paragraph("Verified", tbl_cell_bold)],
         [Paragraph("Windsurf (Codeium)", tbl_cell_left_bold), Paragraph("<code>~/.codeium/windsurf/skills/</code>", tbl_cell_left), Paragraph("Project <code>.windsurf/skills/</code>", tbl_cell_left), Paragraph("Verified", tbl_cell_bold)],
@@ -646,11 +693,11 @@ def build_pdf(output_pdf_path):
         ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor("#e2e8f0")),
         ('TOPPADDING', (0,0), (-1,-1), 2.2),
         ('BOTTOMPADDING', (0,0), (-1,-1), 2.2),
-        ('LEFTPADDING', (0,0), (-1,-1), 4),
-        ('RIGHTPADDING', (0,0), (-1,-1), 4),
+        ('LEFTPADDING', (0,0), (-1,-1), 5),
+        ('RIGHTPADDING', (0,0), (-1,-1), 5),
     ]))
     story.append(harness_table)
-    story.append(Spacer(1, 4))
+    story.append(Spacer(1, 5))
 
     story.append(Paragraph("8. Operational Recommendations for Agent Architects", h1_style))
     story.append(Paragraph(
@@ -670,7 +717,7 @@ def build_pdf(output_pdf_path):
         "<b>Rule 4: Batch Predictable Operations into Single Turns.</b> Replace the reactive <code>click -> screenshot -> think</code> loop with deterministic sequential dispatch.",
         bullet_style
     ))
-    story.append(Spacer(1, 4))
+    story.append(Spacer(1, 5))
 
     story.append(Paragraph("9. Conclusion, Licensing & Citation", h1_style))
     story.append(Paragraph(
