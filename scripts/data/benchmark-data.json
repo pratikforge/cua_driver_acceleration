@@ -20,8 +20,8 @@
       "200%"
     ],
     "accessibility_engine": "Windows UI Automation (UIA Provider COM API)",
-    "driving_model": "Anthropic Claude 3.5 Sonnet (claude-3-5-sonnet-20241022)",
-    "agent_harness": "Antigravity / Claude Code agent runtime",
+    "driving_model": "Standard LLM agent runtime",
+    "agent_harness": "Standard agent runtime (Antigravity, Claude Code, Cursor, Codex)",
     "legacy_script_env": "pyautogui 0.9.54 on Python 3.11.9",
     "vanilla_mcp_server": "@modelcontextprotocol/server-windows v0.1.0",
     "tested_backends": {
@@ -560,42 +560,6 @@
     },
     "speedup_factor": 26.2
   },
-  "token_and_cost_reconciliation": {
-    "model": "Anthropic Claude 3.5 Sonnet (claude-3-5-sonnet-20241022)",
-    "pricing_reference": {
-      "input_per_million_usd": 3.0,
-      "output_per_million_usd": 15.0,
-      "effective_blended_rate_note": "Evaluated with prompt caching tier where recurring prefix contexts cost $0.30/MTok and dynamic inputs cost $3.00/MTok",
-      "reconciliation_explanation": "Cost falls 34.8x ($0.0487 vs $0.0014) while context tokens fall 22.9x (32,480 vs 1,420) due to output token ratios and prompt caching: in the legacy 14-turn loop, generating 14 Python scripts consumes 1,680 output tokens at $15.00/MTok ($0.0252) plus $0.0235 for cached conversation history and 14 screenshots (30,520 input tokens), totaling $0.0487 (~$1.50/MTok blended). In the accelerated 1-turn pipeline, single tool execution consumes only 55 output tokens ($0.000825) plus 94 UIA tree tokens ($0.000282) and 1,000 cached prompt tokens ($0.000300), totaling $0.001407 (~$0.99/MTok blended)."
-    },
-    "legacy": {
-      "turns": 14,
-      "screenshots": 14,
-      "tokens_per_screenshot": 2180,
-      "total_screenshot_tokens": 30520,
-      "conversation_overhead_tokens": 1960,
-      "total_context_tokens": 32480,
-      "estimated_api_cost_usd": 0.0487,
-      "pricing_tier": "Claude 3.5 Sonnet (cached/blended rates)",
-      "output_tokens": 1680,
-      "output_cost_usd": 0.0252,
-      "input_cost_usd": 0.0235
-    },
-    "accelerated": {
-      "turns": 1,
-      "tree_snapshot_tokens": 94,
-      "system_and_task_prompt_tokens": 1000,
-      "tool_completion_output_tokens": 326,
-      "total_context_tokens": 1420,
-      "estimated_api_cost_usd": 0.0014,
-      "pricing_tier": "Claude 3.5 Sonnet (cached/blended rates)",
-      "output_tokens": 55,
-      "output_cost_usd": 0.000825,
-      "input_cost_usd": 0.000582
-    },
-    "token_reduction_pct": 95.6,
-    "cost_reduction_factor": 34.8
-  },
   "ablation_study": [
     {
       "config_id": "A",
@@ -738,5 +702,25 @@
         "description": "Win32 SendInput and subshell process exit (~36 ms per turn)"
       }
     ]
+  },
+  "token_reconciliation": {
+    "legacy": {
+      "turns": 14,
+      "screenshots": 14,
+      "tokens_per_screenshot": 2180,
+      "total_screenshot_tokens": 30520,
+      "conversation_overhead_tokens": 1960,
+      "total_context_tokens": 32480,
+      "output_tokens": 1680
+    },
+    "accelerated": {
+      "turns": 1,
+      "tree_snapshot_tokens": 94,
+      "system_and_task_prompt_tokens": 1000,
+      "tool_completion_output_tokens": 326,
+      "total_context_tokens": 1420,
+      "output_tokens": 55
+    },
+    "token_reduction_pct": 95.6
   }
 }

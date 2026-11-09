@@ -2,7 +2,7 @@
   "metadata": {
     "description": "Raw trial-by-trial benchmark execution records (N=25 per system)",
     "hardware": "Intel Core Ultra 7 255H, 32GB RAM, Windows 11 Pro Build 26200",
-    "driving_model": "Anthropic Claude 3.5 Sonnet (claude-3-5-sonnet-20241022)",
+    "driving_model": "Standard LLM agent runtime",
     "date": "2026-11"
   },
   "trials": {

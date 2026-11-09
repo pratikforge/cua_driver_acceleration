@@ -18,7 +18,7 @@ DATA_DIR = os.path.join(REPO_ROOT, "scripts", "data")
 BENCH_DATA_PATH = os.path.join(DATA_DIR, "benchmark-data.json")
 RAW_TRIALS_PATH = os.path.join(DATA_DIR, "raw-trials.json")
 
-# 1. Formal Task Definitions and Claude 3.5 Sonnet Prompt Schemas
+# 1. Formal Task Definitions and Prompt Schemas
 TASK_DEFINITIONS = {
     "task_1": {
         "name": "Windows Display Scaling Navigation",

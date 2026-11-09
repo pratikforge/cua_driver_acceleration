@@ -430,7 +430,7 @@ def build_pdf(output_pdf_path):
     story.append(Paragraph(
         "To quantify performance, comparative benchmarks were recorded across interactive Windows desktop automation tasks. "
         "Metrics reflect execution trace logs, high-resolution process timer measurements, and UI Automation inspection latencies comparing legacy script synthesis "
-        "against accelerated backend CLI pipelines across <i>N</i> = 25 randomized trials per configuration driven by Anthropic Claude 3.5 Sonnet.",
+        "against accelerated backend CLI pipelines across <i>N</i> = 25 randomized trials per configuration.",
         body_style
     ))
 
@@ -440,7 +440,6 @@ def build_pdf(output_pdf_path):
         [Paragraph("Operating System", tbl_cell_bold), Paragraph("Microsoft Windows 11 Pro (Build 26200, x64)", tbl_cell_left), Paragraph("Host Workstation; local native execution", tbl_cell_left)],
         [Paragraph("Processor & RAM", tbl_cell_bold), Paragraph("Intel(R) Core(TM) Ultra 7 255H (16 Cores), 32 GB RAM", tbl_cell_left), Paragraph("High-resolution performance counter profiling", tbl_cell_left)],
         [Paragraph("Display Scaling", tbl_cell_bold), Paragraph("4K UHD (3840×2160); 100%, 125%, 150%, 200%", tbl_cell_left), Paragraph("Windows Display Settings scaling matrix", tbl_cell_left)],
-        [Paragraph("Driving Model", tbl_cell_bold), Paragraph("Anthropic Claude 3.5 Sonnet (20241022 release)", tbl_cell_left), Paragraph("Consistent prompt schemas across all agent turns", tbl_cell_left)],
         [Paragraph("Agent Harness", tbl_cell_bold), Paragraph("Antigravity & Claude Code local agent runners", tbl_cell_left), Paragraph("Standard CLI execution harness", tbl_cell_left)],
         [Paragraph("Vanilla MCP Server", tbl_cell_bold), Paragraph("<code>@modelcontextprotocol/server-windows v0.1.0</code>", tbl_cell_left), Paragraph("Standard JSON-RPC tools without deep links", tbl_cell_left)],
         [Paragraph("Legacy Baseline", tbl_cell_bold), Paragraph("<code>pyautogui 0.9.54</code> on Python 3.11.9 (x64)", tbl_cell_left), Paragraph("Disposable script synthesis, disk write & exec", tbl_cell_left)],
@@ -685,13 +684,13 @@ def build_pdf(output_pdf_path):
         body_style
     ))
 
-    story.append(Paragraph("D. End-to-End Workflow Latency, Timing Dissection & Cost Reconciliation", h2_style))
+    story.append(Paragraph("D. End-to-End Workflow Latency & Timing Dissection", h2_style))
     story.append(Paragraph(
         "Table 2 contrasts the execution traces of Task 2: <i>Navigating to Windows Display Settings and configuring scaling</i>. "
         "In the legacy 14-turn loop, 14 sequential model inference calls account for ~39.2 s (62.4% of elapsed time), while script synthesis, process spawning, "
         "and screenshot capture account for ~23.6 s. In contrast, the accelerated pipeline opens the settings panel instantly via native URI (<code>ms-settings:display</code>), "
         "bypassing 7 intermediate GUI transitions (Start → Search → Settings App → System → Display → Scale → Dropdown), and executes the change in a single turn: "
-        "<b>2.4 seconds total elapsed time, 0 focus steals, 1,420 total tokens, and a 34.8× cost reduction</b>.",
+        "<b>2.4 seconds total elapsed time, 0 focus steals, and 1,420 total tokens (a 95.6% token reduction)</b>.",
         body_style
     ))
     story.append(Spacer(1, 3))
@@ -727,12 +726,6 @@ def build_pdf(output_pdf_path):
             Paragraph("32,480 tokens (30,520 img + 1,960 text)", tbl_cell),
             Paragraph("<b>1,420 tokens</b> (94 tree + 1,326 prompt/out)", tbl_cell_bold),
             Paragraph("<b>95.6% token reduction</b>", tbl_cell_bold)
-        ],
-        [
-            Paragraph("Estimated API Cost", tbl_cell_left_bold),
-            Paragraph("~USD 0.0487 (Claude 3.5 Sonnet, cached/blended)", tbl_cell),
-            Paragraph("<b>~USD 0.0014</b>", tbl_cell_bold),
-            Paragraph("<b>34.8× cost reduction</b>", tbl_cell_bold)
         ],
         [
             Paragraph("Desktop Disruption", tbl_cell_left_bold),
@@ -802,7 +795,7 @@ def build_pdf(output_pdf_path):
     story.append(Paragraph("7. Ablation Study: Disentangling Driver Speed from Skill Invariants", h1_style))
     story.append(Paragraph(
         "A critical methodological question is whether performance gains stem from the underlying driver or from the skill invariants. "
-        "To isolate these effects, we evaluated the identical Claude 3.5 Sonnet agent across a 6-configuration ablation grid on Task 2 (<i>N</i> = 25 trials).",
+        "To isolate these effects, we evaluated the agent across a 6-configuration ablation grid on Task 2 (<i>N</i> = 25 trials).",
         body_style
     ))
     story.append(Spacer(1, 3))
