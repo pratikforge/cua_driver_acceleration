@@ -17,14 +17,14 @@ Most computer-use latency comes from agent habits, not from the driver. The four
 
 1. Writing a 30-line Python wrapper to send one click.
 2. Taking a screenshot and guessing `(x, y)` pixel coordinates.
-3. Splitting a 3-step task into 20 click â†’ screenshot â†’ think turns.
+3. Splitting a 3-step task into 20 click -> screenshot -> think turns.
 4. Clicking through menus when a deep link or CLI flag already does the job.
 
 This skill removes all four. Follow the sections in order.
 
 ---
 
-## Step 0 â€” Bootstrap (first use only)
+## Step 0: Bootstrap (first use only)
 
 Run the read-only environment check once per machine:
 
@@ -53,15 +53,15 @@ Then check the live command list once (`cua-driver --help` / `agent-desktop --he
 
 ---
 
-## Rule 1 â€” Shortest path first
+## Rule 1: Shortest path first
 
 Before touching the mouse, check whether a non-GUI path exists. Use the first one that works:
 
-1. **CLI or API** â€” `git`, `code <file>`, `gh`, `npm`, app-specific CLIs.
-2. **Deep link / URI scheme** â€” `ms-settings:display`, `x-apple.systempreferences:`, `ms-windows-store://search/?query=...`, plain `https://` URLs.
-3. **Config file edit** â€” e.g. `settings.json` instead of the settings UI.
+1. **CLI or API** - `git`, `code <file>`, `gh`, `npm`, app-specific CLIs.
+2. **Deep link / URI scheme** - `ms-settings:display`, `x-apple.systempreferences:`, `ms-windows-store://search/?query=...`, plain `https://` URLs.
+3. **Config file edit** - e.g. `settings.json` instead of the settings UI.
 4. **Accessibility-tree action** via the backend (Rule 3).
-5. **Pixel coordinates** â€” last resort, only for canvases with no accessibility tree (games, remote desktops, some Electron/WebGL surfaces).
+5. **Pixel coordinates** - last resort, only for canvases with no accessibility tree (games, remote desktops, some Electron/WebGL surfaces).
 
 Deep links per OS: [references/native-shortcuts.md](references/native-shortcuts.md).
 
@@ -69,7 +69,7 @@ Deep links per OS: [references/native-shortcuts.md](references/native-shortcuts.
 
 ---
 
-## Rule 2 â€” No wrapper scripts for actions
+## Rule 2: No wrapper scripts for actions
 
 Do **not** write Python, Node, or shell wrapper files (and no `python -c "import subprocess..."`) to perform clicks, keystrokes, window lookups, or coordinate searches.
 
@@ -89,7 +89,7 @@ Exception: a script is fine when the deliverable itself is a script (the user as
 
 ---
 
-## Rule 3 â€” Target elements, not pixels
+## Rule 3: Target elements, not pixels
 
 1. **Snapshot once.** Read the accessibility tree of the target window.
    - cua-driver: `'{"pid":<pid>,"window_id":<wid>}' | cua-driver call get_window_state`
@@ -101,9 +101,9 @@ Never compute bounding-box centres, scan pixel colours, or estimate positions fr
 
 ---
 
-## Rule 4 â€” One turn per task
+## Rule 4: One turn per task
 
-- A routine task (open app â†’ find control â†’ act) should finish in **one turn**, two at most if a final check is needed.
+- A routine task (open app -> find control -> act) should finish in **one turn**, two at most if a final check is needed.
 - Chain dependent commands in a single shell call where the shell allows it.
 - No screenshot between every step. Screenshot only when:
   - the user asked for one,
@@ -114,13 +114,13 @@ Never compute bounding-box centres, scan pixel colours, or estimate positions fr
 
 ---
 
-## Rule 5 â€” Trust the event dispatch
+## Rule 5: Trust the event dispatch
 
 On Windows, synthetic input through the global input queue often returns `"effect": "unverifiable"`. That means the event was dispatched. Do not loop on screenshots just because of that flag; verify once from a fresh snapshot if the outcome matters.
 
 ---
 
-## Rule 6 â€” Screenshots for the user
+## Rule 6: Screenshots for the user
 
 When presenting a capture, use a unique filename (`snip_<timestamp>_<id>.png`) so viewers never show a cached older image. Don't overwrite earlier captures.
 
@@ -128,7 +128,7 @@ When presenting a capture, use a unique filename (`snip_<timestamp>_<id>.png`) s
 
 ## Quick self-check before each action
 
-- Is there a CLI, deep link, or config path? â†’ use it.
-- Am I about to write a wrapper file? â†’ stop, call the backend directly.
-- Am I about to guess coordinates? â†’ snapshot and use a ref.
-- Am I about to take a screenshot "just to see"? â†’ read the JSON result instead.
+- Is there a CLI, deep link, or config path? -> use it.
+- Am I about to write a wrapper file? -> stop, call the backend directly.
+- Am I about to guess coordinates? -> snapshot and use a ref.
+- Am I about to take a screenshot "just to see"? -> read the JSON result instead.

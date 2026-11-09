@@ -1,0 +1,17 @@
+# System & OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node / NPM
+node_modules/
+npm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Temporary & Log files
+*.log
+*.tmp
+.system_generated/
