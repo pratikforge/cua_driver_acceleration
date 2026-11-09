@@ -313,7 +313,7 @@ def build_pdf(output_pdf_path):
     story.append(Paragraph(
         "<b>2. Ad-Hoc Wrapper Script Generation Overhead (4,000 – 8,400 ms):</b> When an agent determines an action, it frequently synthesizes "
         "a disposable 20–35 line Python script utilizing <code>pyautogui</code>, <code>pynput</code>, or <code>subprocess</code>. "
-        "As detailed in Table 1 below, code generation formatting consumes ~3,400 ms, disk write consumes ~120 ms, cold Python runtime "
+        "As detailed in the dispatch breakdown table below, code generation formatting consumes ~3,400 ms, disk write consumes ~120 ms, cold Python runtime "
         "startup and module imports consume ~3,180 ms, and teardown consumes ~150 ms—even though the actual Win32 <code>SendInput</code> "
         "event executes in under 5 ms.",
         bullet_style
@@ -539,7 +539,7 @@ def build_pdf(output_pdf_path):
 
     story.append(Paragraph(
         "<b>Table 1:</b> Comprehensive comparative evaluation across 13 empirical metrics recorded on Windows 11 (<i>N</i> = 25 trials, median reported). "
-        "†Pre-acceleration DPI precision of 41.2% represents a 58.8% failure rate. *Script Authoring Overhead represents cold-start wrapper init delay; recurring single-click dispatch (6,850 ms) includes per-click generation (~3,400 ms) and runtime spawn (~3,180 ms). "
+        "†Pre-acceleration DPI precision of 41.2% represents a 58.8% failure rate. *Script Authoring Overhead represents cold-start wrapper init delay; isolated single-click dispatch (6,850 ms) includes cold script generation (~3,400 ms) and runtime spawn (~3,180 ms); in multi-turn workflows, host execution amortizes to 1.20 s/turn (Table 2b). "
         "^Vision Agent baseline predicts coordinates from images but authors an ad-hoc execution script (pyautogui.click) taking ~3,800 ms to execute them.",
         meta_style
     ))

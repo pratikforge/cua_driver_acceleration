@@ -70,17 +70,25 @@ def verify_dataset():
     assert turn_cut == 92.9, f"Turn cut mismatch: {turn_cut}"
     print(f"[PASS] Turn Reduction: 1 - ({turns_accel} / {turns_legacy}) = {turn_cut}% (Report: 93% rounded integer)")
 
-    t_legacy_task = 32480.0
-    t_accel_task = 1420.0
+    tc_data = data["token_and_cost_reconciliation"]
+    t_legacy_task = float(tc_data["legacy"]["total_context_tokens"])
+    t_accel_task = float(tc_data["accelerated"]["total_context_tokens"])
     t_cut_task = round_half_up((1.0 - t_accel_task / t_legacy_task) * 100.0, 1)
     assert t_cut_task == 95.6, f"Per-task token cut mismatch: {t_cut_task}"
     print(f"[PASS] Per-Task Tokens: 1 - ({t_accel_task} / {t_legacy_task}) = {t_cut_task}%")
 
-    cost_legacy = 0.0487
-    cost_accel = 0.0014
+    cost_legacy = tc_data["legacy"]["estimated_api_cost_usd"]
+    cost_accel = tc_data["accelerated"]["estimated_api_cost_usd"]
     cost_mult = round_half_up(cost_legacy / cost_accel, 1)
     assert cost_mult == 34.8, f"Cost multiplier mismatch: {cost_mult}"
     print(f"[PASS] API Cost: {cost_legacy} / {cost_accel} = {cost_legacy/cost_accel:.2f}x (Rounded: {cost_mult}x)")
+
+    # Verify pricing tier annotations
+    legacy_tier = tc_data["legacy"].get("pricing_tier", "")
+    accel_tier = tc_data["accelerated"].get("pricing_tier", "")
+    assert "cached/blended" in legacy_tier, f"Legacy pricing tier missing cached/blended: {legacy_tier}"
+    assert "cached/blended" in accel_tier, f"Accelerated pricing tier missing cached/blended: {accel_tier}"
+    print(f"[PASS] Pricing Tier verified as cached/blended rates ('{legacy_tier}')")
 
     # Check 2: DPI Failure Rate Calculation
     print("\n--- 2. DPI Failure Rate Correction ---")
