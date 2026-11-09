@@ -1,5 +1,5 @@
 ---
-name: fast-computer-use
+name: cua_driver_acceleration
 description: Low-latency desktop automation for AI agents. Use whenever the task involves operating a native GUI app, clicking, typing, opening apps or settings, or any computer-use / CUA work on macOS, Windows, or Linux. Enforces accessibility-tree targeting over screenshots and pixel guessing, bans throwaway wrapper scripts, prefers deep links and CLIs over GUI navigation, and self-bootstraps a backend (cua-driver or Vercel agent-desktop) on first use.
 version: 1.0.0
 license: MIT
@@ -8,10 +8,10 @@ metadata:
     anyBins:
       - cua-driver
       - agent-desktop
-  homepage: https://github.com/pratikforge/fast-computer-use
+  homepage: https://github.com/pratikforge/cua_driver_acceleration
 ---
 
-# Fast Computer Use
+# CUA Driver Acceleration
 
 Most computer-use latency comes from agent habits, not from the driver. The four usual culprits:
 

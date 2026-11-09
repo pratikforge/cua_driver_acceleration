@@ -1,21 +1,60 @@
-# fast-computer-use
+# cua_driver_acceleration
 
-An agent skill that makes desktop automation (computer use / CUA) significantly faster by optimizing **how the agent operates**, regardless of the underlying driver.
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![npx](https://img.shields.io/badge/npx-cua__driver__acceleration-000000?logo=npm&logoColor=white)](https://github.com/pratikforge/cua_driver_acceleration)
+[![Platform](https://img.shields.io/badge/platform-macOS%20%7C%20Windows%20%7C%20Linux-lightgrey.svg)](https://github.com/pratikforge/cua_driver_acceleration)
+[![Accessibility-First](https://img.shields.io/badge/DOM%2FAccessibility-Sub--200ms-brightgreen.svg)](https://github.com/pratikforge/cua_driver_acceleration)
+
+A high-performance agent skill and one-command CLI that accelerates desktop automation (computer use / CUA) by eliminating multi-second agent latency.
+
+---
+
+## Quickstart (Zero Clone Required)
+
+Run directly in your terminal via `npx` to auto-detect your AI agent environments (Antigravity, Claude Code, Cursor, Codex) and install the skill instantly:
+
+```bash
+npx github:pratikforge/cua_driver_acceleration
+```
+
+*Or via the npm package:*
+
+```bash
+npx cua_driver_acceleration
+```
+
+### CLI Options
+
+```bash
+# Check installed drivers (read-only audit without writing files)
+npx github:pratikforge/cua_driver_acceleration --check
+
+# Install specifically for Antigravity
+npx github:pratikforge/cua_driver_acceleration --target antigravity
+
+# Install specifically for Claude Code
+npx github:pratikforge/cua_driver_acceleration --target claude
+
+# Install into a custom directory
+npx github:pratikforge/cua_driver_acceleration --path ./my-agent/skills
+```
+
+---
 
 ## The Problem
 
-Standard computer-use agents often default to high-latency habits:
+Most computer-use agents suffer from massive latency—often taking 20 to 60 seconds for simple actions. This lag is almost never caused by the operating system, but by predictable agent failure modes:
 
-- Writing throwaway 30-line Python scripts to execute a single click.
-- Taking screenshots and guessing `(x, y)` pixel coordinates.
-- Decomposing simple 3-step tasks into 15-20 turns of click -> screenshot -> think loops.
-- Navigating nested GUI menus when native deep links (e.g. `ms-settings:display`) exist.
+1. **Ad-Hoc Wrapper Script Inflation:** Authoring throwaway 30-line Python scripts (`subprocess`, `pyautogui`) for a single click.
+2. **Coordinate Guesswork:** Taking a screenshot and waiting 3-5 seconds for a multimodal vision model to guess `(x, y)` pixels (which often drifts with DPI scaling).
+3. **Multi-Turn Roundtrips:** Decomposing simple 3-step tasks into 15-20 turns of `click -> screenshot -> think -> click` loops.
+4. **Analog Navigation:** Clicking through menus when native deep links (e.g. `ms-settings:display`) exist.
 
-Each unneeded layer introduces multi-second overhead. This skill eliminates those bottlenecks.
+---
 
 ## Core Invariants
 
-| Inefficient Pattern | Fast Invariant |
+| Legacy Agent Pattern | Accelerated Invariant |
 |---|---|
 | Ad-hoc Python wrapper scripts | One-line direct backend CLI calls |
 | Screenshot + pixel guessing | Accessibility-tree snapshot + element refs (50-200 ms) |
@@ -23,40 +62,43 @@ Each unneeded layer introduces multi-second overhead. This skill eliminates thos
 | Manual GUI menu navigation | Native deep links, URI schemes, CLIs, and direct config edits |
 | Screenshot after every step | Read JSON exit state; capture only at completion or unrecoverable error |
 
-## Self-Bootstrapping Workflow
-
-On first use, the agent runs a read-only environment check (`scripts/check-setup.ps1` or `scripts/check-setup.sh`) to detect available drivers. If no driver is present, it recommends the optimal installer and waits for explicit user approval before proceeding.
+---
 
 ## Supported Backends
 
-Both backends interact directly with native operating system accessibility APIs (Windows UI Automation, macOS AX, Linux AT-SPI) to provide sub-200ms DOM-style interaction without pixel guessing:
+Both backends interface directly with operating system accessibility APIs (Windows UI Automation, macOS AX, Linux AT-SPI) to provide sub-200ms DOM-style interaction without pixel guessing:
 
 - **[Vercel agent-desktop](https://github.com/vercel-labs/agent-desktop)**: Open-source Rust CLI from Vercel Labs. Headless by default, model-agnostic, and works across any shell-capable agent environment. Recommended default (`npm i -g agent-desktop`).
 - **[cua-driver](https://cua.ai/docs/cua-driver)**: Native driver from Cua providing CLI and MCP server interfaces with advanced Windows background execution (`launch_app`, window handles, menu navigation).
 
-## Installation
+---
 
-Clone the repository into your agent's skills directory:
+## Alternative Manual Installation
+
+If you prefer cloning manually into your agent's skills directory:
 
 ```bash
-git clone https://github.com/pratikforge/fast-computer-use
+git clone https://github.com/pratikforge/cua_driver_acceleration.git
 ```
 
-| Agent Platform | Installation Path |
+| Agent Platform | Global Skills Location |
 |---|---|
-| **Antigravity** | `~/.gemini/config/skills/fast-computer-use/` |
-| **Claude Code** | `~/.claude/skills/fast-computer-use/` (or project `.claude/skills/`) |
-| **Cursor / Codex / Windsurf** | Add repository to project skills or paste `SKILL.md` into `.cursorrules` / instructions |
+| **Antigravity** | `~/.gemini/config/skills/cua_driver_acceleration/` |
+| **Claude Code** | `~/.claude/skills/cua_driver_acceleration/` (or project `.claude/skills/`) |
+| **Cursor / Codex / Windsurf** | Add to project skills directory or copy `SKILL.md` into `.cursorrules` / instructions |
 
-Once installed, simply request any desktop automation task. The agent automatically activates the skill and runs the fast-path loop.
+---
 
 ## Repository Structure
 
 ```text
-fast-computer-use/
+cua_driver_acceleration/
+├── bin/
+│   └── cli.js                   # Zero-dependency NPX skill installer
 ├── SKILL.md                     # Agent operational rules & invariants
-├── LICENSE                      # MIT License
-├── README.md                    # Overview and setup guide
+├── LICENSE                      # Full MIT License text
+├── README.md                    # Overview, quickstart & documentation
+├── package.json                 # NPX executable & npm package definition
 ├── references/
 │   ├── setup.md                 # Backend installation, permissions & troubleshooting
 │   ├── backends.md              # cua-driver vs agent-desktop command reference
@@ -66,12 +108,50 @@ fast-computer-use/
     └── check-setup.sh           # Read-only environment check (macOS / Linux)
 ```
 
-## Security & Privacy
+---
 
-- Environment check scripts are strictly read-only and perform zero network requests or disk alterations.
-- Remote installer scripts (`curl | bash`, `irm | iex`) are never executed autonomously without explicit user confirmation.
-- OS accessibility permissions must be granted directly by the user on platforms enforcing security boundaries (macOS Privacy & Security).
+## Security & Safety Guarantees
 
-## License
+- **Read-Only Audit:** The `--check` command and setup scripts inspect only environment paths and binary availability; they perform zero network requests or disk modifications.
+- **Explicit Consent:** Remote installer scripts (`curl | bash`, `irm | iex`) are never executed autonomously without explicit user confirmation.
+- **Zero Telemetry:** The skill and CLI contain no tracking, analytics, or external phone-home mechanisms.
 
-[MIT](LICENSE) © 2026 pratikforge
+---
+
+## License & Legal
+
+This project is licensed under the terms of the **MIT License**.
+
+```text
+MIT License
+
+Copyright (c) 2026 pratikforge
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+### Rights & Permissions Summary
+
+- **Commercial Use:** Permitted for both personal and enterprise production environments.
+- **Modification:** Permitted to fork, edit, and adapt invariants for custom agent architectures.
+- **Distribution:** Permitted to bundle and distribute with other agent frameworks.
+- **Private Use:** Permitted to use without disclosing source modifications.
+- **Disclaimer:** The software is provided "as is", without warranty of any kind. Automated computer actions executed by AI agents remain under the operator's supervision.
+
+For complete legal terms, review the full [LICENSE](LICENSE) file.

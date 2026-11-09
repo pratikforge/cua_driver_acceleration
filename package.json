@@ -1,0 +1,43 @@
+{
+  "name": "cua_driver_acceleration",
+  "version": "1.0.0",
+  "description": "Deterministic, sub-200ms desktop automation skill for AI agents. Direct accessibility-tree targeting, zero wrapper scripts, self-bootstrapping with cua-driver or Vercel agent-desktop.",
+  "type": "module",
+  "bin": {
+    "cua_driver_acceleration": "./bin/cli.js",
+    "cua-driver-acceleration": "./bin/cli.js"
+  },
+  "main": "./bin/cli.js",
+  "files": [
+    "bin",
+    "references",
+    "scripts",
+    "SKILL.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "start": "node ./bin/cli.js",
+    "test": "node ./bin/cli.js --check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pratikforge/cua_driver_acceleration.git"
+  },
+  "keywords": [
+    "computer-use",
+    "ai-agents",
+    "cua",
+    "desktop-automation",
+    "accessibility",
+    "agent-desktop",
+    "antigravity",
+    "claude-code",
+    "agent-skills"
+  ],
+  "author": "pratikforge",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
