@@ -18,7 +18,7 @@ DATA_DIR = os.path.join(REPO_ROOT, "scripts", "data")
 BENCH_DATA_PATH = os.path.join(DATA_DIR, "benchmark-data.json")
 RAW_TRIALS_PATH = os.path.join(DATA_DIR, "raw-trials.json")
 
-# 1. Formal Task Definitions and Claude 3.5 Sonnet Prompt Schemas (M3, M6)
+# 1. Formal Task Definitions and Claude 3.5 Sonnet Prompt Schemas
 TASK_DEFINITIONS = {
     "task_1": {
         "name": "Windows Display Scaling Navigation",
@@ -80,7 +80,7 @@ TASK_DEFINITIONS = {
     }
 }
 
-# 2. Measurement Protocols & Error Handling (M8, M12)
+# 2. Measurement Protocols & Error Handling
 MEASUREMENT_PROTOCOLS = {
     "perception_latency": "Measured using high-resolution performance timers (QueryPerformanceCounter) from request dispatch until complete accessibility tree JSON or raster screenshot bytes are received in memory.",
     "action_dispatch_latency": "Measured from agent command invocation until the OS input event (Win32 SendInput) or accessibility action is confirmed by the driver daemon.",

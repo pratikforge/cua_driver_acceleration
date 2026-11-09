@@ -82,22 +82,22 @@ def verify_dataset():
     assert cost_mult == 34.8, f"Cost multiplier mismatch: {cost_mult}"
     print(f"[PASS] API Cost: {cost_legacy} / {cost_accel} = {cost_legacy/cost_accel:.2f}x (Rounded: {cost_mult}x)")
 
-    # Check 2: C1 Failure Rate Calculation
-    print("\n--- 2. DPI Failure Rate Correction (C1) ---")
+    # Check 2: DPI Failure Rate Calculation
+    print("\n--- 2. DPI Failure Rate Correction ---")
     dpi_precision = 41.2
     dpi_failure_rate = 100.0 - dpi_precision
     assert round(dpi_failure_rate, 1) == 58.8, f"DPI failure rate mismatch: {dpi_failure_rate}"
     print(f"[PASS] Pre-Acceleration DPI: {dpi_precision}% precision = {dpi_failure_rate}% failure rate")
 
-    # Check 3: Dispatch Latency Breakdown (C4 / m12)
-    print("\n--- 3. Dispatch Latency Breakdown (m12) ---")
+    # Check 3: Dispatch Latency Breakdown
+    print("\n--- 3. Dispatch Latency Breakdown ---")
     breakdown = data["dispatch_latency_breakdown_ms"]
     comp_sum = sum(c["duration_ms"] for c in breakdown["components"])
     assert comp_sum == breakdown["total_legacy_click"], f"Component sum {comp_sum} != total {breakdown['total_legacy_click']}"
     print(f"[PASS] Dispatch components sum exactly to {comp_sum} ms (Total: {breakdown['total_legacy_click']} ms)")
 
-    # Check 4: E2E Latency Breakdown (C4)
-    print("\n--- 4. E2E Latency Breakdown (C4) ---")
+    # Check 4: E2E Latency Breakdown
+    print("\n--- 4. E2E Latency Breakdown ---")
     e2e_data = data["e2e_latency_breakdown_seconds"]
     legacy_sum = sum(v for k, v in e2e_data["legacy_breakdown"].items() if k.endswith("_s"))
     assert round(legacy_sum, 1) == e2e_data["legacy_task_total_s"], f"Legacy E2E sum mismatch: {legacy_sum}"
@@ -107,8 +107,8 @@ def verify_dataset():
     assert round(accel_sum, 2) == e2e_data["accelerated_task_total_s"], f"Accel E2E sum mismatch: {accel_sum}"
     print(f"[PASS] Accelerated E2E components sum to {accel_sum:.2f} s (Total: {e2e_data['accelerated_task_total_s']} s)")
 
-    # Check 5: Per-Turn Breakdown (C4)
-    print("\n--- 5. Per-Turn Latency Breakdown (C4) ---")
+    # Check 5: Per-Turn Breakdown
+    print("\n--- 5. Per-Turn Latency Breakdown ---")
     pt_data = data.get("legacy_per_turn_breakdown_seconds", {})
     pt_sum = sum(c["duration_s"] for c in pt_data.get("components", []))
     assert abs(pt_sum - pt_data["total_per_turn_s"]) < 0.01, f"Per-turn sum mismatch: {pt_sum}"
@@ -116,15 +116,15 @@ def verify_dataset():
     assert abs(total_from_turns - e2e_data["legacy_task_total_s"]) < 0.1, f"14-turn sum mismatch: {total_from_turns} vs {e2e_data['legacy_task_total_s']}"
     print(f"[PASS] Per-turn components sum to {pt_sum:.3f} s/turn (14 turns = {total_from_turns:.1f} s)")
 
-    # Check 6: Ablation Study Grid (M5)
-    print("\n--- 6. Ablation Study Grid (M5) ---")
+    # Check 6: Ablation Study Grid
+    print("\n--- 6. Ablation Study Grid ---")
     ablation = data["ablation_study"]
     assert len(ablation) == 6, f"Expected 6 ablation configurations, found {len(ablation)}"
     for row in ablation:
         print(f"  Config {row['config_id']}: Driver={row['driver']:<26} Skill={row['skill']:<22} Time={row['e2e_time_s']:>4}s Turns={row['turns']:>2} Success={row['success_rate_pct']:>5.1f}%")
 
-    # Check 7: Integer Percentages for N=25 (M2)
-    print("\n--- 7. Sample Size N=25 Percentage Consistency (M2) ---")
+    # Check 7: Integer Percentages for N=25
+    print("\n--- 7. Sample Size N=25 Percentage Consistency ---")
     for metric_item in data["metrics"]:
         name = metric_item["benchmark"]
         if name in ["Element Resolution (UI Controls)", "Window Resize Drift Immunity", "Execution Determinism"]:
@@ -134,9 +134,9 @@ def verify_dataset():
                     assert val_num.is_integer(), f"Metric {name} for {sys_key} is not an integer percentage: {val_str}"
             print(f"[PASS] Metric '{name}' uses mathematically consistent integer percentages for N=25")
 
-    # Check 8: Raw Trials Validation (M6)
+    # Check 8: Raw Trials Validation
     if os.path.exists(raw_file):
-        print("\n--- 8. Raw Trials Dataset Verification (M6) ---")
+        print("\n--- 8. Raw Trials Dataset Verification ---")
         with open(raw_file, "r", encoding="utf-8") as rf:
             raw_data = json.load(rf)
         for sys_name, t_list in raw_data["trials"].items():

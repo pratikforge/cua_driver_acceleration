@@ -576,6 +576,7 @@
       "conversation_overhead_tokens": 1960,
       "total_context_tokens": 32480,
       "estimated_api_cost_usd": 0.0487,
+      "pricing_tier": "Claude 3.5 Sonnet (cached/blended rates)",
       "output_tokens": 1680,
       "output_cost_usd": 0.0252,
       "input_cost_usd": 0.0235
@@ -587,6 +588,7 @@
       "tool_completion_output_tokens": 326,
       "total_context_tokens": 1420,
       "estimated_api_cost_usd": 0.0014,
+      "pricing_tier": "Claude 3.5 Sonnet (cached/blended rates)",
       "output_tokens": 55,
       "output_cost_usd": 0.000825,
       "input_cost_usd": 0.000582

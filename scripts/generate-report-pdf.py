@@ -99,6 +99,14 @@ def build_pdf(output_pdf_path):
         textColor=colors.HexColor("#64748b")
     )
 
+    footnote_style = ParagraphStyle(
+        "DocFootnote",
+        fontName="Helvetica",
+        fontSize=7.1,
+        leading=9.4,
+        textColor=colors.HexColor("#64748b")
+    )
+
     h1_style = ParagraphStyle(
         "SectionH1",
         fontName="Helvetica-Bold",
@@ -233,7 +241,7 @@ def build_pdf(output_pdf_path):
     story.append(Paragraph("CUA Acceleration: Sub-200ms Per-Action Execution and Deterministic Automation for AI Agents", title_style))
     story.append(Paragraph("Empirical Evaluation, Latency Dissection, and Deterministic Invariants on Windows 11", subtitle_style))
 
-    # Meta Table (m3, m10)
+    # Meta Table
     meta_data = [
         [
             Paragraph("<b>Author:</b> Pratik Yadav (pratikforge)", meta_style),
@@ -249,15 +257,15 @@ def build_pdf(output_pdf_path):
         ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#f8fafc")),
         ('BOX', (0,0), (-1,-1), 0.5, colors.HexColor("#e2e8f0")),
         ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor("#f1f5f9")),
-        ('TOPPADDING', (0,0), (-1,-1), 3.5),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 3.5),
+        ('TOPPADDING', (0,0), (-1,-1), 2.2),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 2.2),
         ('LEFTPADDING', (0,0), (-1,-1), 8),
         ('RIGHTPADDING', (0,0), (-1,-1), 8),
     ]))
     story.append(meta_table)
-    story.append(Spacer(1, 7))
+    story.append(Spacer(1, 4))
 
-    # Abstract Box (C2, C3, C4, M10)
+    # Abstract Box
     abstract_text = (
         "<b>Abstract—</b>Computer-use agents (CUA) frequently exhibit crippling operational latencies—often taking "
         "20 to 60 seconds per routine multi-step workflow. While routinely assumed to be dominated by foundation model "
@@ -280,15 +288,15 @@ def build_pdf(output_pdf_path):
     abs_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,-1), colors.HexColor("#f1f5f9")),
         ('BOX', (0,0), (-1,-1), 1, colors.HexColor("#cbd5e1")),
-        ('TOPPADDING', (0,0), (-1,-1), 6),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 6),
+        ('TOPPADDING', (0,0), (-1,-1), 4.2),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 4.2),
         ('LEFTPADDING', (0,0), (-1,-1), 8),
         ('RIGHTPADDING', (0,0), (-1,-1), 8),
     ]))
     story.append(abs_table)
-    story.append(Spacer(1, 8))
+    story.append(Spacer(1, 5))
 
-    # Section 1 (C4, m4, m5, m6, m12)
+    # Section 1: Legacy Computer-Use Latency
     story.append(Paragraph("1. The Anatomy of Legacy Computer-Use Latency (Pre-Acceleration)", h1_style))
     story.append(Paragraph(
         "Current computer-use agent implementations routinely fail to achieve interactive response times. "
@@ -323,7 +331,7 @@ def build_pdf(output_pdf_path):
         bullet_style
     ))
 
-    # Table: Legacy Dispatch Breakdown (m12)
+    # Table: Legacy Dispatch Breakdown
     dispatch_bd_data = [
         [
             Paragraph("<b>Dispatch Sub-Component</b>", tbl_header),
@@ -343,13 +351,22 @@ def build_pdf(output_pdf_path):
         ('BOX', (0,0), (-1,-1), 0.5, colors.HexColor("#cbd5e1")),
         ('INNERGRID', (0,0), (-1,-1), 0.5, colors.HexColor("#e2e8f0")),
         ('BACKGROUND', (0,-1), (-1,-1), colors.HexColor("#e0f2fe")),
-        ('TOPPADDING', (0,0), (-1,-1), 2.8),
-        ('BOTTOMPADDING', (0,0), (-1,-1), 2.8),
+        ('TOPPADDING', (0,0), (-1,-1), 2.0),
+        ('BOTTOMPADDING', (0,0), (-1,-1), 2.0),
         ('LEFTPADDING', (0,0), (-1,-1), 5),
         ('RIGHTPADDING', (0,0), (-1,-1), 5),
     ]))
-    story.append(Spacer(1, 3))
+    story.append(Spacer(1, 2))
     story.append(dispatch_bd_table)
+    # Strict Anti-Generic AI Design - Table footnote
+    story.append(Spacer(1, 2))
+    story.append(Paragraph(
+        "<b>Note on Reconciliation:</b> The 6,850 ms single-action figure above measures an isolated cold-start script-synthesis action "
+        "(including 3,400 ms of LLM code-streaming output). In the 14-turn end-to-end workflow (Table 2b), LLM token generation is grouped under "
+        "Model Inference Delay (2.80 s mean across lightweight inspection turns and heavy action turns), while the 1.20 s Script Formulation & Launch "
+        "reflects amortized local host process execution across all 14 turns.",
+        footnote_style
+    ))
 
     story.append(PageBreak())
 
@@ -417,7 +434,7 @@ def build_pdf(output_pdf_path):
         body_style
     ))
 
-    # Environment specs table (M1, M2, M8)
+    # Environment specs table
     env_data = [
         [Paragraph("<b>Parameter</b>", tbl_header), Paragraph("<b>Testbed Specification</b>", tbl_header), Paragraph("<b>Measurement Protocol</b>", tbl_header)],
         [Paragraph("Operating System", tbl_cell_bold), Paragraph("Microsoft Windows 11 Pro (Build 26200, x64)", tbl_cell_left), Paragraph("Host Workstation; local native execution", tbl_cell_left)],
@@ -443,7 +460,7 @@ def build_pdf(output_pdf_path):
     story.append(env_table)
     story.append(Spacer(1, 5))
 
-    story.append(Paragraph("Evaluated Tasks, Measurement Protocols & Failure Recovery (M3, M8, M12)", h2_style))
+    story.append(Paragraph("Evaluated Tasks, Measurement Protocols & Failure Recovery", h2_style))
     story.append(Paragraph(
         "<b>Task 1: Windows Display Scaling Navigation.</b> Start state: Desktop home. Steps: open display settings, locate scaling combobox, verify current scale. Success criterion: display scaling element active and verified.",
         bullet_style
@@ -528,7 +545,7 @@ def build_pdf(output_pdf_path):
     ))
     story.append(Spacer(1, 6))
 
-    # Table 1b: Latency Distribution & Spread (M2)
+    # Table 1b: Latency Distribution & Spread
     story.append(Paragraph("Empirical Latency Spread & Variance Distribution (Min, Median, p95)", h2_style))
     spread_data = [
         [
@@ -679,7 +696,7 @@ def build_pdf(output_pdf_path):
     ))
     story.append(Spacer(1, 3))
 
-    # Qualitative Trace Comparison Table (M7, m11, M9)
+    # Qualitative Trace Comparison Table
     trace_data = [
         [
             Paragraph("<b>Evaluation Dimension</b>", tbl_header),
@@ -713,7 +730,7 @@ def build_pdf(output_pdf_path):
         ],
         [
             Paragraph("Estimated API Cost", tbl_cell_left_bold),
-            Paragraph("~USD 0.0487 (Claude 3.5 Sonnet)", tbl_cell),
+            Paragraph("~USD 0.0487 (Claude 3.5 Sonnet, cached/blended)", tbl_cell),
             Paragraph("<b>~USD 0.0014</b>", tbl_cell_bold),
             Paragraph("<b>34.8× cost reduction</b>", tbl_cell_bold)
         ],
@@ -743,8 +760,8 @@ def build_pdf(output_pdf_path):
     ))
     story.append(Spacer(1, 6))
 
-    # Table 2b: Legacy Loop Per-Turn Breakdown (C4)
-    story.append(Paragraph("Legacy Loop Per-Turn Latency Breakdown (C4)", h2_style))
+    # Table 2b: Legacy Loop Per-Turn Breakdown
+    story.append(Paragraph("Legacy Loop Per-Turn Latency Breakdown", h2_style))
     per_turn_data = [
         [
             Paragraph("<b>Turn Component</b>", tbl_header),
@@ -772,8 +789,10 @@ def build_pdf(output_pdf_path):
     ]))
     story.append(per_turn_table)
     story.append(Spacer(1, 3))
+    # Strict Anti-Generic AI Design
     story.append(Paragraph(
-        "<b>Table 2b:</b> Per-turn latency breakdown of the legacy 14-turn execution loop (mean: 4.49 s per turn) establishing that model inference roundtrips account for 62.4% while tool wrapper overhead accounts for 37.6%.",
+        "<b>Table 2b:</b> Per-turn latency breakdown of the legacy 14-turn execution loop (mean: 4.49 s per turn) establishing that model inference roundtrips account for 62.4% while tool wrapper overhead accounts for 37.6%. "
+        "<i>(Note: Script Formulation & Launch at 1.20 s/turn reflects amortized local host process execution across all 14 turns; isolated cold-start single dispatches incur 6,850 ms as detailed in Section 1).</i>",
         meta_style
     ))
 
@@ -942,7 +961,7 @@ def build_pdf(output_pdf_path):
         body_style
     ))
 
-    # BibTeX citation (m10)
+    # BibTeX citation
     bibtex_str = (
         "@misc{yadav2026cua_acceleration,\n"
         "  author = {Pratik Yadav},\n"
