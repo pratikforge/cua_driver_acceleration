@@ -97,7 +97,24 @@ Evaluation conducted across Windows desktop navigation tasks, UI Automation trac
   <img src="assets/benchmark-comparison.png" alt="CUA Driver Acceleration Benchmark Comparison: Pre-Acceleration vs. Post-Acceleration" width="100%" />
 </p>
 
-> **Note on Multipliers:** The headline **71.3× perception speedup** (48 ms vs 3,420 ms) and **428.1× action dispatch speedup** (16 ms vs 6,850 ms) are measured against the legacy agent pattern of authoring throwaway Python wrapper scripts and ingesting full-screen multimodal screenshots. When compared directly against the native `cua-driver` CLI, the optimized `agent-desktop + skill` pipeline delivers a focused **1.3× to 1.75× speedup**.
+### Empirical Benchmark Comparison (Windows 11)
+
+| Category | Benchmark Metric | Sub-Metric | **Accelerated CUA**<br>`agent-desktop + skill` | **Accelerated CUA**<br>`cua-driver (native)` | **Pre-Acceleration**<br>`legacy agent loop` | **Speedup**<br>`vs legacy loop` |
+|---|---|---|---|---|---|---|
+| **Perception & State** | Accessibility Tree Snapshot | Latency (ms) | **48 ms** | 76 ms | 3,420 ms | **71.3× faster** |
+| | Context Window Overhead | Tokens / state | **94** | 142 | 2,180 | **95.7% cut** |
+| **Action Dispatch** | Single Click / Focus Dispatch | Latency (ms) | **16 ms** | 28 ms | 6,850 ms | **428.1× faster** |
+| | Direct Text Entry & Form Fill | Latency (ms) | **38 ms** | 52 ms | 8,400 ms | **221.1× faster** |
+| | Script Authoring Overhead | Init delay | **0 ms** | **0 ms** | 4,200 ms | **Eliminated (0 ms)** |
+| **Targeting Accuracy** | DPI Scaling Invariance (100%–200%) | Precision | **100%** | **100%** | 41.2% (58.8% fail) | **100% invariant** |
+| | Task Completion Success Rate | Rate ($N=25$) | **100% (25/25)** | 96% (24/25) | 72% (18/25) | **+28.0% gain** |
+| **End-to-End Tasks** | Deep Link Settings Navigation | Elapsed time | **1.2 s** | 1.5 s | 38.4 s | **32.0× faster** |
+| | Multi-Step Settings Configuration | Elapsed time | **2.4 s** | 3.1 s | 62.8 s | **26.2× faster** |
+| | Turn Roundtrips Required | Agent turns | **1 turn** | **1 turn** | 14 turns | **93% turn cut** |
+| **Safety & Resources** | Total Task Context Tokens | Tokens / task | **1,420** | 1,850 | 32,480 | **95.6% cut** |
+| | Desktop Focus Interruption | Window steals | **0** | **0** | 14 | **Zero steals** |
+
+> **Note on Multipliers:** The headline **71.3× perception speedup** (48 ms vs 3,420 ms) and **428.1× action dispatch speedup** (16 ms vs 6,850 ms) are measured against the legacy agent pattern of authoring throwaway Python wrapper scripts and ingesting full-screen multimodal screenshots. When compared directly against the native `cua-driver` CLI, the optimized `Accelerated CUA (agent-desktop + skill)` pipeline delivers a focused **1.3× to 1.75× speedup** over `Accelerated CUA (cua-driver native)`.
 
 > **Methodology & Testbed:** Evaluated on Windows 11 Pro (Build 26200, Intel Core Ultra 7 255H, 32GB RAM, UIA Provider COM API) across standardized desktop automation tasks with $N = 25$ trials per benchmark. Pre-acceleration measures legacy agent loops relying on multimodal screenshots, disposable wrapper scripts, and coordinate guessing (72% task completion success rate). Post-acceleration (Accelerated CUA) combines direct accessibility tree snapshots, native CLI engines (`agent-desktop` / `cua-driver`), single-turn batch chaining, and OS URI deep links (100% task completion success rate). (Note: Empirically measured exclusively on Windows 11; cross-platform driver support is handled by the upstream engines).
 
