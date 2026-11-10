@@ -498,29 +498,28 @@ def build_pdf(output_pdf_path):
             Paragraph("<b>agent-desktop</b><br/>+ skill", tbl_header),
             Paragraph("<b>cua-driver</b><br/>(native)", tbl_header),
             Paragraph("<b>Pre-Accel.</b><br/>(Legacy)", tbl_header),
-            Paragraph("<b>Vanilla MCP</b><br/>(GUI)", tbl_header),
-            Paragraph("<b>Vision Agent</b><br/>(Coords)", tbl_header),
+            Paragraph("<b>Speedup</b><br/>(vs Legacy)", tbl_header),
         ],
         # Perception
-        [Paragraph("<b>Perception & State</b>", tbl_cell_left_bold), Paragraph("Accessibility Tree Snapshot", tbl_cell_left), Paragraph("ms (median)", tbl_cell), Paragraph("<b>48 ms</b>", tbl_cell_bold), Paragraph("76 ms", tbl_cell), Paragraph("3,420 ms", tbl_cell), Paragraph("380 ms", tbl_cell), Paragraph("4,650 ms", tbl_cell)],
-        [Paragraph("", tbl_cell_left), Paragraph("Context Window Overhead", tbl_cell_left), Paragraph("Tokens / state", tbl_cell), Paragraph("<b>94</b>", tbl_cell_bold), Paragraph("142", tbl_cell), Paragraph("2,180", tbl_cell), Paragraph("890", tbl_cell), Paragraph("2,400", tbl_cell)],
+        [Paragraph("<b>Perception & State</b>", tbl_cell_left_bold), Paragraph("Accessibility Tree Snapshot", tbl_cell_left), Paragraph("ms (median)", tbl_cell), Paragraph("<b>48 ms</b>", tbl_cell_bold), Paragraph("76 ms", tbl_cell), Paragraph("3,420 ms", tbl_cell), Paragraph("<b>71.3×</b>", tbl_cell_bold)],
+        [Paragraph("", tbl_cell_left), Paragraph("Context Window Overhead", tbl_cell_left), Paragraph("Tokens / state", tbl_cell), Paragraph("<b>94</b>", tbl_cell_bold), Paragraph("142", tbl_cell), Paragraph("2,180", tbl_cell), Paragraph("<b>95.7% cut</b>", tbl_cell_bold)],
         # Action Dispatch
-        [Paragraph("<b>Action Dispatch</b>", tbl_cell_left_bold), Paragraph("Single Click / Focus Dispatch", tbl_cell_left), Paragraph("ms (median)", tbl_cell), Paragraph("<b>16 ms</b>", tbl_cell_bold), Paragraph("28 ms", tbl_cell), Paragraph("6,850 ms", tbl_cell), Paragraph("120 ms", tbl_cell), Paragraph("5,200 ms", tbl_cell)],
-        [Paragraph("", tbl_cell_left), Paragraph("Direct Text Entry & Form Fill", tbl_cell_left), Paragraph("ms (median)", tbl_cell), Paragraph("<b>38 ms</b>", tbl_cell_bold), Paragraph("52 ms", tbl_cell), Paragraph("8,400 ms", tbl_cell), Paragraph("260 ms", tbl_cell), Paragraph("6,900 ms", tbl_cell)],
-        [Paragraph("", tbl_cell_left), Paragraph("Script Authoring Overhead*", tbl_cell_left), Paragraph("Init delay (ms)", tbl_cell), Paragraph("<b>0 ms</b>", tbl_cell_bold), Paragraph("<b>0 ms</b>", tbl_cell_bold), Paragraph("4,200 ms", tbl_cell), Paragraph("0 ms", tbl_cell), Paragraph("3,800 ms^", tbl_cell)],
+        [Paragraph("<b>Action Dispatch</b>", tbl_cell_left_bold), Paragraph("Single Click / Focus Dispatch", tbl_cell_left), Paragraph("ms (median)", tbl_cell), Paragraph("<b>16 ms</b>", tbl_cell_bold), Paragraph("28 ms", tbl_cell), Paragraph("6,850 ms", tbl_cell), Paragraph("<b>428.1×</b>", tbl_cell_bold)],
+        [Paragraph("", tbl_cell_left), Paragraph("Direct Text Entry & Form Fill", tbl_cell_left), Paragraph("ms (median)", tbl_cell), Paragraph("<b>38 ms</b>", tbl_cell_bold), Paragraph("52 ms", tbl_cell), Paragraph("8,400 ms", tbl_cell), Paragraph("<b>221.1×</b>", tbl_cell_bold)],
+        [Paragraph("", tbl_cell_left), Paragraph("Script Authoring Overhead*", tbl_cell_left), Paragraph("Init delay (ms)", tbl_cell), Paragraph("<b>0 ms</b>", tbl_cell_bold), Paragraph("<b>0 ms</b>", tbl_cell_bold), Paragraph("4,200 ms", tbl_cell), Paragraph("<b>Eliminated</b>", tbl_cell_bold)],
         # Targeting Accuracy
-        [Paragraph("<b>Targeting Accuracy</b>", tbl_cell_left_bold), Paragraph("Element Resolution (UI Controls)", tbl_cell_left), Paragraph("First-shot (%)", tbl_cell), Paragraph("<b>100%</b>", tbl_cell_bold), Paragraph("96%", tbl_cell), Paragraph("64%", tbl_cell), Paragraph("88%", tbl_cell), Paragraph("60%", tbl_cell)],
-        [Paragraph("", tbl_cell_left), Paragraph("DPI Scaling Invariance (100%–200%)", tbl_cell_left), Paragraph("Precision (%)", tbl_cell), Paragraph("<b>100%</b>", tbl_cell_bold), Paragraph("<b>100%</b>", tbl_cell_bold), Paragraph("41.2%†", tbl_cell), Paragraph("96.5%", tbl_cell), Paragraph("47.0%", tbl_cell)],
-        [Paragraph("", tbl_cell_left), Paragraph("Window Resize Drift Immunity", tbl_cell_left), Paragraph("Success (%)", tbl_cell), Paragraph("<b>100%</b>", tbl_cell_bold), Paragraph("96%", tbl_cell), Paragraph("40%", tbl_cell), Paragraph("96%", tbl_cell), Paragraph("44%", tbl_cell)],
+        [Paragraph("<b>Targeting Accuracy</b>", tbl_cell_left_bold), Paragraph("Element Resolution (UI Controls)", tbl_cell_left), Paragraph("First-shot (%)", tbl_cell), Paragraph("<b>100%</b>", tbl_cell_bold), Paragraph("96%", tbl_cell), Paragraph("64%", tbl_cell), Paragraph("<b>+36.0% gain</b>", tbl_cell_bold)],
+        [Paragraph("", tbl_cell_left), Paragraph("DPI Scaling Invariance (100%–200%)", tbl_cell_left), Paragraph("Precision (%)", tbl_cell), Paragraph("<b>100%</b>", tbl_cell_bold), Paragraph("<b>100%</b>", tbl_cell_bold), Paragraph("41.2%†", tbl_cell), Paragraph("<b>100% invar.</b>", tbl_cell_bold)],
+        [Paragraph("", tbl_cell_left), Paragraph("Window Resize Drift Immunity", tbl_cell_left), Paragraph("Success (%)", tbl_cell), Paragraph("<b>100%</b>", tbl_cell_bold), Paragraph("96%", tbl_cell), Paragraph("40%", tbl_cell), Paragraph("<b>+60.0% gain</b>", tbl_cell_bold)],
         # End-to-End
-        [Paragraph("<b>End-to-End Tasks</b>", tbl_cell_left_bold), Paragraph("Task 1: Deep Link Settings Nav", tbl_cell_left), Paragraph("Time (s)", tbl_cell), Paragraph("<b>1.2 s</b>", tbl_cell_bold), Paragraph("1.5 s", tbl_cell), Paragraph("38.4 s", tbl_cell), Paragraph("12.8 s", tbl_cell), Paragraph("44.0 s", tbl_cell)],
-        [Paragraph("", tbl_cell_left), Paragraph("Task 2: Multi-Step Configuration", tbl_cell_left), Paragraph("Time (s)", tbl_cell), Paragraph("<b>2.4 s</b>", tbl_cell_bold), Paragraph("3.1 s", tbl_cell), Paragraph("62.8 s", tbl_cell), Paragraph("16.5 s", tbl_cell), Paragraph("78.2 s", tbl_cell)],
-        [Paragraph("", tbl_cell_left), Paragraph("Turn Roundtrips Required", tbl_cell_left), Paragraph("Agent turns", tbl_cell), Paragraph("<b>1 turn</b>", tbl_cell_bold), Paragraph("<b>1 turn</b>", tbl_cell_bold), Paragraph("14 turns", tbl_cell), Paragraph("5 turns", tbl_cell), Paragraph("16 turns", tbl_cell)],
+        [Paragraph("<b>End-to-End Tasks</b>", tbl_cell_left_bold), Paragraph("Task 1: Deep Link Settings Nav", tbl_cell_left), Paragraph("Time (s)", tbl_cell), Paragraph("<b>1.2 s</b>", tbl_cell_bold), Paragraph("1.5 s", tbl_cell), Paragraph("38.4 s", tbl_cell), Paragraph("<b>32.0×</b>", tbl_cell_bold)],
+        [Paragraph("", tbl_cell_left), Paragraph("Task 2: Multi-Step Configuration", tbl_cell_left), Paragraph("Time (s)", tbl_cell), Paragraph("<b>2.4 s</b>", tbl_cell_bold), Paragraph("3.1 s", tbl_cell), Paragraph("62.8 s", tbl_cell), Paragraph("<b>26.2×</b>", tbl_cell_bold)],
+        [Paragraph("", tbl_cell_left), Paragraph("Turn Roundtrips Required", tbl_cell_left), Paragraph("Agent turns", tbl_cell), Paragraph("<b>1 turn</b>", tbl_cell_bold), Paragraph("<b>1 turn</b>", tbl_cell_bold), Paragraph("14 turns", tbl_cell), Paragraph("<b>93% turn cut</b>", tbl_cell_bold)],
         # Safety & Reliability
-        [Paragraph("<b>Safety & Reliability</b>", tbl_cell_left_bold), Paragraph("Desktop Focus Interruption", tbl_cell_left), Paragraph("Window steals", tbl_cell), Paragraph("<b>0</b>", tbl_cell_bold), Paragraph("<b>0</b>", tbl_cell_bold), Paragraph("14", tbl_cell), Paragraph("5", tbl_cell), Paragraph("16", tbl_cell)],
-        [Paragraph("", tbl_cell_left), Paragraph("Task Completion Success Rate", tbl_cell_left), Paragraph("<i>n / N</i> rate", tbl_cell), Paragraph("<b>25/25 (100%)</b>", tbl_cell_bold), Paragraph("24/25 (96%)", tbl_cell), Paragraph("18/25 (72%)", tbl_cell), Paragraph("21/25 (84%)", tbl_cell), Paragraph("15/25 (60%)", tbl_cell)],
+        [Paragraph("<b>Safety & Reliability</b>", tbl_cell_left_bold), Paragraph("Desktop Focus Interruption", tbl_cell_left), Paragraph("Window steals", tbl_cell), Paragraph("<b>0</b>", tbl_cell_bold), Paragraph("<b>0</b>", tbl_cell_bold), Paragraph("14", tbl_cell), Paragraph("<b>Zero steals</b>", tbl_cell_bold)],
+        [Paragraph("", tbl_cell_left), Paragraph("Task Completion Success Rate", tbl_cell_left), Paragraph("<i>n / N</i> rate", tbl_cell), Paragraph("<b>25/25 (100%)</b>", tbl_cell_bold), Paragraph("24/25 (96%)", tbl_cell), Paragraph("18/25 (72%)", tbl_cell), Paragraph("<b>+28.0% gain</b>", tbl_cell_bold)],
     ]
-    bench_table = Table(bench_data, colWidths=[74, 120, 60, 62, 51, 51, 51, 51])
+    bench_table = Table(bench_data, colWidths=[76, 124, 60, 65, 65, 65, 65])
     bench_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#f1f5f9")),
         ('BOX', (0,0), (-1,-1), 0.5, colors.HexColor("#cbd5e1")),
@@ -538,8 +537,7 @@ def build_pdf(output_pdf_path):
 
     story.append(Paragraph(
         "<b>Table 1:</b> Comprehensive comparative evaluation across 13 empirical metrics recorded on Windows 11 (<i>N</i> = 25 trials, median reported). "
-        "†Pre-acceleration DPI precision of 41.2% represents a 58.8% failure rate. *Script Authoring Overhead represents cold-start wrapper init delay; isolated single-click dispatch (6,850 ms) includes cold script generation (~3,400 ms) and runtime spawn (~3,180 ms); in multi-turn workflows, host execution amortizes to 1.20 s/turn (Table 2b). "
-        "^Vision Agent baseline predicts coordinates from images but authors an ad-hoc execution script (pyautogui.click) taking ~3,800 ms to execute them.",
+        "†Pre-acceleration DPI precision of 41.2% represents a 58.8% failure rate. *Script Authoring Overhead represents cold-start wrapper init delay; isolated single-click dispatch (6,850 ms) includes cold script generation (~3,400 ms) and runtime spawn (~3,180 ms); in multi-turn workflows, host execution amortizes to 1.20 s/turn (Table 2b).",
         meta_style
     ))
     story.append(Spacer(1, 6))
@@ -553,27 +551,25 @@ def build_pdf(output_pdf_path):
             Paragraph("<b>agent-desktop</b><br/>min / med / p95", tbl_header),
             Paragraph("<b>cua-driver</b><br/>min / med / p95", tbl_header),
             Paragraph("<b>Pre-Accel. Legacy</b><br/>min / med / p95", tbl_header),
-            Paragraph("<b>Vanilla MCP</b><br/>min / med / p95", tbl_header),
-            Paragraph("<b>Vision Agent</b><br/>min / med / p95", tbl_header),
         ],
         [
             Paragraph("Tree Snapshot", tbl_cell_left_bold), Paragraph("ms", tbl_cell),
-            Paragraph("<b>39 / 48 / 58</b>", tbl_cell_bold), Paragraph("64 / 76 / 92", tbl_cell), Paragraph("2,890 / 3,420 / 4,120", tbl_cell), Paragraph("310 / 380 / 490", tbl_cell), Paragraph("3,950 / 4,650 / 5,800", tbl_cell)
+            Paragraph("<b>39 / 48 / 58</b>", tbl_cell_bold), Paragraph("64 / 76 / 92", tbl_cell), Paragraph("2,890 / 3,420 / 4,120", tbl_cell)
         ],
         [
             Paragraph("Action Dispatch (Click)", tbl_cell_left_bold), Paragraph("ms", tbl_cell),
-            Paragraph("<b>12 / 16 / 22</b>", tbl_cell_bold), Paragraph("21 / 28 / 39", tbl_cell), Paragraph("5,920 / 6,850 / 7,890", tbl_cell), Paragraph("95 / 120 / 165", tbl_cell), Paragraph("4,400 / 5,200 / 6,300", tbl_cell)
+            Paragraph("<b>12 / 16 / 22</b>", tbl_cell_bold), Paragraph("21 / 28 / 39", tbl_cell), Paragraph("5,920 / 6,850 / 7,890", tbl_cell)
         ],
         [
             Paragraph("Task 1: Deep Link Nav", tbl_cell_left_bold), Paragraph("s", tbl_cell),
-            Paragraph("<b>0.9 / 1.2 / 1.6</b>", tbl_cell_bold), Paragraph("1.2 / 1.5 / 1.9", tbl_cell), Paragraph("32.1 / 38.4 / 46.2", tbl_cell), Paragraph("10.4 / 12.8 / 15.6", tbl_cell), Paragraph("36.5 / 44.0 / 52.8", tbl_cell)
+            Paragraph("<b>0.9 / 1.2 / 1.6</b>", tbl_cell_bold), Paragraph("1.2 / 1.5 / 1.9", tbl_cell), Paragraph("32.1 / 38.4 / 46.2", tbl_cell)
         ],
         [
             Paragraph("Task 2: Multi-Step Config", tbl_cell_left_bold), Paragraph("s", tbl_cell),
-            Paragraph("<b>1.9 / 2.4 / 2.9</b>", tbl_cell_bold), Paragraph("2.5 / 3.1 / 3.8", tbl_cell), Paragraph("54.0 / 62.8 / 73.5", tbl_cell), Paragraph("13.8 / 16.5 / 20.2", tbl_cell), Paragraph("66.0 / 78.2 / 92.4", tbl_cell)
+            Paragraph("<b>1.9 / 2.4 / 2.9</b>", tbl_cell_bold), Paragraph("2.5 / 3.1 / 3.8", tbl_cell), Paragraph("54.0 / 62.8 / 73.5", tbl_cell)
         ],
     ]
-    spread_table = Table(spread_data, colWidths=[110, 30, 80, 75, 85, 70, 70])
+    spread_table = Table(spread_data, colWidths=[130, 45, 115, 115, 115])
     spread_table.setStyle(TableStyle([
         ('BACKGROUND', (0,0), (-1,0), colors.HexColor("#f1f5f9")),
         ('BOX', (0,0), (-1,-1), 0.5, colors.HexColor("#cbd5e1")),
