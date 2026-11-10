@@ -4,9 +4,9 @@ CUA Acceleration: Empirical Benchmark Comparison Infographic
 Faithfully adheres to DeepMind's benchmark comparison table aesthetic:
 - 2x High-DPI canvas (2100x1750)
 - Grouped category hierarchy on the left with right-aligned sub-metrics
-- Primary accelerated champion column (agent-desktop) encased in Google Blue (#3b82f6)
+- Primary accelerated champion column (Accelerated CUA: agent-desktop + skill) encased in Google Blue (#3b82f6)
   with winning sky-blue cell fills (#9cd1fd) and white separating hairlines
-- Header extension encompassing native accelerated pipe (cua-driver)
+- Header extension encompassing native accelerated pipe (Accelerated CUA: cua-driver)
 - Grounded strictly in empirical Windows 11 N=25 measurements (zero synthetic assumptions)
 - Measured acceleration multiplier / speedup column comparing pre- vs post-acceleration
 """
@@ -59,8 +59,9 @@ def render_benchmark():
     font_cat = get_font("reg", 24)
     font_bench = get_font("reg", 26)
     font_sub = get_font("reg", 20)
-    font_header_title = get_font("bold", 27)
-    font_header_sub = get_font("reg", 20)
+    font_header_title = get_font("bold", 26)
+    font_header_sub = get_font("semibold", 20)
+    font_header_sub_reg = get_font("reg", 20)
     font_val_bold = get_font("bold", 28)
     font_val_reg = get_font("reg", 26)
     font_speedup_bold = get_font("bold", 27)
@@ -149,7 +150,7 @@ def render_benchmark():
     total_rows = sum(len(rows) for _, rows in benchmark_groups)
     table_y1 = table_y0 + total_rows * row_height
 
-    # 1. Fill Column 1 (agent-desktop) cells with DeepMind light-blue background and draw grey pills for C2
+    # 1. Fill Column 1 (Accelerated CUA: agent-desktop + skill) cells with DeepMind light-blue background and draw grey pills for C2
     curr_row = 0
     for cat_name, rows in benchmark_groups:
         for bench, sub, c1, c2, c3, c4, c2_grey in rows:
@@ -226,37 +227,37 @@ def render_benchmark():
     bench_h = bench_hdr_bbox[3] - bench_hdr_bbox[1]
     draw.text((col_x["bench_left"], header_y0 + (header_y1 - header_y0 - bench_h) // 2), "Benchmark", fill=COLOR_TEXT_DARK, font=font_header_title)
 
-    # Column 1 Header: agent-desktop (+ skill invariants)
-    t1 = "agent-desktop"
-    t1_sub = "+ skill invariants"
+    # Column 1 Header: Accelerated CUA / agent-desktop + skill
+    t1 = "Accelerated CUA"
+    t1_sub = "agent-desktop + skill"
     b_t1 = font_header_title.getbbox(t1)
     b_t1_sub = font_header_sub.getbbox(t1_sub)
     draw.text((c1_cx - (b_t1[2] - b_t1[0]) // 2, header_y0 + 22), t1, fill=COLOR_TEXT_DARK, font=font_header_title)
     draw.text((c1_cx - (b_t1_sub[2] - b_t1_sub[0]) // 2, header_y0 + 62), t1_sub, fill=(37, 99, 235), font=font_header_sub)
 
-    # Column 2 Header: cua-driver (native pipe)
-    t2 = "cua-driver"
-    t2_sub = "(native pipe)"
+    # Column 2 Header: Accelerated CUA / cua-driver (native)
+    t2 = "Accelerated CUA"
+    t2_sub = "cua-driver (native)"
     b_t2 = font_header_title.getbbox(t2)
     b_t2_sub = font_header_sub.getbbox(t2_sub)
     draw.text((c2_cx - (b_t2[2] - b_t2[0]) // 2, header_y0 + 22), t2, fill=COLOR_TEXT_DARK, font=font_header_title)
     draw.text((c2_cx - (b_t2_sub[2] - b_t2_sub[0]) // 2, header_y0 + 62), t2_sub, fill=COLOR_TEXT_MUTED, font=font_header_sub)
 
-    # Column 3 Header: Pre-Acceleration (legacy loop)
+    # Column 3 Header: Pre-Acceleration / legacy agent loop
     t3 = "Pre-Acceleration"
-    t3_sub = "(legacy agent loop)"
+    t3_sub = "legacy agent loop"
     b_t3 = font_header_title.getbbox(t3)
-    b_t3_sub = font_header_sub.getbbox(t3_sub)
+    b_t3_sub = font_header_sub_reg.getbbox(t3_sub)
     draw.text((c3_cx - (b_t3[2] - b_t3[0]) // 2, header_y0 + 22), t3, fill=COLOR_TEXT_DARK, font=font_header_title)
-    draw.text((c3_cx - (b_t3_sub[2] - b_t3_sub[0]) // 2, header_y0 + 62), t3_sub, fill=COLOR_TEXT_MUTED, font=font_header_sub)
+    draw.text((c3_cx - (b_t3_sub[2] - b_t3_sub[0]) // 2, header_y0 + 62), t3_sub, fill=COLOR_TEXT_MUTED, font=font_header_sub_reg)
 
-    # Column 4 Header: Speedup vs Legacy (measured gain)
+    # Column 4 Header: Speedup / vs legacy loop
     t4 = "Speedup"
-    t4_sub = "(vs legacy loop)"
+    t4_sub = "vs legacy loop"
     b_t4 = font_header_title.getbbox(t4)
-    b_t4_sub = font_header_sub.getbbox(t4_sub)
+    b_t4_sub = font_header_sub_reg.getbbox(t4_sub)
     draw.text((c4_cx - (b_t4[2] - b_t4[0]) // 2, header_y0 + 22), t4, fill=COLOR_TEXT_DARK, font=font_header_title)
-    draw.text((c4_cx - (b_t4_sub[2] - b_t4_sub[0]) // 2, header_y0 + 62), t4_sub, fill=COLOR_SPEEDUP, font=font_header_sub)
+    draw.text((c4_cx - (b_t4_sub[2] - b_t4_sub[0]) // 2, header_y0 + 62), t4_sub, fill=COLOR_SPEEDUP, font=font_header_sub_reg)
 
     # 5. Populate Data Rows & Category Labels
     curr_row = 0
@@ -315,15 +316,16 @@ def render_benchmark():
     draw.line([col_x["cat_left"], table_y1, col_x["c1_left"] - 15, table_y1], fill=COLOR_DIVIDER, width=1)
     draw.line([col_x["c1_right"] + 3, table_y1, col_x["c4_right"], table_y1], fill=COLOR_DIVIDER, width=1)
 
-    # 6. Methodology Footnote at Bottom (wrapped across 2 lines for full visibility)
-    meth_y = table_y1 + 42
+    # 6. Methodology Footnote at Bottom (wrapped across 3 lines for clean, complete visibility)
+    meth_y = table_y1 + 40
     m_label = "Methodology: "
     draw.text((col_x["cat_left"], meth_y), m_label, fill=COLOR_TEXT_DARK, font=font_methodology_bold)
     m_bbox = font_methodology_bold.getbbox(m_label)
     m_offset = m_bbox[2] - m_bbox[0]
 
     line1 = "Windows UI Automation trace logs & timers on Windows 11 (Intel Core Ultra 7 255H, 32GB RAM). N=25 trials per system (median reported)."
-    line2 = "Pre-acceleration measures legacy agent loops (screenshots + throwaway Python scripts). Post-acceleration measures direct accessibility tree snapshots and native CLI dispatch."
+    line2 = "Pre-acceleration measures legacy agent loops (screenshots + throwaway Python scripts)."
+    line3 = "Post-acceleration (Accelerated CUA) combines direct accessibility tree snapshots, native CLI engines (agent-desktop / cua-driver), single-turn batch chaining, and OS URI deep links."
 
     draw.text(
         (col_x["cat_left"] + m_offset, meth_y),
@@ -332,8 +334,14 @@ def render_benchmark():
         font=font_methodology
     )
     draw.text(
-        (col_x["cat_left"], meth_y + 30),
+        (col_x["cat_left"], meth_y + 26),
         line2,
+        fill=COLOR_TEXT_LIGHT,
+        font=font_methodology
+    )
+    draw.text(
+        (col_x["cat_left"], meth_y + 52),
+        line3,
         fill=COLOR_TEXT_LIGHT,
         font=font_methodology
     )

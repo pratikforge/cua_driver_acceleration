@@ -495,10 +495,10 @@ def build_pdf(output_pdf_path):
             Paragraph("<b>Category</b>", tbl_header),
             Paragraph("<b>Benchmark / Metric</b>", tbl_header),
             Paragraph("<b>Unit</b>", tbl_header),
-            Paragraph("<b>agent-desktop</b><br/>+ skill", tbl_header),
-            Paragraph("<b>cua-driver</b><br/>(native)", tbl_header),
-            Paragraph("<b>Pre-Accel.</b><br/>(Legacy)", tbl_header),
-            Paragraph("<b>Speedup</b><br/>(vs Legacy)", tbl_header),
+            Paragraph("<b>Accelerated CUA</b><br/>agent-desktop + skill", tbl_header),
+            Paragraph("<b>Accelerated CUA</b><br/>cua-driver (native)", tbl_header),
+            Paragraph("<b>Pre-Accel.</b><br/>legacy loop", tbl_header),
+            Paragraph("<b>Speedup</b><br/>vs legacy loop", tbl_header),
         ],
         # Perception
         [Paragraph("<b>Perception & State</b>", tbl_cell_left_bold), Paragraph("Accessibility Tree Snapshot", tbl_cell_left), Paragraph("ms (median)", tbl_cell), Paragraph("<b>48 ms</b>", tbl_cell_bold), Paragraph("76 ms", tbl_cell), Paragraph("3,420 ms", tbl_cell), Paragraph("<b>71.3×</b>", tbl_cell_bold)],
@@ -548,8 +548,8 @@ def build_pdf(output_pdf_path):
         [
             Paragraph("<b>Benchmark Metric</b>", tbl_header),
             Paragraph("<b>Unit</b>", tbl_header),
-            Paragraph("<b>agent-desktop</b><br/>min / med / p95", tbl_header),
-            Paragraph("<b>cua-driver</b><br/>min / med / p95", tbl_header),
+            Paragraph("<b>Accelerated CUA</b><br/>agent-desktop + skill<br/>min / med / p95", tbl_header),
+            Paragraph("<b>Accelerated CUA</b><br/>cua-driver (native)<br/>min / med / p95", tbl_header),
             Paragraph("<b>Pre-Accel. Legacy</b><br/>min / med / p95", tbl_header),
         ],
         [
