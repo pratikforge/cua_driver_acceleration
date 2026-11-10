@@ -89,59 +89,23 @@ Most computer-use agents suffer from massive latency—often taking 20 to 60 sec
 
 ---
 
-## Empirical Benchmarks: Pre-Acceleration vs. Post-Acceleration
-
-Evaluation conducted across Windows desktop navigation tasks, UI Automation trace logs, and process latency profiling on Windows 11:
-
-<p align="center">
-  <img src="assets/benchmark-comparison.png" alt="CUA Driver Acceleration Benchmark Comparison: Pre-Acceleration vs. Post-Acceleration" width="100%" />
-</p>
-
-### Empirical Benchmark Comparison (Windows 11)
-
-| Category | Benchmark Metric | Sub-Metric | **Accelerated CUA**<br>`agent-desktop + skill` | **Accelerated CUA**<br>`cua-driver (native)` | **Pre-Acceleration**<br>`legacy agent loop` | **Speedup**<br>`vs legacy loop` |
-|---|---|---|---|---|---|---|
-| **Perception & State** | Accessibility Tree Snapshot | Latency (ms) | **48 ms** | 76 ms | 3,420 ms | **71.3× faster** |
-| | Context Window Overhead | Tokens / state | **94** | 142 | 2,180 | **95.7% cut** |
-| **Action Dispatch** | Single Click / Focus Dispatch | Latency (ms) | **16 ms** | 28 ms | 6,850 ms | **428.1× faster** |
-| | Direct Text Entry & Form Fill | Latency (ms) | **38 ms** | 52 ms | 8,400 ms | **221.1× faster** |
-| | Script Authoring Overhead | Init delay | **0 ms** | **0 ms** | 4,200 ms | **Eliminated (0 ms)** |
-| **Targeting Accuracy** | DPI Scaling Invariance (100%–200%) | Precision | **100%** | **100%** | 41.2% (58.8% fail) | **100% invariant** |
-| | Task Completion Success Rate | Rate ($N=25$) | **100% (25/25)** | 96% (24/25) | 72% (18/25) | **+28.0% gain** |
-| **End-to-End Tasks** | Deep Link Settings Navigation | Elapsed time | **1.2 s** | 1.5 s | 38.4 s | **32.0× faster** |
-| | Multi-Step Settings Configuration | Elapsed time | **2.4 s** | 3.1 s | 62.8 s | **26.2× faster** |
-| | Turn Roundtrips Required | Agent turns | **1 turn** | **1 turn** | 14 turns | **93% turn cut** |
-| **Safety & Resources** | Total Task Context Tokens | Tokens / task | **1,420** | 1,850 | 32,480 | **95.6% cut** |
-| | Desktop Focus Interruption | Window steals | **0** | **0** | 14 | **Zero steals** |
-
-> **Note on Multipliers:** The headline **71.3× perception speedup** (48 ms vs 3,420 ms) and **428.1× action dispatch speedup** (16 ms vs 6,850 ms) are measured against the legacy agent pattern of authoring throwaway Python wrapper scripts and ingesting full-screen multimodal screenshots. When compared directly against the native `cua-driver` CLI, the optimized `Accelerated CUA (agent-desktop + skill)` pipeline delivers a focused **1.3× to 1.75× speedup** over `Accelerated CUA (cua-driver native)`.
-
-> **Methodology & Testbed:** Evaluated on Windows 11 Pro (Build 26200, Intel Core Ultra 7 255H, 32GB RAM, UIA Provider COM API) across standardized desktop automation tasks with $N = 25$ trials per benchmark. Pre-acceleration measures legacy agent loops relying on multimodal screenshots, disposable wrapper scripts, and coordinate guessing (72% task completion success rate). Post-acceleration (Accelerated CUA) combines direct accessibility tree snapshots, native CLI engines (`agent-desktop` / `cua-driver`), single-turn batch chaining, and OS URI deep links (100% task completion success rate). (Note: Empirically measured exclusively on Windows 11; cross-platform driver support is handled by the upstream engines).
-
-### Ablation Study: Disentangling Driver Speed from Skill Invariants
-
-| Config | Driver Engine | Skill Invariants | E2E Time (s) | Turns | Success Rate |
-|---|---|---|---|---|---|
-| **A** | Script loop (`pyautogui`) | No (legacy baseline) | 62.8 s | 14 | 72.0% |
-| **B** | Multimodal Vision (Coords) | No (screenshot coords) | 78.2 s | 16 | 60.0% |
-| **C** | `cua-driver` (native) | No (reactive multi-turn) | 14.8 s | 5 | 92.0% |
-| **D** | `cua-driver` (native) | **Yes (batch + deep links)** | **3.1 s** | **1** | **96.0%** |
-| **E** | `agent-desktop` | No (reactive multi-turn) | 12.4 s | 5 | 96.0% |
-| **F** | `agent-desktop` | **Yes (full accelerated stack)** | **2.4 s** | **1** | **100.0%** |
-
-<!-- # Strict Anti-Generic AI Design -->
-> 📊 **Reproducible Benchmark Dataset & Harness:** The full structured dataset, raw trial logs ($N=25$ per system), timing harness with prompt schemas, and verification test suite are available in [`scripts/data/benchmark-data.json`](scripts/data/benchmark-data.json), [`scripts/data/raw-trials.json`](scripts/data/raw-trials.json), and [`scripts/benchmark-harness.py`](scripts/benchmark-harness.py). Run `python scripts/verify-benchmark-data.py` to programmatically verify all arithmetic and statistics.
-
-> 📄 **Technical Report (PDF):** For the complete empirical technical report covering experimental setup, latency dispersion (min/med/p95), legacy per-turn latency breakdowns, token economics, ablation studies, and qualitative trace logs, download the [CUA Acceleration Technical Report (PDF)](docs/CUA_Acceleration_Technical_Report.pdf).
-
----
-
 ## Supported Backends
 
 Both backends interface directly with operating system accessibility APIs (Windows UI Automation; macOS AX and Linux AT-SPI supported by upstream engines) to provide sub-200ms DOM-style interaction without pixel guessing:
 
 - **[Vercel agent-desktop](https://github.com/vercel-labs/agent-desktop)**: Open-source Rust CLI from Vercel Labs. Headless by default, model-agnostic, and works across any shell-capable agent environment. Recommended default (`npm i -g agent-desktop`).
 - **[cua-driver](https://cua.ai/docs/cua-driver)**: Native driver from Cua providing CLI and MCP server interfaces with advanced Windows background execution (`launch_app`, window handles, menu navigation).
+
+---
+
+## Setup & Reference Guides
+
+Comprehensive reference documentation is included directly in the repository:
+
+- 📖 **[Backend Setup & Permissions (`references/setup.md`)](references/setup.md)**: Step-by-step installation, permissions configuration (macOS Accessibility, Linux AT-SPI, Windows UIA), and environment verification for both backends.
+- ⚡ **[CLI Cheat-Sheet (`references/backends.md`)](references/backends.md)**: Side-by-side command syntax for inspecting state (DOM tree snapshots, window lists) and dispatching actions (clicks, text input, hotkeys) across `agent-desktop` and `cua-driver`.
+- 🔗 **[Native OS Shortcuts (`references/native-shortcuts.md`)](references/native-shortcuts.md)**: Index of Windows URI schemes (`ms-settings:`), deep links, and OS-level shortcuts to navigate directly to target settings without analog GUI clicking.
+- 🛡️ **[Skill Definition (`SKILL.md`)](SKILL.md)**: The operational invariants, single-turn batch chaining instructions, and deterministic fallback recovery rules loaded into agent runtimes.
 
 ---
 
